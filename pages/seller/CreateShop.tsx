@@ -18,7 +18,7 @@ const CreateShop = () => {
 
   const Map = React.useMemo(
     () =>
-      dynamic(() => import('../../components/mapMini'), {
+      dynamic(() => import('../../components/leaflet/mapMini'), {
         loading: () => <p>A map is loading</p>,
         ssr: false,
       }),

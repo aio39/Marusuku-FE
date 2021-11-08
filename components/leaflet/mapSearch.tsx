@@ -1,6 +1,6 @@
-import { LatLng, Map } from 'leaflet';
+import { LatLngBounds, Map } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import React, { Dispatch, FC, SetStateAction, useState } from 'react';
+import React, { Dispatch, FC, SetStateAction } from 'react';
 import {
   MapConsumer,
   MapContainer,
@@ -10,13 +10,28 @@ import {
   useMap,
   useMapEvents,
 } from 'react-leaflet';
-import { usePosition } from '../state/hooks/usePosition';
-import { usePlaces } from '../state/swr/usePlace';
-import { NEWS } from '../types/Place';
-import { DefaultIcon } from './leaflet/CommonParts';
+import { usePosition } from '../../state/hooks/usePosition';
+import { NEWS, Place } from '../../types/Place';
+import { DefaultIcon } from './CommonParts';
 
 type P = {
   setMap: Dispatch<SetStateAction<Map | undefined>>;
+  setNews: Dispatch<React.SetStateAction<NEWS | undefined>>;
+  markerData: Place[] | undefined;
+};
+
+type MarkersP = {
+  setNews: Dispatch<React.SetStateAction<NEWS | undefined>>;
+  markerData: Place[] | undefined;
+};
+
+const boundsToNews = (bounds: LatLngBounds): NEWS => {
+  return {
+    t: bounds.getNorth(),
+    b: bounds.getSouth(),
+    r: bounds.getEast(),
+    l: bounds.getWest(),
+  };
 };
 
 const CenterMarker = () => {
@@ -28,36 +43,19 @@ const CenterMarker = () => {
   );
 };
 
-const Markers = () => {
-  const [position, setPosition] = useState<LatLng | null>(null);
-  const [news, setNews] = useState<NEWS>();
-  const { data, error, mutate } = usePlaces(news);
+const Markers = ({ markerData, setNews }: MarkersP) => {
   const map = useMapEvents({
-    // click() {
-    //   map.locate();
-    //   console.log('click');
-    // },
-    // locationfound(e) {
-    //   console.log('로케이션 파운트');
-    //   setPosition(e.latlng);
-    //   map.flyTo(e.latlng, map.getZoom());
-    // },
     moveend() {
-      const bounds = map.getBounds();
-      const data: NEWS = {
-        t: bounds.getNorth(),
-        b: bounds.getSouth(),
-        r: bounds.getEast(),
-        l: bounds.getWest(),
-      };
+      const data = boundsToNews(map.getBounds());
       setNews(data);
     },
   });
 
-  return data ? (
+  return markerData ? (
     <React.Fragment>
-      {data.map((place) => (
+      {markerData.map((place) => (
         <Marker
+          key={place.id}
           position={[
             place.position.coordinates[1],
             place.position.coordinates[0],
@@ -71,7 +69,7 @@ const Markers = () => {
   ) : null;
 };
 
-const MapMini: FC<P> = ({ setMap }) => {
+const MapSearch: FC<P> = ({ setMap, setNews, markerData }) => {
   const { position, error } = usePosition();
 
   console.log(position);
@@ -83,7 +81,7 @@ const MapMini: FC<P> = ({ setMap }) => {
       }
       zoom={13}
       scrollWheelZoom={false}
-      style={{ height: 400, width: '100%' }}
+      style={{ height: '100%', minHeight: 400, width: '100%' }}
       whenCreated={(map) => {
         console.log('Created');
         setMap(map);
@@ -104,13 +102,15 @@ const MapMini: FC<P> = ({ setMap }) => {
           if (lat == 0 && lng == 0 && position) {
             // 초기화 0.0 상태일때만 갱신
             map.setView([position.latitude, position.longitude], 16);
+            const data = boundsToNews(map.getBounds());
+            setNews(data);
           }
           return null;
         }}
       </MapConsumer>
-      <Markers />
+      <Markers markerData={markerData} setNews={setNews} />
     </MapContainer>
   );
 };
 
-export default MapMini;
+export default MapSearch;

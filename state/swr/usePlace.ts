@@ -19,13 +19,14 @@ const fetcher = (url: string, news: NEWS) => {
 };
 
 const usePlaces = (news?: NEWS) => {
-  const { data, error, mutate } = useSWR<Place[]>(
+  const swrResponses = useSWR<Place[]>(
     news ? [URL_Place, news] : null,
     fetcher
   );
+  const { data, error } = swrResponses;
   console.log(data);
   console.log('usePlaces의 error', error);
-  return { data, error, mutate };
+  return swrResponses;
 };
 
 export { usePlaces };
