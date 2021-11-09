@@ -5,11 +5,9 @@ import { axiosI } from '../fetcher';
 const URL_Place = '/api/places';
 
 const fetcher = (url: string, news: NEWS) => {
-  console.log(news, '페쳐');
   return axiosI
     .get(url, { params: news })
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((err) => {

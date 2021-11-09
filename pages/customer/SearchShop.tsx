@@ -9,6 +9,7 @@ import { NEWS } from '../../types/Place';
 const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [map, setMap] = useState<Map>();
+  const [detailId, setDetailId] = useState<number>();
 
   const Map = React.useMemo(
     () =>
@@ -21,13 +22,34 @@ const Page = () => {
   const [news, setNews] = useState<NEWS>();
   const { data: placesData, error, mutate } = usePlaces(news);
 
+  console.log(isModalVisible);
   return (
     <Row wrap style={{ height: '90vh' }}>
       <Col span={24} md={16}>
-        <Map setMap={setMap} setNews={setNews} markerData={placesData} />
+        <Map
+          setMap={setMap}
+          setNews={setNews}
+          markerData={placesData}
+          setIsModalVisible={setIsModalVisible}
+          setDetailId={setDetailId}
+        />
       </Col>
       <Col span={24} md={8}>
         {/* {placesData && placesData.map((place) => <div>{place.name}</div>)} */}
+        {isModalVisible && (
+          <div
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '100vh',
+              zIndex: 100,
+              backgroundColor: 'gray',
+            }}
+          >
+            <button onClick={() => setIsModalVisible(false)}>X</button>
+            {detailId}
+          </div>
+        )}
         <List
           style={{ maxHeight: '100vh', overflow: 'scroll' }}
           grid={{ gutter: 16, column: 1 }}

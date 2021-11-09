@@ -21,12 +21,13 @@ export const usePosition = () => {
       setError('Geolocation is not supported');
       return;
     }
-    const watcher = geo.watchPosition(onChange, onError, {
+    // watchPosition
+    const watcher = geo.getCurrentPosition(onChange, onError, {
       enableHighAccuracy: true,
       maximumAge: 10000,
     });
 
-    return () => geo.clearWatch(watcher);
+    // return () => geo.clearWatch(watcher);
   }, []);
 
   return { position, error };

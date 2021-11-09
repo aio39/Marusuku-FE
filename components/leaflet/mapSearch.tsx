@@ -7,6 +7,7 @@ import {
   Marker,
   Popup,
   TileLayer,
+  Tooltip,
   useMap,
   useMapEvents,
 } from 'react-leaflet';
@@ -14,16 +15,15 @@ import { usePosition } from '../../state/hooks/usePosition';
 import { NEWS, Place } from '../../types/Place';
 import { DefaultIcon } from './CommonParts';
 
-type P = {
+type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>;
-  setNews: Dispatch<React.SetStateAction<NEWS | undefined>>;
+  setNews: Dispatch<SetStateAction<NEWS | undefined>>;
+  setIsModalVisible: Dispatch<SetStateAction<boolean>>;
+  setDetailId: Dispatch<SetStateAction<number | undefined>>;
   markerData: Place[] | undefined;
 };
 
-type MarkersP = {
-  setNews: Dispatch<React.SetStateAction<NEWS | undefined>>;
-  markerData: Place[] | undefined;
-};
+type MarkersP = Omit<MapP, 'setMap'>;
 
 const boundsToNews = (bounds: LatLngBounds): NEWS => {
   return {
@@ -32,6 +32,10 @@ const boundsToNews = (bounds: LatLngBounds): NEWS => {
     r: bounds.getEast(),
     l: bounds.getWest(),
   };
+};
+
+const ToolTipDiv = () => {
+  return <div>aaaa</div>;
 };
 
 const CenterMarker = () => {
@@ -43,7 +47,12 @@ const CenterMarker = () => {
   );
 };
 
-const Markers = ({ markerData, setNews }: MarkersP) => {
+const Markers = ({
+  markerData,
+  setNews,
+  setDetailId,
+  setIsModalVisible,
+}: MarkersP) => {
   const map = useMapEvents({
     moveend() {
       const data = boundsToNews(map.getBounds());
@@ -62,14 +71,37 @@ const Markers = ({ markerData, setNews }: MarkersP) => {
           ]}
           icon={DefaultIcon}
         >
-          <Popup>{place.name}</Popup>
+          {/* <Popup>{place.name}</Popup> */}
+          <Tooltip
+            permanent
+            direction="top"
+            offset={[0, 20]}
+            opacity={1}
+            interactive
+          >
+            {/* <ToolTipDiv /> */}
+            <div
+              onClick={() => {
+                setIsModalVisible(() => true);
+                setDetailId(place.id);
+              }}
+            >
+              {place.name}
+            </div>
+          </Tooltip>
         </Marker>
       ))}
     </React.Fragment>
   ) : null;
 };
 
-const MapSearch: FC<P> = ({ setMap, setNews, markerData }) => {
+const MapSearch: FC<MapP> = ({
+  setMap,
+  setNews,
+  markerData,
+  setDetailId,
+  setIsModalVisible: setIsShowDetail,
+}) => {
   const { position, error } = usePosition();
 
   console.log(position);
@@ -108,7 +140,12 @@ const MapSearch: FC<P> = ({ setMap, setNews, markerData }) => {
           return null;
         }}
       </MapConsumer>
-      <Markers markerData={markerData} setNews={setNews} />
+      <Markers
+        markerData={markerData}
+        setNews={setNews}
+        setDetailId={setDetailId}
+        setIsModalVisible={setIsShowDetail}
+      />
     </MapContainer>
   );
 };
