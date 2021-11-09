@@ -1,8 +1,9 @@
+import { ColorModeScript } from '@chakra-ui/color-mode';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import * as React from 'react';
 import { renderStatic } from '../shared/renderer';
 export default class AppDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: any) {
     const page = await ctx.renderPage();
     const { css, ids } = await renderStatic(page.html);
     const initialProps = await Document.getInitialProps(ctx);
@@ -25,6 +26,7 @@ export default class AppDocument extends Document {
       <Html>
         <Head />
         <body>
+          <ColorModeScript />
           <Main />
           <NextScript />
         </body>

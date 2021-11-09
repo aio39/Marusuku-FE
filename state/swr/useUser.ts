@@ -9,7 +9,7 @@ const URL_LOGOUT = '/api/logout';
 const useUser = () => {
   const { data, error, mutate } = useSWR<User>(URL_USER, fetcher);
   console.log(data);
-  console.log('eror임', error);
+  error && console.log('useUser error', error);
   return { data, error, mutate };
 };
 
