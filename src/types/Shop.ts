@@ -1,9 +1,9 @@
-type Location = {
+export type Location = {
   coordinates: [number, number];
   type: string;
 };
 
-type Shop = {
+export type Shop = {
   id: number;
   name: string;
   desc?: string;
@@ -13,8 +13,6 @@ type Shop = {
   location: Location;
 };
 
-type NEWS = {
+export type NEWS = {
   [k in 't' | 'b' | 'r' | 'l']: number;
 };
-
-export type { Shop, NEWS };

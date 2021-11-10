@@ -1,18 +1,16 @@
-type User = {
+export type User = {
   id: number;
   name: string;
   email: string;
   photo?: string;
 };
 
-type CreteUserData = Pick<User, 'name' | 'email'> & {
+export type CreteUserData = Pick<User, 'name' | 'email'> & {
   password: string;
   confirm: string;
 };
 
-type LoginData = {
+export type LoginData = {
   email: string;
   password: string;
 };
-
-export type { User, LoginData, CreteUserData };

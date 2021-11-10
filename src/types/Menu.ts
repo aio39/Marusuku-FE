@@ -1,4 +1,4 @@
-type Menu = {
+export type Menu = {
   id: number;
   name: string;
   cycle_month: number;
@@ -12,6 +12,4 @@ type Menu = {
   shop_id: number;
 };
 
-type MenuInputs = Omit<Menu, 'id' | 'shop_id'>;
-
-export type { Menu, MenuInputs };
+export type MenuInputs = Omit<Menu, 'id' | 'shop_id'>;

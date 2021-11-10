@@ -1,3 +1,4 @@
+import DefaultLayout from '@/components/common/layouts/DefaultLayout';
 import { Button } from '@chakra-ui/button';
 import {
   DarkMode,
@@ -7,7 +8,6 @@ import {
 import { Box, Text } from '@chakra-ui/layout';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import React from 'react';
-import DefaultLayout from '../components/common/layouts/DefaultLayout';
 
 export default function Test() {
   const { colorMode, toggleColorMode } = useColorMode();
