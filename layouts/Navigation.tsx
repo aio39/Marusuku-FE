@@ -345,6 +345,11 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: 'An exclusive list for contract work',
         href: '/customer/Profile',
       },
+      {
+        label: 'QR코드 생성',
+        subLabel: 'An exclusive list for contract work',
+        href: '/customer/QRCode',
+      },
     ],
   },
   {
