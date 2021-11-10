@@ -11,15 +11,15 @@ const recentGeoCodeState = atom<LatLng | null>({
   default: null,
 });
 
-type Place = {
+type Shop = {
   geoCode: LatLng;
   name: string;
   address: string;
 };
 
-const placeListState = atom<Place[]>({
-  key: 'places',
+const shopListState = atom<Shop[]>({
+  key: 'shops',
   default: [],
 });
 
-export { positionState, placeListState, recentGeoCodeState };
+export { positionState, shopListState, recentGeoCodeState };

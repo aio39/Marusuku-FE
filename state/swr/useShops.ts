@@ -1,9 +1,9 @@
 import useSWR from 'swr';
-import { NEWS, Place } from '../../types/Place';
+import { NEWS, Shop } from '../../types/Shop';
 import { axiosI } from '../fetcher';
 import laggy from './middleware/laggy';
 
-const URL_Place = '/api/places';
+const URL_SHOP = '/api/shops';
 
 const fetcher = (url: string, ...rest: number[]) => {
   const news = {
@@ -23,14 +23,14 @@ const fetcher = (url: string, ...rest: number[]) => {
     });
 };
 
-const usePlaces = (news?: NEWS) => {
-  const swrResponses = useSWR<Place[]>(
+const useShops = (news?: NEWS) => {
+  const swrResponses = useSWR<Shop[]>(
     () => {
       if (!news) {
         return null;
       } else {
         const { b, l, r, t } = news;
-        return [URL_Place, b, l, r, t];
+        return [URL_SHOP, b, l, r, t];
       }
     },
     fetcher,
@@ -42,4 +42,4 @@ const usePlaces = (news?: NEWS) => {
   return swrResponses;
 };
 
-export { usePlaces };
+export { useShops };

@@ -3,7 +3,7 @@ type Position = {
   type: string;
 };
 
-type Place = {
+type Shop = {
   id: number;
   name: string;
   desc?: string;
@@ -15,9 +15,6 @@ type Place = {
 
 type NEWS = {
   [k in 't' | 'b' | 'r' | 'l']: number;
-  // b: number;
-  // r: number;
-  // l: number;
 };
 
-export type { Place, NEWS };
+export type { Shop, NEWS };

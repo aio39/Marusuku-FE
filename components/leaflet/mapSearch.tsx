@@ -12,7 +12,7 @@ import {
   useMapEvents,
 } from 'react-leaflet';
 import { usePosition } from '../../state/hooks/usePosition';
-import { NEWS, Place } from '../../types/Place';
+import { NEWS, Shop } from '../../types/Shop';
 import { DefaultIcon } from './CommonParts';
 
 type MapP = {
@@ -20,7 +20,7 @@ type MapP = {
   setNews: Dispatch<SetStateAction<NEWS | undefined>>;
   setIsModalVisible: Dispatch<SetStateAction<boolean>>;
   setDetailId: Dispatch<SetStateAction<number | undefined>>;
-  markerData: Place[] | undefined;
+  markerData: Shop[] | undefined;
 };
 
 type MarkersP = Omit<MapP, 'setMap'>;
@@ -62,16 +62,15 @@ const Markers = ({
 
   return markerData ? (
     <React.Fragment>
-      {markerData.map((place) => (
+      {markerData.map((shop) => (
         <Marker
-          key={place.id}
+          key={shop.id}
           position={[
-            place.position.coordinates[1],
-            place.position.coordinates[0],
+            shop.position.coordinates[1],
+            shop.position.coordinates[0],
           ]}
           icon={DefaultIcon}
         >
-          {/* <Popup>{place.name}</Popup> */}
           <Tooltip
             permanent
             direction="top"
@@ -83,10 +82,10 @@ const Markers = ({
             <div
               onClick={() => {
                 setIsModalVisible(() => true);
-                setDetailId(place.id);
+                setDetailId(shop.id);
               }}
             >
-              {place.name}
+              {shop.name}
             </div>
           </Tooltip>
         </Marker>
@@ -131,7 +130,6 @@ const MapSearch: FC<MapP> = ({
       <MapConsumer>
         {(map) => {
           const { lat, lng } = map.getCenter();
-          console.log('코너', map.getBounds());
           if (lat == 0 && lng == 0 && position) {
             // 초기화 0.0 상태일때만 갱신
             map.setView([position.latitude, position.longitude], 16);

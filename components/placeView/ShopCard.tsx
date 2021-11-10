@@ -1,9 +1,9 @@
 import { StarIcon } from '@chakra-ui/icons';
 import { Box, chakra, Flex, HStack, useColorModeValue } from '@chakra-ui/react';
 import React, { FC } from 'react';
-import { Place } from '../../types/Place';
+import { Shop } from '../../types/Shop';
 
-const ShopCard: FC<{ place: Place }> = ({ place }) => {
+const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
   return (
     <Flex
       maxW="md"
@@ -28,7 +28,7 @@ const ShopCard: FC<{ place: Place }> = ({ place }) => {
           fontWeight="bold"
           color={useColorModeValue('gray.800', 'white')}
         >
-          {place.name}
+          {shop.name}
         </chakra.h1>
 
         <chakra.p
@@ -36,7 +36,7 @@ const ShopCard: FC<{ place: Place }> = ({ place }) => {
           fontSize="sm"
           color={useColorModeValue('gray.600', 'gray.400')}
         >
-          {place.desc}
+          {shop.desc}
         </chakra.p>
 
         <HStack spacing={1} display="flex" alignItems="center" mt={2}>

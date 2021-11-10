@@ -53,7 +53,6 @@ const MapMini: FC<P> = ({ setMap }) => {
       <MapConsumer>
         {(map) => {
           const { lat, lng } = map.getCenter();
-          console.log('코너', map.getBounds());
           if (lat == 0 && lng == 0 && position) {
             // 초기화 0.0 상태일때만 갱신
             map.setView([position.latitude, position.longitude], 16);

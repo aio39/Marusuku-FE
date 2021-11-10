@@ -6,8 +6,8 @@ import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import ShopCard from '../../components/placeView/ShopCard';
 import DefaultLayout from '../../layouts/DefaultLayout';
-import { usePlaces } from '../../state/swr/usePlace';
-import { NEWS } from '../../types/Place';
+import { useShops } from '../../state/swr/useShops';
+import { NEWS } from '../../types/Shop';
 
 const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -23,7 +23,7 @@ const Page = () => {
     []
   );
   const [news, setNews] = useState<NEWS>();
-  const { data: placesData, error, mutate, isValidating } = usePlaces(news);
+  const { data: shopsData, error, mutate, isValidating } = useShops(news);
 
   console.log(isModalVisible);
   return (
@@ -50,7 +50,7 @@ const Page = () => {
           <Map
             setMap={setMap}
             setNews={setNews}
-            markerData={placesData}
+            markerData={shopsData}
             setIsModalVisible={setIsModalVisible}
             setDetailId={setDetailId}
           />
@@ -65,7 +65,6 @@ const Page = () => {
           justifyContent="center"
           overflow="scroll"
         >
-          {/* {placesData && placesData.map((place) => <div>{place.name}</div>)} */}
           {isModalVisible && (
             <div
               style={{
@@ -81,8 +80,8 @@ const Page = () => {
             </div>
           )}
 
-          {placesData ? (
-            placesData.map((place) => <ShopCard place={place} />)
+          {shopsData ? (
+            shopsData.map((shop) => <ShopCard shop={shop} />)
           ) : (
             <Box>No Data</Box>
           )}

@@ -23,9 +23,9 @@ import {
 } from 'react-leaflet';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
-  placeListState,
   positionState,
   recentGeoCodeState,
+  shopListState,
 } from '../state/recoil/tempAtoms';
 const position: [number, number] = [35.8953777, 128.6254371] as [
   number,
@@ -153,7 +153,7 @@ const options = {
 const MapP = () => {
   const [map, setMap] = useState<Map>();
   const [position, setPosition] = useState<[number, number]>();
-  const places = useRecoilValue(placeListState);
+  const shops = useRecoilValue(shopListState);
 
   const success: PositionCallback = (pos) => {
     const { latitude, longitude } = pos.coords;
@@ -204,7 +204,7 @@ const MapP = () => {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {places.map((P) => (
+          {shops.map((P) => (
             <Marker
               position={P.geoCode}
               icon={new DivIcon({ iconUrl: '/point.jpg', iconSize: [30, 30] })}

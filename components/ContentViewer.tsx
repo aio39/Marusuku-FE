@@ -2,9 +2,9 @@ import { css } from '@emotion/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
-  placeListState,
   positionState,
   recentGeoCodeState,
+  shopListState,
 } from '../state/recoil/tempAtoms';
 import AddressSearch from './AddressSearch';
 
@@ -37,11 +37,11 @@ const ContentViewer = () => {
   const position = useRecoilValue(positionState);
   const recentPosition = useRecoilValue(recentGeoCodeState);
 
-  const [places, setPlaces] = useRecoilState(placeListState);
+  const [shops, setShops] = useRecoilState(shopListState);
   const { register, handleSubmit, watch } = useForm<Inputs>({});
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setPlaces((p) => [...p, { geoCode: position, ...data }]);
+    setShops((p) => [...p, { geoCode: position, ...data }]);
   };
 
   return (
