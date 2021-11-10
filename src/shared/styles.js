@@ -89,12 +89,11 @@ const keyframesExample = css([
 ]);
 
 export {
-    combinedAsArray,
-    cxExample,
-    keyframesExample,
-    someCssAsObject,
-    someMoreBasicStyles,
-    otherStyles,
-    basicStyles,
+  combinedAsArray,
+  cxExample,
+  keyframesExample,
+  someCssAsObject,
+  someMoreBasicStyles,
+  otherStyles,
+  basicStyles,
 };
-
