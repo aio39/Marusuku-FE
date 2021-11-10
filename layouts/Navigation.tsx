@@ -326,6 +326,6 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: '테스트 메뉴',
-    href: '#',
+    href: '/test',
   },
 ];

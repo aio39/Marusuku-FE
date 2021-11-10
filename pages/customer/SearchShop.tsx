@@ -1,7 +1,7 @@
-import { Card, Col, List, Row } from 'antd';
+import { Box, Container, Flex, Text } from '@chakra-ui/layout';
 import { Map } from 'leaflet';
 import dynamic from 'next/dynamic';
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { usePlaces } from '../../state/swr/usePlace';
 import { NEWS } from '../../types/Place';
@@ -24,49 +24,46 @@ const Page = () => {
 
   console.log(isModalVisible);
   return (
-    <Row wrap style={{ height: '90vh' }}>
-      <Col span={24} md={16}>
-        <Map
-          setMap={setMap}
-          setNews={setNews}
-          markerData={placesData}
-          setIsModalVisible={setIsModalVisible}
-          setDetailId={setDetailId}
-        />
-      </Col>
-      <Col span={24} md={8}>
-        {/* {placesData && placesData.map((place) => <div>{place.name}</div>)} */}
-        {isModalVisible && (
-          <div
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100vh',
-              zIndex: 100,
-              backgroundColor: 'gray',
-            }}
-          >
-            <button onClick={() => setIsModalVisible(false)}>X</button>
-            {detailId}
-          </div>
-        )}
-        <List
-          style={{ maxHeight: '100vh', overflow: 'scroll' }}
-          grid={{ gutter: 16, column: 1 }}
-          dataSource={placesData}
-          renderItem={(place) => (
-            <List.Item>
-              <Card title={place.name}>{place.desc}</Card>
-            </List.Item>
+    <DefaultLayout>
+      <Flex height="90vh" width="100vw">
+        <Container>
+          <Map
+            setMap={setMap}
+            setNews={setNews}
+            markerData={placesData}
+            setIsModalVisible={setIsModalVisible}
+            setDetailId={setDetailId}
+          />
+        </Container>
+        <Container bg="white" shadow="base">
+          {/* {placesData && placesData.map((place) => <div>{place.name}</div>)} */}
+          {isModalVisible && (
+            <div
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100vh',
+                zIndex: 100,
+                backgroundColor: 'gray',
+              }}
+            >
+              <button onClick={() => setIsModalVisible(false)}>X</button>
+              {detailId}
+            </div>
           )}
-        />
-      </Col>
-    </Row>
+          {placesData ? (
+            placesData.map((place) => (
+              <Box>
+                <Text>{place.desc}</Text>
+              </Box>
+            ))
+          ) : (
+            <Box>No Data</Box>
+          )}
+        </Container>
+      </Flex>
+    </DefaultLayout>
   );
-};
-
-Page.getLayout = function getLayout(page: ReactElement) {
-  return <DefaultLayout>{page}</DefaultLayout>;
 };
 
 export default Page;
