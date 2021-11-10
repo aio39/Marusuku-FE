@@ -15,11 +15,12 @@ import {
   ModalOverlay,
   useColorModeValue,
   useDisclosure,
+  useToast,
   VStack,
 } from '@chakra-ui/react';
 import { Map } from 'leaflet';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { Address } from 'react-daum-postcode/lib/loadPostcode';
 import { useForm } from 'react-hook-form';
@@ -50,6 +51,7 @@ const categoryArray = ['식당', '카페', '마트'];
 const CreateShop = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [map, setMap] = useState<Map>();
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -59,7 +61,7 @@ const CreateShop = () => {
     setValue,
     register,
     getValues,
-    formState: { isSubmitting, errors },
+    formState: { isSubmitting, errors, isValid },
   } = useForm<FormInputs>({
     mode: 'all',
   });
@@ -74,6 +76,9 @@ const CreateShop = () => {
   );
 
   const handleComplete = (data: Address) => {
+    setValue('address', data.address, { shouldDirty: true });
+    setValue('zonecode', data.zonecode, { shouldDirty: true });
+    onClose();
     axiosI
       .get<{ lat: number; lng: number }>(
         `/api/geocode?address=${encodeURIComponent(data.address)}`
@@ -82,13 +87,12 @@ const CreateShop = () => {
         reset({ address: '' });
         setValue('lat', res.data.lat, { shouldDirty: true });
         setValue('lng', res.data.lng, { shouldDirty: true });
-        setValue('address', data.address, { shouldDirty: true });
-        setValue('zonecode', data.zonecode, { shouldDirty: true });
         map?.setView([res.data.lat, res.data.lng], 16);
-        onClose();
       })
       .catch((err) => {
         // message.error('주소 등록 실패');
+        // Todo 기능 추가
+        toast({ description: 1000, title: '주소 등록 실패' });
         console.error(err);
       });
   };
@@ -96,6 +100,12 @@ const CreateShop = () => {
   const onSubmit = () => {
     return null;
   };
+
+  useEffect(() => {
+    register('lat', { required: '' });
+    register('lng', { required: '' });
+    return () => {};
+  }, [register]);
 
   console.info(watch());
   console.log(errors);
@@ -111,7 +121,6 @@ const CreateShop = () => {
         bg={useColorModeValue('white', 'gray.800')}
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <Button onClick={onOpen}>주소 찾기</Button>
           <VStack spacing="10">
             <FormControl
               id="name"
@@ -147,7 +156,10 @@ const CreateShop = () => {
               </FormErrorMessage>
             </FormControl>
             <Divider />
-            <Map setMap={setMap} />
+            <Box w="100%">
+              <Map setMap={setMap} />
+              <Button onClick={onOpen}>주소 찾기</Button>
+            </Box>
             <InputWrapper
               registerReturn={register('address')}
               error={errors.address}
@@ -186,11 +198,22 @@ const CreateShop = () => {
                 required: '필수 선택입니다.',
               })}
               error={errors.category}
-              data={['업종']}
+              data={['업종', undefined]}
               selectList={categoryArray}
             />
             <div>기타 정보</div>
           </VStack>
+
+          <Button
+            type="submit"
+            colorScheme="blue"
+            mt={4}
+            mb={12}
+            disabled={!isValid}
+            isLoading={isSubmitting}
+          >
+            가게 생성
+          </Button>
         </form>
 
         <Modal isOpen={isOpen} onClose={onClose}>
