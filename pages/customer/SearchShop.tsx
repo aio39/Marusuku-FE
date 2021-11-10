@@ -1,7 +1,10 @@
-import { Box, Container, Flex, Text } from '@chakra-ui/layout';
+import { useColorModeValue } from '@chakra-ui/color-mode';
+import { Box, Container, Flex } from '@chakra-ui/layout';
+import { Spinner } from '@chakra-ui/spinner';
 import { Map } from 'leaflet';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
+import ShopCard from '../../components/placeView/ShopCard';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { usePlaces } from '../../state/swr/usePlace';
 import { NEWS } from '../../types/Place';
@@ -20,12 +23,29 @@ const Page = () => {
     []
   );
   const [news, setNews] = useState<NEWS>();
-  const { data: placesData, error, mutate } = usePlaces(news);
+  const { data: placesData, error, mutate, isValidating } = usePlaces(news);
 
   console.log(isModalVisible);
   return (
     <DefaultLayout>
       <Flex height="90vh" width="100vw">
+        {isValidating && (
+          <Spinner
+            position="absolute"
+            zIndex="popover"
+            thickness="6px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="blue.500"
+            size="xl"
+            sx={{
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
+        )}
+
         <Container>
           <Map
             setMap={setMap}
@@ -35,7 +55,16 @@ const Page = () => {
             setDetailId={setDetailId}
           />
         </Container>
-        <Container bg="white" shadow="base">
+        <Flex
+          bg={useColorModeValue('#F9FAFB', 'gray.600')}
+          p={4}
+          w="full"
+          h="max"
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+          overflow="scroll"
+        >
           {/* {placesData && placesData.map((place) => <div>{place.name}</div>)} */}
           {isModalVisible && (
             <div
@@ -51,16 +80,13 @@ const Page = () => {
               {detailId}
             </div>
           )}
+
           {placesData ? (
-            placesData.map((place) => (
-              <Box>
-                <Text>{place.desc}</Text>
-              </Box>
-            ))
+            placesData.map((place) => <ShopCard place={place} />)
           ) : (
             <Box>No Data</Box>
           )}
-        </Container>
+        </Flex>
       </Flex>
     </DefaultLayout>
   );

@@ -116,6 +116,8 @@ const MapSearch: FC<MapP> = ({
       style={{ height: '100%', minHeight: 400, width: '100%' }}
       whenCreated={(map) => {
         console.log('Created');
+        const data = boundsToNews(map.getBounds());
+        setNews(data); // 현재 0 ,0 안 넣어서 실행 안 되는중임.
         setMap(map);
       }}
       whenReady={() => {
