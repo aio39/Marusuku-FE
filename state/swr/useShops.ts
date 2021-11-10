@@ -1,4 +1,5 @@
 import useSWR from 'swr';
+import useSWRImmutable from 'swr/immutable';
 import { NEWS, Shop } from '../../types/Shop';
 import { axiosI } from '../fetcher';
 import laggy from './middleware/laggy';
@@ -30,7 +31,7 @@ const useShops = (news?: NEWS) => {
         return null;
       } else {
         const { b, l, r, t } = news;
-        return [URL_SHOP, b, l, r, t];
+        return [URL_SHOP + '/find', b, l, r, t];
       }
     },
     fetcher,
@@ -42,4 +43,8 @@ const useShops = (news?: NEWS) => {
   return swrResponses;
 };
 
-export { useShops };
+const useMyShop = () => {
+  return useSWRImmutable<Shop>(URL_SHOP, fetcher);
+};
+
+export { useShops, useMyShop };

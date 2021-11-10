@@ -23,7 +23,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { Address } from 'react-daum-postcode/lib/loadPostcode';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { InputWrapper, SelectWrapper } from '../../components/HookInput';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { axiosI } from '../../state/fetcher';
@@ -36,6 +36,7 @@ interface FormInputs {
   category: string;
   desc: string;
   phone: number;
+  homepage: string;
   lat: number;
   lng: number;
 }
@@ -84,21 +85,20 @@ const CreateShop = () => {
         `/api/geocode?address=${encodeURIComponent(data.address)}`
       )
       .then((res) => {
-        reset({ address: '' });
         setValue('lat', res.data.lat, { shouldDirty: true });
         setValue('lng', res.data.lng, { shouldDirty: true });
         map?.setView([res.data.lat, res.data.lng], 16);
       })
       .catch((err) => {
-        // message.error('주소 등록 실패');
         // Todo 기능 추가
         toast({ description: 1000, title: '주소 등록 실패' });
         console.error(err);
       });
   };
 
-  const onSubmit = () => {
-    return null;
+  const onSubmit: SubmitHandler<FormInputs> = async (inputData) => {
+    const { data } = await axiosI.post('/api/shops', inputData);
+    console.log(data);
   };
 
   useEffect(() => {
