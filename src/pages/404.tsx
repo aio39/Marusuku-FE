@@ -1,9 +1,9 @@
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import React from 'react';
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 export default function NotFound() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <Flex height="100vh" justifyContent="center" alignItems="center">
@@ -49,7 +49,7 @@ export default function NotFound() {
           variant="solid"
           w={3 / 4}
           onClick={() => {
-            router.push('/');
+            router.push('/')
           }}
         >
           Go to Home
@@ -84,5 +84,5 @@ export default function NotFound() {
         }}
       ></Box>
     </Flex>
-  );
+  )
 }
