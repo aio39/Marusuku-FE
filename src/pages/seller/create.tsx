@@ -20,8 +20,11 @@ import React, { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { Address } from 'react-daum-postcode/lib/loadPostcode';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InputWrapper, SelectWrapper } from '../../components/HookInput';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import {
+  InputWrapper,
+  SelectWrapper,
+} from '../../components/common/inputs/HookInput';
+import DefaultLayout from '../../components/common/layouts/DefaultLayout';
 import { axiosI } from '../../state/fetcher';
 
 interface FormInputs {

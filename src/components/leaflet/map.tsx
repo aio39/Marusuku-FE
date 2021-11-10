@@ -26,7 +26,7 @@ import {
   positionState,
   recentGeoCodeState,
   shopListState,
-} from '../state/recoil/tempAtoms';
+} from '../../state/recoil/tempAtoms';
 const position: [number, number] = [35.8953777, 128.6254371] as [
   number,
   number

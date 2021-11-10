@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import dynamic from 'next/dynamic';
 import { ReactElement } from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
+import DefaultLayout from '../src/components/common/layouts/DefaultLayout';
 
 const position = [51.505, -0.09] as [number, number];
 
@@ -14,14 +14,17 @@ const topWrapper = css`
 const mapWrapper = css`
   height: 100vh;
   flex-grow: 1;
-`
+`;
 
-const DynamicComponent = dynamic(() => import('../components/map'), {
-  ssr: false,
-  loading: () => <p>...</p>,
-});
+const DynamicComponent = dynamic(
+  () => import('../src/components/leaflet/map'),
+  {
+    ssr: false,
+    loading: () => <p>...</p>,
+  }
+);
 
-const ContentViewer = dynamic(() => import('../components/ContentViewer'), {
+const ContentViewer = dynamic(() => import('./ContentViewer'), {
   ssr: false,
   loading: () => <p>...</p>,
 });

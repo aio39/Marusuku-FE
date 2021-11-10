@@ -1,5 +1,5 @@
 import React from 'react';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import DefaultLayout from '../../components/common/layouts/DefaultLayout';
 import { useMyShop } from '../../state/swr/useShops';
 
 export default function Home() {

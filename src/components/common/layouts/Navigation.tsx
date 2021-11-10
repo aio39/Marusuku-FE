@@ -23,7 +23,8 @@ import {
 } from '@chakra-ui/react';
 import { default as NextLink } from 'next/link';
 import React, { FC, Fragment } from 'react';
-import { useLogOut, useUser } from '../state/swr/useUser';
+import { useLogOut, useUser } from '../../../state/swr/useUser';
+import { NavItem, NAV_ITEMS } from './NAV_ITEMS';
 const LoginStack = () => {
   const { data: userData, error, isValidating, mutate } = useUser();
 
@@ -53,7 +54,7 @@ const LoginStack = () => {
         <Spinner size="xs" />
       ) : (
         <Fragment>
-          <NextLink href="/Login" passHref>
+          <NextLink href="/user/login" passHref>
             <Button
               as={'a'}
               fontSize={'sm'}
@@ -64,7 +65,7 @@ const LoginStack = () => {
               Sign In
             </Button>
           </NextLink>
-          <NextLink href="/Register" passHref>
+          <NextLink href="/user/register" passHref>
             <Button
               display={{ base: 'none', md: 'inline-flex' }}
               fontSize={'sm'}
@@ -298,62 +299,3 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     </Stack>
   );
 };
-
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: '판매자',
-    children: [
-      {
-        label: '가게 생성',
-        subLabel: '가게를 생성합니다.',
-        href: '/seller/CreateShop',
-      },
-      {
-        label: '가게 정보',
-        subLabel: '가게 정보를 표시합니다.',
-        href: '/seller/MyShop',
-      },
-      {
-        label: '스캔',
-        subLabel: 'QR코드를 스캔합니다.',
-        href: '/seller/Scan',
-      },
-      {
-        label: '메뉴 생성',
-        subLabel: '메뉴를 추가합니다.',
-        href: '/seller/CreateMenu',
-      },
-    ],
-  },
-  {
-    label: '구매자',
-    children: [
-      {
-        label: '가게검색',
-        subLabel: 'Find your dream design job',
-        href: '/customer/SearchShop',
-      },
-      {
-        label: '프로파일',
-        subLabel: 'An exclusive list for contract work',
-        href: '/customer/Profile',
-      },
-      {
-        label: 'QR코드 생성',
-        subLabel: 'An exclusive list for contract work',
-        href: '/customer/QRCode',
-      },
-    ],
-  },
-  {
-    label: '테스트 메뉴',
-    href: '/test',
-  },
-];

@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import AddressSearch from '../src/components/AddressSearch';
 import {
   positionState,
   recentGeoCodeState,
   shopListState,
-} from '../state/recoil/tempAtoms';
-import AddressSearch from './AddressSearch';
+} from '../src/state/recoil/tempAtoms';
 
 const wrapper = css`
   display: flex;

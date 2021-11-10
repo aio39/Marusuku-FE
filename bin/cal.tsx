@@ -17,7 +17,7 @@ import 'tui-calendar/dist/tui-calendar.css';
 type viewModeEnum = 'month' | 'week' | 'day';
 
 const TuiCalendar = dynamic<CalendarClass>(
-  () => import('../components/ToastCalWrapper'),
+  () => import('../src/components/ToastCalWrapper'),
   {
     ssr: false,
   }

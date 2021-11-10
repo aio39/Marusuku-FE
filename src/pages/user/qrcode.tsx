@@ -2,7 +2,7 @@ import { Text } from '@chakra-ui/layout';
 import QRCode from 'qrcode.react';
 import React, { useState } from 'react';
 import Clock from 'react-live-clock';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import DefaultLayout from '../../components/common/layouts/DefaultLayout';
 import { useUser } from '../../state/swr/useUser';
 
 export default function Home() {

@@ -16,7 +16,7 @@ import {
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useLogin, useUser } from '../state/swr/useUser';
+import { useLogin, useUser } from '../../state/swr/useUser';
 
 const LoginPage = () => {
   const {

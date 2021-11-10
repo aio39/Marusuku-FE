@@ -4,8 +4,8 @@ import { Spinner } from '@chakra-ui/spinner';
 import { Map } from 'leaflet';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import ShopCard from '../../components/placeView/ShopCard';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import DefaultLayout from '../../components/common/layouts/DefaultLayout';
+import ShopCard from '../../components/shop/ShopCard';
 import { useShops } from '../../state/swr/useShops';
 import { NEWS } from '../../types/Shop';
 

@@ -2,8 +2,11 @@ import { Button } from '@chakra-ui/button';
 import { Box, Divider, useColorModeValue, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { InputWrapper, NumberInputWrapper } from '../../components/HookInput';
-import DefaultLayout from '../../layouts/DefaultLayout';
+import {
+  InputWrapper,
+  NumberInputWrapper,
+} from '../../components/common/inputs/HookInput';
+import DefaultLayout from '../../components/common/layouts/DefaultLayout';
 import { axiosI } from '../../state/fetcher';
 import { MenuInputs } from '../../types/Menu';
 

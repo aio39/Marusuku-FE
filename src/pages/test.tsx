@@ -7,7 +7,7 @@ import {
 import { Box, Text } from '@chakra-ui/layout';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import React from 'react';
-import DefaultLayout from '../layouts/DefaultLayout';
+import DefaultLayout from '../components/common/layouts/DefaultLayout';
 
 export default function Test() {
   const { colorMode, toggleColorMode } = useColorMode();
