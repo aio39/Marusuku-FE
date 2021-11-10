@@ -1,10 +1,17 @@
 import useSWR from 'swr';
 import { NEWS, Place } from '../../types/Place';
 import { axiosI } from '../fetcher';
+import laggy from './middleware/laggy';
 
 const URL_Place = '/api/places';
 
-const fetcher = (url: string, news: NEWS) => {
+const fetcher = (url: string, ...rest: number[]) => {
+  const news = {
+    b: rest[0],
+    l: rest[1],
+    r: rest[2],
+    t: rest[3],
+  };
   return axiosI
     .get(url, { params: news })
     .then((res) => {
@@ -18,12 +25,20 @@ const fetcher = (url: string, news: NEWS) => {
 
 const usePlaces = (news?: NEWS) => {
   const swrResponses = useSWR<Place[]>(
-    news ? [URL_Place, news] : null,
-    fetcher
+    () => {
+      if (!news) {
+        return null;
+      } else {
+        const { b, l, r, t } = news;
+        return [URL_Place, b, l, r, t];
+      }
+    },
+    fetcher,
+    {
+      use: [laggy],
+    }
   );
   const { data, error } = swrResponses;
-  console.log(data);
-  console.log('usePlaces의 error', error);
   return swrResponses;
 };
 
