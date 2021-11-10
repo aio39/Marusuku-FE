@@ -3,6 +3,11 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Select,
 } from '@chakra-ui/react';
 import React, { FC } from 'react';
@@ -22,6 +27,11 @@ type BasicP = {
 
 type InputP = BasicP & { inputP?: InputProps };
 type SelectP<T = any> = BasicP & { selectList: T[] };
+type NumberP = BasicP & {
+  defaultValue?: number;
+  min?: number;
+  max?: number;
+};
 
 const BasicWrapper: FC<BasicP> = ({
   registerReturn,
@@ -105,4 +115,34 @@ const SelectWrapper: FC<SelectP> = ({
   );
 };
 
-export { InputWrapper, SelectWrapper };
+const NumberInputWrapper: FC<NumberP> = ({
+  registerReturn,
+  error,
+  data,
+  isNotRequired = false,
+  defaultValue,
+  min,
+  max,
+  children,
+}) => {
+  const name = registerReturn.name;
+  const [label, placeholder] = data;
+  return (
+    <BasicWrapper
+      registerReturn={registerReturn}
+      error={error}
+      data={data}
+      isNotRequired={isNotRequired}
+    >
+      <NumberInput defaultValue={defaultValue} min={min} max={max}>
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+    </BasicWrapper>
+  );
+};
+
+export { InputWrapper, SelectWrapper, NumberInputWrapper };

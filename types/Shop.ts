@@ -1,4 +1,4 @@
-type Position = {
+type Location = {
   coordinates: [number, number];
   type: string;
 };
@@ -10,7 +10,7 @@ type Shop = {
   lat: number;
   lng: number;
   address: string;
-  position: Position;
+  location: Location;
 };
 
 type NEWS = {

@@ -2,10 +2,6 @@ import { Button } from '@chakra-ui/button';
 import {
   Box,
   Divider,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -43,12 +39,6 @@ interface FormInputs {
 
 const categoryArray = ['식당', '카페', '마트'];
 
-// const checkArray = [
-//   'チェックボックス1',
-//   'チェックボックス2',
-//   'チェックボックス3',
-// ];
-
 const CreateShop = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [map, setMap] = useState<Map>();
@@ -56,8 +46,6 @@ const CreateShop = () => {
 
   const {
     handleSubmit,
-    control,
-    reset,
     watch,
     setValue,
     register,
@@ -98,7 +86,7 @@ const CreateShop = () => {
 
   const onSubmit: SubmitHandler<FormInputs> = async (inputData) => {
     const { data } = await axiosI.post('/api/shops', inputData);
-    console.log(data);
+    console.log(data); // TODO
   };
 
   useEffect(() => {
@@ -107,8 +95,6 @@ const CreateShop = () => {
     return () => {};
   }, [register]);
 
-  console.info(watch());
-  console.log(errors);
   return (
     <DefaultLayout>
       <Box
@@ -122,39 +108,17 @@ const CreateShop = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <VStack spacing="10">
-            <FormControl
-              id="name"
-              isRequired
-              isInvalid={errors.name ? true : false}
-              position="relative"
-            >
-              <FormLabel htmlFor="name">가게 이름</FormLabel>
-              <Input
-                placeholder="가게 이름"
-                {...register('name', {
-                  required: '입력이 필요합니다.',
-                  maxLength: { message: '20자 이하로 입력하세요', value: 20 },
-                })}
-              />
-              <FormErrorMessage position="absolute">
-                {errors.name && errors.name.message}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl
-              id="desc"
-              isRequired
-              isInvalid={errors.desc ? true : false}
-              position="relative"
-            >
-              <FormLabel htmlFor="desc">설명</FormLabel>
-              <Input
-                placeholder="설명"
-                {...register('desc', { required: '입력이 필요합니다.' })}
-              />
-              <FormErrorMessage position="absolute">
-                {errors.desc && errors.desc.message}
-              </FormErrorMessage>
-            </FormControl>
+            <InputWrapper
+              registerReturn={register('name')}
+              error={errors.name}
+              data={['가게 이름', '상호명']}
+            />
+            <InputWrapper
+              registerReturn={register('desc')}
+              error={errors.desc}
+              data={['설명', '가게에 대한 설명']}
+            />
+
             <Divider />
             <Box w="100%">
               <Map setMap={setMap} />

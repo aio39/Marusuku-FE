@@ -66,8 +66,8 @@ const Markers = ({
         <Marker
           key={shop.id}
           position={[
-            shop.position.coordinates[1],
-            shop.position.coordinates[0],
+            shop.location.coordinates[1],
+            shop.location.coordinates[0],
           ]}
           icon={DefaultIcon}
         >
