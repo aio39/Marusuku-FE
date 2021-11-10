@@ -24,12 +24,8 @@ const AddressSearch: FC = (params) => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     axiosI
       .get(URL, config)
-      .then((r) => {
-        console.log(r);
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+      .then((r) => {})
+      .catch((e) => {});
   };
   return (
     <Fragment>

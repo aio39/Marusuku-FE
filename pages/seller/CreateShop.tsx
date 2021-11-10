@@ -56,7 +56,7 @@ const CreateShop = () => {
       });
   };
 
-  console.log(watch());
+  console.info(watch());
 
   return (
     <DefaultLayout>

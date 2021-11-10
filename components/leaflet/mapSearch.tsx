@@ -104,7 +104,6 @@ const MapSearch: FC<MapP> = ({
 }) => {
   const { position, error } = usePosition();
 
-  console.log(position);
   //  TODO 임시 0 0
   return (
     <MapContainer
@@ -115,13 +114,13 @@ const MapSearch: FC<MapP> = ({
       scrollWheelZoom={false}
       style={{ height: '100%', minHeight: 400, width: '100%' }}
       whenCreated={(map) => {
-        console.log('Created');
+        console.info('Map Created');
         const data = boundsToNews(map.getBounds());
         setNews(data); // 현재 0 ,0 안 넣어서 실행 안 되는중임.
         setMap(map);
       }}
       whenReady={() => {
-        console.log('Ready');
+        console.info('Map Ready');
       }}
     >
       <TileLayer

@@ -28,7 +28,6 @@ const CenterMarker = () => {
 const MapMini: FC<P> = ({ setMap }) => {
   const { position, error } = usePosition();
 
-  console.log(position);
   //  TODO 임시 0 0
   return (
     <MapContainer
@@ -39,11 +38,11 @@ const MapMini: FC<P> = ({ setMap }) => {
       scrollWheelZoom={false}
       style={{ height: 400, width: '100%' }}
       whenCreated={(map) => {
-        console.log('Created');
+        console.info('Map Created');
         setMap(map);
       }}
       whenReady={() => {
-        console.log('Ready');
+        console.info('Map Ready');
       }}
     >
       <TileLayer

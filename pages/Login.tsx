@@ -40,7 +40,7 @@ const LoginPage = () => {
     router.push('/');
   }
 
-  console.log(watch());
+  console.info(watch());
   return (
     <Wrapper>
       <Col sm={20} className="login-form">

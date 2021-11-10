@@ -8,8 +8,6 @@ const URL_LOGOUT = '/api/logout';
 
 const useUser = () => {
   const { data, error, mutate } = useSWR<User>(URL_USER, fetcher);
-  console.log(data);
-  error && console.log('useUser error', error);
   return { data, error, mutate };
 };
 
@@ -19,7 +17,6 @@ const useLogin = async (loginData: LoginData) => {
     mutate(URL_USER, data, false);
     return true;
   } catch (error) {
-    console.log(error);
     return false;
   }
 };
@@ -29,7 +26,6 @@ const useLogOut = async () => {
     const { data, status } = await axiosI.get(`${URL_LOGOUT}`);
     return true;
   } catch (error) {
-    console.log(error);
     return false;
   }
 };

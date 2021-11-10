@@ -180,7 +180,7 @@ const MapP = () => {
           scrollWheelZoom={true}
           whenCreated={setMap}
           whenReady={() => {
-            console.log('지도 준비 완료 😊');
+            console.info('whenReady - 지도 준비 완료 😊');
           }}
         >
           <TileLayer
