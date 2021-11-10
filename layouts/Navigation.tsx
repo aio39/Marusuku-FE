@@ -15,16 +15,17 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Spinner,
   Stack,
   Text,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
 import { default as NextLink } from 'next/link';
-import { FC, Fragment } from 'react';
-import { useUser } from '../state/swr/useUser';
+import React, { FC, Fragment } from 'react';
+import { useLogOut, useUser } from '../state/swr/useUser';
 const LoginStack = () => {
-  const { data: userData, error } = useUser();
+  const { data: userData, error, isValidating, mutate } = useUser();
 
   return (
     <Stack
@@ -34,33 +35,50 @@ const LoginStack = () => {
       spacing={6}
     >
       {userData ? (
-        <div>
+        <Stack direction={'row'} spacing={4}>
           <Text fontSize="md">{userData.email}</Text>
-        </div>
-      ) : (
-        <Fragment>
           <Button
-            as={'a'}
             fontSize={'sm'}
             fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
+            onClick={async () => {
+              console.info('로그아웃');
+              await useLogOut();
+              mutate(undefined);
             }}
           >
-            Sign Up
+            Logout
           </Button>
+        </Stack>
+      ) : isValidating ? (
+        <Spinner size="xs" />
+      ) : (
+        <Fragment>
+          <NextLink href="/Login" passHref>
+            <Button
+              as={'a'}
+              fontSize={'sm'}
+              fontWeight={400}
+              variant={'link'}
+              // href={'#'}
+            >
+              Sign In
+            </Button>
+          </NextLink>
+          <NextLink href="/Register" passHref>
+            <Button
+              display={{ base: 'none', md: 'inline-flex' }}
+              fontSize={'sm'}
+              fontWeight={600}
+              color={'white'}
+              bg={'pink.400'}
+              // href={'#'}
+              _hover={{
+                bg: 'pink.300',
+              }}
+            >
+              Sign Up
+            </Button>
+          </NextLink>
         </Fragment>
       )}
     </Stack>
