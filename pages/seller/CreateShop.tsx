@@ -23,7 +23,7 @@ import React, { useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 import { Address } from 'react-daum-postcode/lib/loadPostcode';
 import { useForm } from 'react-hook-form';
-import InputWrapper from '../../components/HookInput';
+import { InputWrapper, SelectWrapper } from '../../components/HookInput';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { axiosI } from '../../state/fetcher';
 
@@ -32,6 +32,7 @@ interface FormInputs {
   zonecode: string;
   address: string;
   address2: string;
+  category: string;
   desc: string;
   phone: number;
   lat: number;
@@ -165,11 +166,29 @@ const CreateShop = () => {
             />
             <Divider />
             <InputWrapper
-              registerReturn={register('phone')}
+              registerReturn={register('phone', {
+                required: '전화번호는 필수입니다.',
+                minLength: {
+                  value: 10,
+                  message: '10자 이상입니다.',
+                },
+                maxLength: {
+                  value: 11,
+                  message: '11자 이하입니다.',
+                },
+              })}
               error={errors.phone}
               data={['전화번호', ' - 없이 입력']}
+              inputP={{ maxLength: 11 }}
             />
-            <div>업종</div>
+            <SelectWrapper
+              registerReturn={register('category', {
+                required: '필수 선택입니다.',
+              })}
+              error={errors.category}
+              data={['업종']}
+              selectList={categoryArray}
+            />
             <div>기타 정보</div>
           </VStack>
         </form>
