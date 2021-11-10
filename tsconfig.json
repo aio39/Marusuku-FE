@@ -1,14 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "@emotion/core"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["@emotion/core"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,12 +16,12 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "exclude": [
-    "node_modules"
-  ],
+  "exclude": ["node_modules"],
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+    "src"
+    // "**/*.ts",
+    // "**/*.tsx"
+  ],
+  "extends": "./tsconfig.paths.json"
 }
