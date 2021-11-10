@@ -325,6 +325,11 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: 'QR코드를 스캔합니다.',
         href: '/seller/Scan',
       },
+      {
+        label: '메뉴 생성',
+        subLabel: '메뉴를 추가합니다.',
+        href: '/seller/CreateMenu',
+      },
     ],
   },
   {

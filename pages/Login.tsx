@@ -28,7 +28,7 @@ const LoginPage = () => {
     register,
     getValues,
     formState: { errors, isSubmitting },
-  } = useForm<{ email: string; password: string }>({ mode: 'onBlur' });
+  } = useForm<{ email: string; password: string }>({ mode: 'all' });
   const { data: userData, error: userError } = useUser();
   const router = useRouter();
 

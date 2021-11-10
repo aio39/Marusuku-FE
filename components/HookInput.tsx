@@ -1,55 +1,41 @@
-import {
-  Input,
-  InputGroup,
-  InputLeftElement,
-  InputProps,
-} from '@chakra-ui/input';
+import { Input } from '@chakra-ui/input';
+import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
 import React, { FC } from 'react';
-import {
-  Control,
-  Controller,
-  ControllerProps,
-  FieldValues,
-} from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+
+type placeholder = string;
+type label = string | undefined;
+
+type necessary = [label, placeholder];
 
 type P = {
-  control: Control<FieldValues, object>;
-  basicP: {
-    label: string;
-    name: string;
-  };
-  InputP?: InputProps;
-  ControllerP?: ControllerProps;
-  password?: boolean;
+  registerReturn: UseFormRegisterReturn;
+  error: FieldError | undefined;
+  data: necessary;
+  isNotRequired?: boolean;
 };
 
-const HookInput: FC<P> = ({
-  control,
-  ControllerP,
-  InputP,
-  basicP,
-  password,
+const InputWrapper: FC<P> = ({
+  registerReturn,
+  error,
+  data: [label, placeholder],
+  isNotRequired = false,
 }) => {
+  const name = registerReturn.name;
   return (
-    <Controller
-      {...ControllerP}
-      render={({ field }) =>
-        password ? (
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              // children={<PhoneIcon color="gray.300" />}
-            />
-            <Input {...field} {...InputP} placeholder={basicP.label} />
-          </InputGroup>
-        ) : (
-          <Input {...field} {...InputP} />
-        )
-      }
-      control={control}
-      name={basicP.name}
-    />
+    <FormControl
+      id={name}
+      isRequired={!isNotRequired}
+      isInvalid={error ? true : false}
+      position="relative"
+    >
+      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <Input placeholder={placeholder} {...registerReturn} />
+      <FormErrorMessage position="absolute">
+        {error && error.message}
+      </FormErrorMessage>
+    </FormControl>
   );
 };
 
-export default HookInput;
+export default InputWrapper;
