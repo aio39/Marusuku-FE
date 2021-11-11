@@ -1,6 +1,6 @@
-import { ColorModeScript } from '@chakra-ui/color-mode';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
-import * as React from 'react';
+import { ColorModeScript } from '@chakra-ui/color-mode'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import * as React from 'react'
 export default class AppDocument extends Document {
   // static async getInitialProps(ctx: any) {
   //   const page = await ctx.renderPage();
@@ -24,10 +24,10 @@ export default class AppDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <meta
+          {/* <meta
             name="viewport"
             content="width=device-width, initial-scale=1, maximum-scale=1"
-          />
+          /> */}
         </Head>
         <body>
           <ColorModeScript />
@@ -35,6 +35,6 @@ export default class AppDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
