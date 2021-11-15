@@ -1,9 +1,4 @@
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CloseIcon,
-  HamburgerIcon,
-} from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -20,21 +15,16 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-} from '@chakra-ui/react';
-import { default as NextLink } from 'next/link';
-import React, { FC, Fragment } from 'react';
-import { useLogOut, useUser } from '../../../state/swr/useUser';
-import { NavItem, NAV_ITEMS } from './NAV_ITEMS';
+} from '@chakra-ui/react'
+import { default as NextLink } from 'next/link'
+import React, { FC, Fragment } from 'react'
+import { useLogOut, useUser } from '../../../state/swr/useUser'
+import { NavItem, NAV_ITEMS } from './NAV_ITEMS'
 const LoginStack = () => {
-  const { data: userData, error, isValidating, mutate } = useUser();
+  const { data: userData, error, isValidating, mutate } = useUser()
 
   return (
-    <Stack
-      flex={{ base: 1, md: 0 }}
-      justify={'flex-end'}
-      direction={'row'}
-      spacing={6}
-    >
+    <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
       {userData ? (
         <Stack direction={'row'} spacing={4}>
           <Text fontSize="md">{userData.email}</Text>
@@ -42,9 +32,9 @@ const LoginStack = () => {
             fontSize={'sm'}
             fontWeight={400}
             onClick={async () => {
-              console.info('로그아웃');
-              await useLogOut();
-              mutate(undefined);
+              console.info('로그아웃')
+              await useLogOut()
+              mutate(undefined)
             }}
           >
             Logout
@@ -83,31 +73,27 @@ const LoginStack = () => {
         </Fragment>
       )}
     </Stack>
-  );
-};
+  )
+}
 
-const MobileNavigationToggleBtn: FC<{ isOpen: boolean; onToggle: () => void }> =
-  ({ isOpen, onToggle }) => {
-    return (
-      <Flex
-        flex={{ base: 1, md: 'auto' }}
-        ml={{ base: -2 }}
-        display={{ base: 'flex', md: 'none' }}
-      >
-        <IconButton
-          onClick={onToggle}
-          icon={
-            isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-          }
-          variant={'ghost'}
-          aria-label={'Toggle Navigation'}
-        />
-      </Flex>
-    );
-  };
+const MobileNavigationToggleBtn: FC<{ isOpen: boolean; onToggle: () => void }> = ({
+  isOpen,
+  onToggle,
+}) => {
+  return (
+    <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+      <IconButton
+        onClick={onToggle}
+        icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+        variant={'ghost'}
+        aria-label={'Toggle Navigation'}
+      />
+    </Flex>
+  )
+}
 
 export default function Navigation() {
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onToggle } = useDisclosure()
 
   return (
     <Box w="100%" mb="1rem">
@@ -144,13 +130,13 @@ export default function Navigation() {
         <MobileNav />
       </Collapse>
     </Box>
-  );
+  )
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('gray.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+  const linkColor = useColorModeValue('gray.600', 'gray.200')
+  const linkHoverColor = useColorModeValue('gray.800', 'white')
+  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -174,6 +160,7 @@ const DesktopNav = () => {
 
             {navItem.children && (
               <PopoverContent
+                zIndex="banner"
                 border={0}
                 boxShadow={'xl'}
                 bg={popoverContentBgColor}
@@ -192,8 +179,8 @@ const DesktopNav = () => {
         </Box>
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   return (
@@ -207,11 +194,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
       >
         <Stack direction={'row'} align={'center'}>
           <Box>
-            <Text
-              transition={'all .3s ease'}
-              _groupHover={{ color: 'pink.400' }}
-              fontWeight={500}
-            >
+            <Text transition={'all .3s ease'} _groupHover={{ color: 'pink.400' }} fontWeight={500}>
               {label}
             </Text>
             <Text fontSize={'sm'}>{subLabel}</Text>
@@ -230,25 +213,21 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
         </Stack>
       </Link>
     </NextLink>
-  );
-};
+  )
+}
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}
-    >
+    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
     </Stack>
-  );
-};
+  )
+}
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onToggle } = useDisclosure()
 
   return (
     <Stack spacing={4} onClick={children && onToggle}>
@@ -262,10 +241,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           textDecoration: 'none',
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
-        >
+        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
           {label}
         </Text>
         {children && (
@@ -297,5 +273,5 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         </Stack>
       </Collapse>
     </Stack>
-  );
-};
+  )
+}

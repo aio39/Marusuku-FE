@@ -1,6 +1,6 @@
-import { LatLngBounds, Map } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { LatLngBounds, Map } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import React, { Dispatch, FC, SetStateAction } from 'react'
 import {
   MapConsumer,
   MapContainer,
@@ -10,20 +10,20 @@ import {
   Tooltip,
   useMap,
   useMapEvents,
-} from 'react-leaflet';
-import { usePosition } from '../../state/hooks/usePosition';
-import { NEWS, Shop } from '../../types/Shop';
-import { DefaultIcon } from './CommonParts';
+} from 'react-leaflet'
+import { usePosition } from '../../state/hooks/usePosition'
+import { NEWS, Shop } from '../../types/Shop'
+import { DefaultIcon } from './CommonParts'
 
 type MapP = {
-  setMap: Dispatch<SetStateAction<Map | undefined>>;
-  setNews: Dispatch<SetStateAction<NEWS | undefined>>;
-  setIsModalVisible: Dispatch<SetStateAction<boolean>>;
-  setDetailId: Dispatch<SetStateAction<number | undefined>>;
-  markerData: Shop[] | undefined;
-};
+  setMap: Dispatch<SetStateAction<Map | undefined>>
+  setNews: Dispatch<SetStateAction<NEWS | undefined>>
+  setIsModalVisible: Dispatch<SetStateAction<boolean>>
+  setDetailId: Dispatch<SetStateAction<number | undefined>>
+  markerData: Shop[] | undefined
+}
 
-type MarkersP = Omit<MapP, 'setMap'>;
+type MarkersP = Omit<MapP, 'setMap'>
 
 const boundsToNews = (bounds: LatLngBounds): NEWS => {
   return {
@@ -31,58 +31,44 @@ const boundsToNews = (bounds: LatLngBounds): NEWS => {
     b: bounds.getSouth(),
     r: bounds.getEast(),
     l: bounds.getWest(),
-  };
-};
+  }
+}
 
 const ToolTipDiv = () => {
-  return <div>aaaa</div>;
-};
+  return <div>aaaa</div>
+}
 
 const CenterMarker = () => {
-  const map = useMap();
+  const map = useMap()
   return (
     <Marker position={map.getCenter()} icon={DefaultIcon}>
       <Popup>현재 지점</Popup>
     </Marker>
-  );
-};
+  )
+}
 
-const Markers = ({
-  markerData,
-  setNews,
-  setDetailId,
-  setIsModalVisible,
-}: MarkersP) => {
+const Markers = ({ markerData, setNews, setDetailId, setIsModalVisible }: MarkersP) => {
   const map = useMapEvents({
     moveend() {
-      const data = boundsToNews(map.getBounds());
-      setNews(data);
+      const data = boundsToNews(map.getBounds())
+      setNews(data)
     },
-  });
+  })
 
   return markerData ? (
     <React.Fragment>
       {markerData.map((shop) => (
         <Marker
           key={shop.id}
-          position={[
-            shop.location.coordinates[1],
-            shop.location.coordinates[0],
-          ]}
+          position={[shop.location.coordinates[1], shop.location.coordinates[0]]}
           icon={DefaultIcon}
         >
-          <Tooltip
-            permanent
-            direction="top"
-            offset={[0, 20]}
-            opacity={1}
-            interactive
-          >
+          <Tooltip permanent direction="top" offset={[0, 20]} opacity={1} interactive>
             {/* <ToolTipDiv /> */}
             <div
               onClick={() => {
-                setIsModalVisible(() => true);
-                setDetailId(shop.id);
+                setIsModalVisible(() => true)
+                setDetailId(shop.id)
               }}
             >
               {shop.name}
@@ -91,8 +77,8 @@ const Markers = ({
         </Marker>
       ))}
     </React.Fragment>
-  ) : null;
-};
+  ) : null
+}
 
 const MapSearch: FC<MapP> = ({
   setMap,
@@ -101,25 +87,23 @@ const MapSearch: FC<MapP> = ({
   setDetailId,
   setIsModalVisible: setIsShowDetail,
 }) => {
-  const { position, error } = usePosition();
+  const { position, error } = usePosition()
 
   //  TODO 임시 0 0
   return (
     <MapContainer
-      center={
-        position ? [position.latitude, position.longitude] : [37.5, 126.9]
-      }
+      center={position ? [position.latitude, position.longitude] : [37.5, 126.9]}
       zoom={13}
       scrollWheelZoom={false}
-      style={{ height: '100%', minHeight: 400, width: '100%' }}
+      style={{ height: '100%', minHeight: 400, width: '100%', zIndex: 0 }}
       whenCreated={(map) => {
-        console.info('Map Created');
-        const data = boundsToNews(map.getBounds());
-        setNews(data); // 현재 0 ,0 안 넣어서 실행 안 되는중임.
-        setMap(map);
+        console.info('Map Created')
+        const data = boundsToNews(map.getBounds())
+        setNews(data) // 현재 0 ,0 안 넣어서 실행 안 되는중임.
+        setMap(map)
       }}
       whenReady={() => {
-        console.info('Map Ready');
+        console.info('Map Ready')
       }}
     >
       <TileLayer
@@ -129,14 +113,14 @@ const MapSearch: FC<MapP> = ({
       <CenterMarker />
       <MapConsumer>
         {(map) => {
-          const { lat, lng } = map.getCenter();
+          const { lat, lng } = map.getCenter()
           if (lat == 0 && lng == 0 && position) {
             // 초기화 0.0 상태일때만 갱신
-            map.setView([position.latitude, position.longitude], 16);
-            const data = boundsToNews(map.getBounds());
-            setNews(data);
+            map.setView([position.latitude, position.longitude], 16)
+            const data = boundsToNews(map.getBounds())
+            setNews(data)
           }
-          return null;
+          return null
         }}
       </MapConsumer>
       <Markers
@@ -146,7 +130,7 @@ const MapSearch: FC<MapP> = ({
         setIsModalVisible={setIsShowDetail}
       />
     </MapContainer>
-  );
-};
+  )
+}
 
-export default MapSearch;
+export default MapSearch

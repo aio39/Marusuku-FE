@@ -9,7 +9,7 @@ import ShopCard from '../../components/shop/ShopCard'
 import { useShops } from '../../state/swr/shops/useShops'
 import { NEWS } from '../../types/Shop'
 
-const Map = dynamic(() => import('../../components/leaflet/mapSearch'), {
+const MapSearch = dynamic(() => import('../../components/leaflet/mapSearch'), {
   loading: () => <p>A map is loading</p>,
   ssr: false,
 })
@@ -45,7 +45,7 @@ const Page = () => {
 
         <Container>
           {typeof window !== 'undefined' && (
-            <Map
+            <MapSearch
               setMap={setMap}
               setNews={setNews}
               markerData={shopsData}
