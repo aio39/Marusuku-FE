@@ -1,4 +1,4 @@
-import { Input, InputGroup, InputProps } from '@chakra-ui/input';
+import { Input, InputGroup, InputProps } from '@chakra-ui/input'
 import {
   FormControl,
   FormErrorMessage,
@@ -9,29 +9,29 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-} from '@chakra-ui/react';
-import React, { FC } from 'react';
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+} from '@chakra-ui/react'
+import React, { FC } from 'react'
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 
-type placeholder = string | undefined;
-type label = string;
+type placeholder = string | undefined
+type label = string
 
-type necessary = [label, placeholder];
+type necessary = [label, placeholder]
 
 type BasicP = {
-  registerReturn: UseFormRegisterReturn;
-  error: FieldError | undefined;
-  data: necessary;
-  isNotRequired?: boolean;
-};
+  registerReturn: UseFormRegisterReturn
+  error: FieldError | undefined
+  data: necessary
+  isNotRequired?: boolean
+}
 
-type InputP = BasicP & { inputP?: InputProps };
-type SelectP<T = any> = BasicP & { selectList: T[] };
+type InputP = BasicP & { inputP?: InputProps }
+type SelectP<T = any> = BasicP & { selectList: T[] }
 type NumberP = BasicP & {
-  defaultValue?: number;
-  min?: number;
-  max?: number;
-};
+  defaultValue?: number
+  min?: number
+  max?: number
+}
 
 const BasicWrapper: FC<BasicP> = ({
   registerReturn,
@@ -40,7 +40,7 @@ const BasicWrapper: FC<BasicP> = ({
   isNotRequired = false,
   children,
 }) => {
-  const name = registerReturn.name;
+  const name = registerReturn.name
   return (
     <FormControl
       id={name}
@@ -50,12 +50,10 @@ const BasicWrapper: FC<BasicP> = ({
     >
       <FormLabel htmlFor={name}>{label}</FormLabel>
       {children}
-      <FormErrorMessage position="absolute">
-        {error && error.message}
-      </FormErrorMessage>
+      <FormErrorMessage position="absolute">{error && error.message}</FormErrorMessage>
     </FormControl>
-  );
-};
+  )
+}
 
 const InputWrapper: FC<InputP> = ({
   registerReturn,
@@ -65,8 +63,8 @@ const InputWrapper: FC<InputP> = ({
   inputP,
   children,
 }) => {
-  const name = registerReturn.name;
-  const [label, placeholder] = data;
+  const name = registerReturn.name
+  const [label, placeholder] = data
   return (
     <BasicWrapper
       registerReturn={registerReturn}
@@ -78,8 +76,8 @@ const InputWrapper: FC<InputP> = ({
         <Input placeholder={placeholder} {...registerReturn} {...inputP} />
       </InputGroup>
     </BasicWrapper>
-  );
-};
+  )
+}
 
 const SelectWrapper: FC<SelectP> = ({
   registerReturn,
@@ -89,8 +87,8 @@ const SelectWrapper: FC<SelectP> = ({
   isNotRequired = false,
   children,
 }) => {
-  const name = registerReturn.name;
-  const [label, placeholder] = data;
+  const name = registerReturn.name
+  const [label, placeholder] = data
   return (
     <BasicWrapper
       registerReturn={registerReturn}
@@ -98,22 +96,18 @@ const SelectWrapper: FC<SelectP> = ({
       data={data}
       isNotRequired={isNotRequired}
     >
-      <Select
-        placeholder={placeholder}
-        {...registerReturn}
-        className="p-region"
-      >
+      <Select placeholder={placeholder} {...registerReturn} className="p-region">
         {dataList.map((val, i) => {
           return (
             <option key={i} value={val}>
               {val}
             </option>
-          );
+          )
         })}
       </Select>
     </BasicWrapper>
-  );
-};
+  )
+}
 
 const NumberInputWrapper: FC<NumberP> = ({
   registerReturn,
@@ -125,8 +119,8 @@ const NumberInputWrapper: FC<NumberP> = ({
   max,
   children,
 }) => {
-  const name = registerReturn.name;
-  const [label, placeholder] = data;
+  const name = registerReturn.name
+  const [label, placeholder] = data
   return (
     <BasicWrapper
       registerReturn={registerReturn}
@@ -135,14 +129,14 @@ const NumberInputWrapper: FC<NumberP> = ({
       isNotRequired={isNotRequired}
     >
       <NumberInput defaultValue={defaultValue} min={min} max={max}>
-        <NumberInputField />
+        <NumberInputField placeholder={placeholder} {...registerReturn} />
         <NumberInputStepper>
           <NumberIncrementStepper />
           <NumberDecrementStepper />
         </NumberInputStepper>
       </NumberInput>
     </BasicWrapper>
-  );
-};
+  )
+}
 
-export { InputWrapper, SelectWrapper, NumberInputWrapper };
+export { InputWrapper, SelectWrapper, NumberInputWrapper }
