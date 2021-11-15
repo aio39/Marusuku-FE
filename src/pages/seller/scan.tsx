@@ -5,16 +5,12 @@ import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import QrReader from 'react-qr-reader'
 
-const Scan = () => {
-  const Scan = React.useMemo(
-    () =>
-      dynamic(() => import('../../components/shop/Scan'), {
-        loading: () => <p>Qr Scanner is Loading</p>,
-        ssr: false,
-      }),
-    []
-  )
+const Scan = dynamic(() => import('../../components/shop/Scan'), {
+  loading: () => <p>Qr Scanner is Loading</p>,
+  ssr: false,
+})
 
+const ScanPage = () => {
   return (
     <DefaultLayout>
       <Box
@@ -48,4 +44,4 @@ const Scan = () => {
   )
 }
 
-export default Scan
+export default ScanPage

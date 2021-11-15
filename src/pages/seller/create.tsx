@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/button';
+import { Button } from '@chakra-ui/button'
 import {
   Box,
   Divider,
@@ -13,39 +13,41 @@ import {
   useDisclosure,
   useToast,
   VStack,
-} from '@chakra-ui/react';
-import { Map } from 'leaflet';
-import dynamic from 'next/dynamic';
-import React, { useEffect, useState } from 'react';
-import DaumPostcode from 'react-daum-postcode';
-import { Address } from 'react-daum-postcode/lib/loadPostcode';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import {
-  InputWrapper,
-  SelectWrapper,
-} from '../../components/common/inputs/HookInput';
-import DefaultLayout from '../../components/common/layouts/DefaultLayout';
-import { axiosI } from '../../state/fetcher';
+} from '@chakra-ui/react'
+import { Map } from 'leaflet'
+import dynamic from 'next/dynamic'
+import React, { useEffect, useState } from 'react'
+import DaumPostcode from 'react-daum-postcode'
+import { Address } from 'react-daum-postcode/lib/loadPostcode'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { InputWrapper, SelectWrapper } from '../../components/common/inputs/HookInput'
+import DefaultLayout from '../../components/common/layouts/DefaultLayout'
+import { axiosI } from '../../state/fetcher'
 
 interface FormInputs {
-  name: string;
-  zonecode: string;
-  address: string;
-  address2: string;
-  category: string;
-  desc: string;
-  phone: number;
-  homepage: string;
-  lat: number;
-  lng: number;
+  name: string
+  zonecode: string
+  address: string
+  address2: string
+  category: string
+  desc: string
+  phone: number
+  homepage: string
+  lat: number
+  lng: number
 }
 
-const categoryArray = ['식당', '카페', '마트'];
+const categoryArray = ['식당', '카페', '마트']
+
+const Map = dynamic(() => import('../../components/leaflet/mapMini'), {
+  loading: () => <p>A map is loading</p>,
+  ssr: false,
+})
 
 const CreateShop = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [map, setMap] = useState<Map>();
-  const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [map, setMap] = useState<Map>()
+  const toast = useToast()
 
   const {
     handleSubmit,
@@ -56,47 +58,36 @@ const CreateShop = () => {
     formState: { isSubmitting, errors, isValid },
   } = useForm<FormInputs>({
     mode: 'all',
-  });
-
-  const Map = React.useMemo(
-    () =>
-      dynamic(() => import('../../components/leaflet/mapMini'), {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-      }),
-    []
-  );
+  })
 
   const handleComplete = (data: Address) => {
-    setValue('address', data.address, { shouldDirty: true });
-    setValue('zonecode', data.zonecode, { shouldDirty: true });
-    onClose();
+    setValue('address', data.address, { shouldDirty: true })
+    setValue('zonecode', data.zonecode, { shouldDirty: true })
+    onClose()
     axiosI
-      .get<{ lat: number; lng: number }>(
-        `/api/geocode?address=${encodeURIComponent(data.address)}`
-      )
+      .get<{ lat: number; lng: number }>(`/api/geocode?address=${encodeURIComponent(data.address)}`)
       .then((res) => {
-        setValue('lat', res.data.lat, { shouldDirty: true });
-        setValue('lng', res.data.lng, { shouldDirty: true });
-        map?.setView([res.data.lat, res.data.lng], 16);
+        setValue('lat', res.data.lat, { shouldDirty: true })
+        setValue('lng', res.data.lng, { shouldDirty: true })
+        map?.setView([res.data.lat, res.data.lng], 16)
       })
       .catch((err) => {
         // Todo 기능 추가
-        toast({ description: 1000, title: '주소 등록 실패' });
-        console.error(err);
-      });
-  };
+        toast({ description: 1000, title: '주소 등록 실패' })
+        console.error(err)
+      })
+  }
 
   const onSubmit: SubmitHandler<FormInputs> = async (inputData) => {
-    const { data } = await axiosI.post('/api/shops', inputData);
-    console.log(data); // TODO
-  };
+    const { data } = await axiosI.post('/api/shops', inputData)
+    console.log(data) // TODO
+  }
 
   useEffect(() => {
-    register('lat', { required: '' });
-    register('lng', { required: '' });
-    return () => {};
-  }, [register]);
+    register('lat', { required: '' })
+    register('lng', { required: '' })
+    return () => {}
+  }, [register])
 
   return (
     <DefaultLayout>
@@ -211,7 +202,7 @@ const CreateShop = () => {
         </Modal>
       </Box>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default CreateShop;
+export default CreateShop

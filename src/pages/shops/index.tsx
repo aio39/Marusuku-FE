@@ -9,19 +9,16 @@ import ShopCard from '../../components/shop/ShopCard'
 import { useShops } from '../../state/swr/shops/useShops'
 import { NEWS } from '../../types/Shop'
 
+const Map = dynamic(() => import('../../components/leaflet/mapSearch'), {
+  loading: () => <p>A map is loading</p>,
+  ssr: false,
+})
+
 const Page = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [map, setMap] = useState<Map>()
   const [detailId, setDetailId] = useState<number>()
 
-  const Map = React.useMemo(
-    () =>
-      dynamic(() => import('../../components/leaflet/mapSearch'), {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-      }),
-    []
-  )
   const [news, setNews] = useState<NEWS>()
   const { data: shopsData, error, mutate, isValidating } = useShops(news)
 
