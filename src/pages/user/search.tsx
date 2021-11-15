@@ -1,18 +1,18 @@
-import { useColorModeValue } from '@chakra-ui/color-mode';
-import { Box, Container, Flex } from '@chakra-ui/layout';
-import { Spinner } from '@chakra-ui/spinner';
-import { Map } from 'leaflet';
-import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
-import DefaultLayout from '../../components/common/layouts/DefaultLayout';
-import ShopCard from '../../components/shop/ShopCard';
-import { useShops } from '../../state/swr/useShops';
-import { NEWS } from '../../types/Shop';
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { Box, Container, Flex } from '@chakra-ui/layout'
+import { Spinner } from '@chakra-ui/spinner'
+import { Map } from 'leaflet'
+import dynamic from 'next/dynamic'
+import React, { useState } from 'react'
+import DefaultLayout from '../../components/common/layouts/DefaultLayout'
+import ShopCard from '../../components/shop/ShopCard'
+import { useShops } from '../../state/swr/shops/useShops'
+import { NEWS } from '../../types/Shop'
 
 const Page = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [map, setMap] = useState<Map>();
-  const [detailId, setDetailId] = useState<number>();
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [map, setMap] = useState<Map>()
+  const [detailId, setDetailId] = useState<number>()
 
   const Map = React.useMemo(
     () =>
@@ -21,11 +21,11 @@ const Page = () => {
         ssr: false,
       }),
     []
-  );
-  const [news, setNews] = useState<NEWS>();
-  const { data: shopsData, error, mutate, isValidating } = useShops(news);
+  )
+  const [news, setNews] = useState<NEWS>()
+  const { data: shopsData, error, mutate, isValidating } = useShops(news)
 
-  console.log(isModalVisible);
+  console.log(isModalVisible)
   return (
     <DefaultLayout>
       <Flex height="90vh" width="100vw">
@@ -80,15 +80,11 @@ const Page = () => {
             </div>
           )}
 
-          {shopsData ? (
-            shopsData.map((shop) => <ShopCard shop={shop} />)
-          ) : (
-            <Box>No Data</Box>
-          )}
+          {shopsData ? shopsData.map((shop) => <ShopCard shop={shop} />) : <Box>No Data</Box>}
         </Flex>
       </Flex>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

@@ -1,15 +1,18 @@
+import { CommonProps } from './common'
+
 export type Menu = {
-  id: number;
-  name: string;
-  cycle_month: number;
-  limit_day?: number;
-  limit_week?: number;
-  limit_month?: number;
-  limit_year?: number;
-  desc?: string;
-  img?: string;
+  name: string
+  cycle_month: number
+  limit_day?: number
+  limit_week?: number
+  limit_month?: number
+  limit_year?: number
+  price: number
+  vanish: number
+  score?: number
+  desc?: string
+  img?: string
+  shop_id: number
+} & CommonProps
 
-  shop_id: number;
-};
-
-export type MenuInputs = Omit<Menu, 'id' | 'shop_id'>;
+export type MenuInputs = Omit<Menu, 'shop_id' | keyof CommonProps>
