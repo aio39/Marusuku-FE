@@ -2,7 +2,7 @@ import StarRating from '@/components/common/StarRating2'
 import { Menu } from '@/types/Menu'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { StarIcon } from '@chakra-ui/icons'
-import { Flex, Box, HStack, VStack } from '@chakra-ui/layout'
+import { Flex, Box, HStack, VStack, Link } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
 import React, { FC } from 'react'
 
@@ -29,24 +29,26 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           <chakra.h1 color={useColorModeValue('gray.800', 'white')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
-          <chakra.button
-            px={2}
-            py={1}
-            bg="white"
-            fontSize="xs"
-            color="gray.900"
-            fontWeight="bold"
-            rounded="lg"
-            textTransform="uppercase"
-            _hover={{
-              bg: 'gray.200',
-            }}
-            _focus={{
-              bg: 'gray.400',
-            }}
-          >
-            Add to cart
-          </chakra.button>
+          <Link href="">
+            <chakra.button
+              px={2}
+              py={1}
+              bg="white"
+              fontSize="xs"
+              color="gray.900"
+              fontWeight="bold"
+              rounded="lg"
+              textTransform="uppercase"
+              _hover={{
+                bg: 'gray.200',
+              }}
+              _focus={{
+                bg: 'gray.400',
+              }}
+            >
+              상세 보기
+            </chakra.button>
+          </Link>
         </Flex>
       </Box>
       {menu.img && (

@@ -1,7 +1,8 @@
-import { StarIcon } from '@chakra-ui/icons';
-import { Box, chakra, Flex, HStack, useColorModeValue } from '@chakra-ui/react';
-import React, { FC } from 'react';
-import { Shop } from '../../types/Shop';
+import { StarIcon } from '@chakra-ui/icons'
+import { Box, chakra, Flex, HStack, useColorModeValue } from '@chakra-ui/react'
+import Link from 'next/link'
+import React, { FC } from 'react'
+import { Shop } from '../../types/Shop'
 
 const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
   return (
@@ -23,19 +24,11 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
       ></Box>
 
       <Box w={2 / 3} p={{ base: 4, md: 4 }}>
-        <chakra.h1
-          fontSize="2xl"
-          fontWeight="bold"
-          color={useColorModeValue('gray.800', 'white')}
-        >
+        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorModeValue('gray.800', 'white')}>
           {shop.name}
         </chakra.h1>
 
-        <chakra.p
-          mt={2}
-          fontSize="sm"
-          color={useColorModeValue('gray.600', 'gray.400')}
-        >
+        <chakra.p mt={2} fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
           {shop.desc}
         </chakra.p>
 
@@ -51,28 +44,30 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
           <chakra.h1 color="white" fontWeight="bold" fontSize="lg">
             $220
           </chakra.h1>
-          <chakra.button
-            px={2}
-            py={1}
-            bg="white"
-            fontSize="xs"
-            color="gray.900"
-            fontWeight="bold"
-            rounded="lg"
-            textTransform="uppercase"
-            _hover={{
-              bg: 'gray.200',
-            }}
-            _focus={{
-              bg: 'gray.400',
-            }}
-          >
-            상세보기
-          </chakra.button>
+          <Link href={'shops/' + shop.id}>
+            <chakra.button
+              px={2}
+              py={1}
+              bg="white"
+              fontSize="xs"
+              color="gray.900"
+              fontWeight="bold"
+              rounded="lg"
+              textTransform="uppercase"
+              _hover={{
+                bg: 'gray.200',
+              }}
+              _focus={{
+                bg: 'gray.400',
+              }}
+            >
+              상세보기
+            </chakra.button>
+          </Link>
         </Flex>
       </Box>
     </Flex>
-  );
-};
+  )
+}
 
-export default ShopCard;
+export default ShopCard

@@ -14,6 +14,7 @@ export type Shop = {
   score_total: number
   updated_at: string
   create_at: string
+  img?: string
   lat: number
   lng: number
   address: string

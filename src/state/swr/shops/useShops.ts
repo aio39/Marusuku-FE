@@ -39,7 +39,6 @@ const useShops = (news?: NEWS) => {
       use: [laggy],
     }
   )
-  const { data, error } = swrResponses
   return swrResponses
 }
 
@@ -47,4 +46,8 @@ const useMyShop = () => {
   return useSWRImmutable<Shop>(URL_SHOP, fetcher)
 }
 
-export { useShops, useMyShop }
+const useShop = (id: number) => {
+  return useSWRImmutable<Shop>(id ? `${URL_SHOP}/${id}` : null, fetcher)
+}
+
+export { useShops, useMyShop, useShop }
