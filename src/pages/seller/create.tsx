@@ -39,7 +39,7 @@ interface FormInputs {
 
 const categoryArray = ['식당', '카페', '마트']
 
-const Map = dynamic(() => import('../../components/leaflet/mapMini'), {
+const MapMini = dynamic(() => import('../../components/leaflet/map'), {
   loading: () => <p>A map is loading</p>,
   ssr: false,
 })
@@ -115,7 +115,7 @@ const CreateShop = () => {
 
             <Divider />
             <Box w="100%">
-              <Map setMap={setMap} />
+              <MapMini setMap={setMap} />
               <Button onClick={onOpen}>주소 찾기</Button>
             </Box>
             <InputWrapper

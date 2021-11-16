@@ -1,6 +1,8 @@
 import { Box } from '@chakra-ui/layout'
 import { LatLngBounds, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+// import styles from './cluster.css'
+import MarkerClusterGroup from './MarkerClusterGroup'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import {
   MapConsumer,
@@ -96,6 +98,7 @@ const MapSearch: FC<MapP> = ({
   //  TODO 임시 0 0
   return (
     <MapContainer
+      className="markercluster-map"
       center={position ? [position.latitude, position.longitude] : [37.5, 126.9]}
       zoom={13}
       scrollWheelZoom={true}
@@ -128,12 +131,14 @@ const MapSearch: FC<MapP> = ({
           return null
         }}
       </MapConsumer>
-      <Markers
-        markerData={markerData}
-        setNews={setNews}
-        setDetailId={setDetailId}
-        setIsModalVisible={setIsShowDetail}
-      />
+      <MarkerClusterGroup>
+        <Markers
+          markerData={markerData}
+          setNews={setNews}
+          setDetailId={setDetailId}
+          setIsModalVisible={setIsShowDetail}
+        />
+      </MarkerClusterGroup>
     </MapContainer>
   )
 }

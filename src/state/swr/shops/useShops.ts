@@ -12,6 +12,7 @@ const fetcher = (url: string, ...rest: number[]) => {
     l: rest[1],
     r: rest[2],
     t: rest[3],
+    take: rest[4] ?? 50,
   }
   return axiosI
     .get(url, { params: news })
@@ -24,14 +25,14 @@ const fetcher = (url: string, ...rest: number[]) => {
     })
 }
 
-const useShops = (news?: NEWS) => {
+const useShops = (news?: NEWS, take?: number) => {
   const swrResponses = useSWR<Shop[]>(
     () => {
       if (!news) {
         return null
       } else {
         const { b, l, r, t } = news
-        return [URL_SHOP + '/find', b, l, r, t]
+        return [URL_SHOP + '/find', b, l, r, t, take]
       }
     },
     fetcher,

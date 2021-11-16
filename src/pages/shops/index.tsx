@@ -30,7 +30,7 @@ const Page = () => {
   const [maxMove, setMaxMove] = useState(300)
 
   const [news, setNews] = useState<NEWS>()
-  const { data: shopsData, error, mutate, isValidating } = useShops(news)
+  const { data: shopsData, error, mutate, isValidating } = useShops(news, 200)
 
   const onDrag: DraggableEventHandler = (event, data) => {
     console.log('drag')
@@ -59,6 +59,10 @@ const Page = () => {
 
   return (
     <DefaultLayout FlexProps={{ overflow: 'hidden', height: '100vh' }}>
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/react-leaflet-markercluster/dist/styles.min.css"
+      />
       <Flex minH="90vh" width="100vw">
         {isValidating && (
           <Spinner
