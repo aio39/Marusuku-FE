@@ -23,7 +23,7 @@ import L from 'leaflet'
 type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>
   setNews: Dispatch<SetStateAction<NEWS | undefined>>
-  setIsModalVisible: Dispatch<SetStateAction<boolean>>
+  setIsShowDetail: Dispatch<SetStateAction<boolean>>
   setDetailId: Dispatch<SetStateAction<number | undefined>>
   markerData: Shop[] | undefined
 }
@@ -52,7 +52,12 @@ const CenterMarker = () => {
   )
 }
 
-const Markers = ({ markerData, setNews, setDetailId, setIsModalVisible }: MarkersP) => {
+const Markers = ({
+  markerData,
+  setNews,
+  setDetailId,
+  setIsShowDetail: setIsModalVisible,
+}: MarkersP) => {
   const map = useMapEvents({
     moveend() {
       const data = boundsToNews(map.getBounds())
@@ -93,19 +98,17 @@ const PopoverList = (shops: Shop[]) => {
   return (
     <VStack>
       {shops.map((shop) => {
-        return <div>{shop.name}</div>
+        return (
+          <div className="popover-list" data-id={shop.id}>
+            {shop.name}
+          </div>
+        )
       })}
     </VStack>
   )
 }
 
-const MapSearch: FC<MapP> = ({
-  setMap,
-  setNews,
-  markerData,
-  setDetailId,
-  setIsModalVisible: setIsShowDetail,
-}) => {
+const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsShowDetail }) => {
   const { position, error } = usePosition()
 
   //  TODO 임시 0 0
@@ -163,8 +166,22 @@ const MapSearch: FC<MapP> = ({
           for (const marker of markers) {
             data.push(marker.options.options)
           }
-          const popupHTML = PopoverList(data)
-          cluster.bindPopup(renderToString(popupHTML))
+          const popupComponent = PopoverList(data)
+
+          const a = L.DomUtil.create('div')
+          a.innerHTML = renderToString(popupComponent)
+          a.addEventListener('click', ({ target }) => {
+            if (target instanceof HTMLElement) {
+              if ((target.className = 'popover-list')) {
+                setIsShowDetail(() => true)
+                setDetailId(parseInt(target.dataset.id as string))
+              }
+            }
+          })
+
+          cluster.bindPopup(a).on('click', (e) => {
+            // console.log('팝업 클릭', e)
+          })
           // console.log(cluster)
           const html = '<span class="my-cluster-child">' + markers.length + '</span>'
           return L.divIcon({ html: html, className: 'my-cluster', iconSize: L.point(32, 32) })
@@ -174,7 +191,7 @@ const MapSearch: FC<MapP> = ({
           markerData={markerData}
           setNews={setNews}
           setDetailId={setDetailId}
-          setIsModalVisible={setIsShowDetail}
+          setIsShowDetail={setIsShowDetail}
         />
       </MarkerClusterGroup>
     </MapContainer>

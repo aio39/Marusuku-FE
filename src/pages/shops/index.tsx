@@ -87,7 +87,7 @@ const Page = () => {
               setMap={setMap}
               setNews={setNews}
               markerData={shopsData}
-              setIsModalVisible={setIsModalVisible}
+              setIsShowDetail={setIsModalVisible}
               setDetailId={setDetailId}
             />
           )}
