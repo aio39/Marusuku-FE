@@ -81,7 +81,7 @@ const Page = () => {
           />
         )}
 
-        <Container p="0">
+        <Container p="0" sx={{ circle: { backgroundColor: 'red' } }}>
           {typeof window !== 'undefined' && (
             <MapSearch
               setMap={setMap}

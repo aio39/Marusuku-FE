@@ -1,6 +1,7 @@
-import { Box } from '@chakra-ui/layout'
+import { Box, VStack } from '@chakra-ui/layout'
 import { LatLngBounds, LeafletMouseEvent, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import { renderToString } from 'react-dom/server'
 // import styles from './cluster.css'
 import MarkerClusterGroup from './MarkerClusterGroup'
 import React, { Dispatch, FC, SetStateAction } from 'react'
@@ -69,6 +70,7 @@ const Markers = ({ markerData, setNews, setDetailId, setIsModalVisible }: Marker
           key={shop.id}
           position={[shop.location.coordinates[1], shop.location.coordinates[0]]}
           icon={DefaultIcon}
+          options={shop}
         >
           <Tooltip permanent direction="top" offset={[0, 20]} opacity={1} interactive>
             {/* <ToolTipDiv /> */}
@@ -85,6 +87,16 @@ const Markers = ({ markerData, setNews, setDetailId, setIsModalVisible }: Marker
       ))}
     </React.Fragment>
   ) : null
+}
+
+const PopoverList = (shops: Shop[]) => {
+  return (
+    <VStack>
+      {shops.map((shop) => {
+        return <div>{shop.name}</div>
+      })}
+    </VStack>
+  )
 }
 
 const MapSearch: FC<MapP> = ({
@@ -134,21 +146,29 @@ const MapSearch: FC<MapP> = ({
       </MapConsumer>
       <MarkerClusterGroup
         showCoverageOnHover={false}
-        zoomToBoundsOnClick={true}
+        zoomToBoundsOnClick={false}
+        spiderfyOnMaxZoom={false}
         animate={false}
         maxClusterRadius={30} //! 묶어주는 픽셀 범위
         onClick={(e) => {
           console.log('클러스터 클릭')
         }}
-        onMouseOver={(e: LeafletMouseEvent) => {
-          e.propagatedFrom.bindTooltip(`Markers: aaaa`).openTooltip()
-          console.log(e)
-        }}
-        // iconCreateFunction={(cluster) => {
-        //   const markers = cluster.getAllChildMarkers()
-        //   const html = '<div class="circle">' + markers.length + '</div>'
-        //   return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(32, 32) })
+        // onMouseOver={(e: LeafletMouseEvent) => {
+        //   e.propagatedFrom.bindTooltip(`Markers: aaaa`).openTooltip()
+        //   console.log(e)
         // }}
+        iconCreateFunction={(cluster) => {
+          const markers = cluster.getAllChildMarkers()
+          const data = []
+          for (const marker of markers) {
+            data.push(marker.options.options)
+          }
+          const popupHTML = PopoverList(data)
+          cluster.bindPopup(renderToString(popupHTML))
+          // console.log(cluster)
+          const html = '<span class="my-cluster-child">' + markers.length + '</span>'
+          return L.divIcon({ html: html, className: 'my-cluster', iconSize: L.point(32, 32) })
+        }}
       >
         <Markers
           markerData={markerData}

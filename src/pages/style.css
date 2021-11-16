@@ -1,0 +1,15 @@
+.my-cluster {
+  background-color: #39c5bb;
+  border: 2px solid white;
+  border-radius: 50%; /* one half of ( (border * 2) + height + padding ) */
+  color: white;
+  font: bold;
+  height: 16px;
+  min-width: 14px;
+  padding: 6px 3px 0 3px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.my-cluster-child {
+}
