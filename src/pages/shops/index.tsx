@@ -117,7 +117,7 @@ const Page = () => {
         </Flex> */}
       </Flex>
       <ShopCardMini id={detailId} />
-      <Box position="relative" w="100vw">
+      <Box position="relative" w="100vw" h="0">
         <Draggable
           position={controlledPosition}
           onDrag={onDrag}
@@ -127,17 +127,16 @@ const Page = () => {
         >
           <Box
             position="absolute"
+            roundedTop="2xl"
+            bg="white"
             w="100vw"
             left="0"
             right="0"
             top={-30}
             minH="90vh"
             // sx={{ transform: `translate3d(0px,-${HandleHeight}, 0px)` }}
-            bg="white"
-            // opacity={0.7}
           >
             <Center
-              bg="white"
               height={HandleHeight}
               _before={{
                 display: 'block',

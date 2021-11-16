@@ -3,7 +3,7 @@ import { StarIcon } from '@chakra-ui/icons'
 import { HStack } from '@chakra-ui/layout'
 import React, { FC, memo } from 'react'
 
-const StarRating: FC<{ score: number }> = ({ score }) => {
+const StarRating: FC<{ score: number }> = ({ score = 0 }) => {
   const totalStar = 5
   const fullFillStar = score
   const emptyStar = totalStar - fullFillStar
