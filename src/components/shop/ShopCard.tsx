@@ -14,6 +14,7 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
       rounded="lg"
       overflow="hidden"
       mb="4"
+      minH="40"
     >
       <Box
         w={1 / 3}

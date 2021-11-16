@@ -1,14 +1,15 @@
-import React, { FC } from 'react';
-import { Container } from './Container';
-import Navigation from './Navigation';
+import { FlexProps } from '@chakra-ui/layout'
+import React, { FC } from 'react'
+import { Container } from './Container'
+import Navigation from './Navigation'
 
-const DefaultLayout: FC = ({ children }) => {
+const DefaultLayout: FC<{ FlexProps?: FlexProps }> = ({ FlexProps, children }) => {
   return (
-    <Container>
+    <Container {...FlexProps}>
       <Navigation />
       {children}
     </Container>
-  );
-};
+  )
+}
 
-export default DefaultLayout;
+export default DefaultLayout
