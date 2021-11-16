@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/layout'
 import { LatLngBounds, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import React, { Dispatch, FC, SetStateAction } from 'react'
@@ -53,6 +54,9 @@ const Markers = ({ markerData, setNews, setDetailId, setIsModalVisible }: Marker
       const data = boundsToNews(map.getBounds())
       setNews(data)
     },
+    click() {
+      setDetailId(undefined)
+    },
   })
 
   return markerData ? (
@@ -94,7 +98,8 @@ const MapSearch: FC<MapP> = ({
     <MapContainer
       center={position ? [position.latitude, position.longitude] : [37.5, 126.9]}
       zoom={13}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
+      zoomControl={false}
       style={{ height: '100%', minHeight: 400, width: '100%', zIndex: 0 }}
       whenCreated={(map) => {
         console.info('Map Created')

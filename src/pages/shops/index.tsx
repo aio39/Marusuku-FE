@@ -9,6 +9,7 @@ import ShopCard from '../../components/shop/ShopCard'
 import { useShops } from '../../state/swr/shops/useShops'
 import { NEWS } from '../../types/Shop'
 import Draggable, { DraggableEventHandler } from 'react-draggable'
+import ShopCardMini from '@/components/shop/ShopCardMini'
 
 const MapSearch = React.memo(
   dynamic(() => import('../../components/leaflet/mapSearch'), {
@@ -115,6 +116,7 @@ const Page = () => {
           {shopsData ? shopsData.map((shop) => <ShopCard shop={shop} />) : <Box>No Data</Box>}
         </Flex> */}
       </Flex>
+      <ShopCardMini id={detailId} />
       <Box position="relative" w="100vw">
         <Draggable
           position={controlledPosition}

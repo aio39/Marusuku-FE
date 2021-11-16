@@ -46,7 +46,7 @@ const useMyShop = () => {
   return useSWRImmutable<Shop>(URL_SHOP, fetcher)
 }
 
-const useShop = (id: number) => {
+const useShop = (id?: number) => {
   return useSWRImmutable<Shop>(id ? `${URL_SHOP}/${id}` : null, fetcher)
 }
 
