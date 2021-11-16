@@ -12,8 +12,8 @@ const StarRating: FC<{ score: number }> = ({ score = 0 }) => {
 
   for (let i = 1; i <= totalStar; i++) {
     i <= fullFillStar
-      ? Star.push(<StarIcon color={useColorModeValue('gray.700', 'gray.300')} />)
-      : Star.push(<StarIcon color="gray.500" />)
+      ? Star.push(<StarIcon key={i} color={useColorModeValue('gray.700', 'gray.300')} />)
+      : Star.push(<StarIcon key={i} color="gray.500" />)
   }
 
   return (

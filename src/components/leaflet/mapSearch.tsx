@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/layout'
-import { LatLngBounds, Map } from 'leaflet'
+import { LatLngBounds, LeafletMouseEvent, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 // import styles from './cluster.css'
 import MarkerClusterGroup from './MarkerClusterGroup'
@@ -17,6 +17,7 @@ import {
 import { usePosition } from '../../state/hooks/usePosition'
 import { NEWS, Shop } from '../../types/Shop'
 import { DefaultIcon } from './CommonParts'
+import L from 'leaflet'
 
 type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>
@@ -131,7 +132,24 @@ const MapSearch: FC<MapP> = ({
           return null
         }}
       </MapConsumer>
-      <MarkerClusterGroup>
+      <MarkerClusterGroup
+        showCoverageOnHover={false}
+        zoomToBoundsOnClick={true}
+        animate={false}
+        maxClusterRadius={30} //! 묶어주는 픽셀 범위
+        onClick={(e) => {
+          console.log('클러스터 클릭')
+        }}
+        onMouseOver={(e: LeafletMouseEvent) => {
+          e.propagatedFrom.bindTooltip(`Markers: aaaa`).openTooltip()
+          console.log(e)
+        }}
+        // iconCreateFunction={(cluster) => {
+        //   const markers = cluster.getAllChildMarkers()
+        //   const html = '<div class="circle">' + markers.length + '</div>'
+        //   return L.divIcon({ html: html, className: 'mycluster', iconSize: L.point(32, 32) })
+        // }}
+      >
         <Markers
           markerData={markerData}
           setNews={setNews}
