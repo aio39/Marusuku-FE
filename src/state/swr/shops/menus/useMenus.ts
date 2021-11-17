@@ -27,6 +27,7 @@ type makePaginationURLParams = {
 
 type uesMenusP = {
   shop_id?: number
+  menu_id?: number
 } & Pagination_Query
 
 const makePaginationURL = ({ prefix, page, perPage }: makePaginationURLParams) => {
@@ -48,4 +49,15 @@ const useMenus = ({ shop_id, page, perPage }: uesMenusP) => {
   return swrResponses
 }
 
-export { useMenus }
+const useMenu = ({ shop_id, menu_id }: uesMenusP) => {
+  const swrResponses = useSWR<Menu>(
+    shop_id && menu_id ? makeMenusURL(shop_id, menu_id) : null,
+    fetcher,
+    {
+      use: [laggy],
+    }
+  )
+  return swrResponses
+}
+
+export { useMenus, useMenu }

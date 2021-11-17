@@ -4,9 +4,12 @@ import { useColorModeValue } from '@chakra-ui/color-mode'
 import { StarIcon } from '@chakra-ui/icons'
 import { Flex, Box, HStack, VStack, Link } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
+import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
 const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
+  const router = useRouter()
+
   return (
     <Flex
       maxW="md"
@@ -29,7 +32,7 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           <chakra.h1 color={useColorModeValue('gray.800', 'white')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
-          <Link href="">
+          <Link href={`/shops/${router.query.shop_id}/menus/${menu.id}`}>
             <chakra.button
               px={2}
               py={1}
