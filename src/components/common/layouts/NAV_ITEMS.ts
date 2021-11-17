@@ -1,8 +1,8 @@
 export interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
+  label: string
+  subLabel?: string
+  children?: Array<NavItem>
+  href?: string
 }
 
 export const NAV_ITEMS: Array<NavItem> = [
@@ -39,18 +39,23 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: '구매자',
     children: [
       {
+        label: '유저 정보',
+        subLabel: '유저 정보',
+        href: '/user',
+      },
+      {
         label: '가게검색',
-        subLabel: 'Find your dream design job',
+        subLabel: '가게 검색',
         href: '/user/search',
       },
       {
         label: '셋팅',
-        subLabel: 'An exclusive list for contract work',
+        subLabel: '셋팅',
         href: '/user/setting',
       },
       {
         label: 'QR코드 생성',
-        subLabel: 'An exclusive list for contract work',
+        subLabel: 'QR코드 생성',
         href: '/user/qrcode',
       },
     ],
@@ -59,4 +64,4 @@ export const NAV_ITEMS: Array<NavItem> = [
     label: '테스트 메뉴',
     href: '/test',
   },
-];
+]

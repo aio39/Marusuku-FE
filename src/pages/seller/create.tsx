@@ -39,7 +39,7 @@ interface FormInputs {
 
 const categoryArray = ['식당', '카페', '마트']
 
-const MapMini = dynamic(() => import('../../components/leaflet/map'), {
+const MapMini = dynamic(() => import('../../components/leaflet/mapMini'), {
   loading: () => <p>A map is loading</p>,
   ssr: false,
 })
