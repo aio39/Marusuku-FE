@@ -1,6 +1,7 @@
 import { ColorModeScript } from '@chakra-ui/color-mode'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import * as React from 'react'
+import { SWRDevTools } from 'swr-devtools'
 export default class AppDocument extends Document {
   // static async getInitialProps(ctx: any) {
   //   const page = await ctx.renderPage();
@@ -30,8 +31,10 @@ export default class AppDocument extends Document {
           /> */}
         </Head>
         <body>
-          <ColorModeScript />
-          <Main />
+          <SWRDevTools>
+            <ColorModeScript />
+            <Main />
+          </SWRDevTools>
           <NextScript />
         </body>
       </Html>
