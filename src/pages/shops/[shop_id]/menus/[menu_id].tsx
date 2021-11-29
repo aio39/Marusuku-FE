@@ -1,6 +1,6 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import { axiosI } from '@/state/fetcher'
-import { useMenu } from '@/state/swr/shops/menus/useMenus'
+import { useMenu } from '@/state/swr/menus/useMenus'
 import { useUser } from '@/state/swr/useUser'
 import { Subscribe } from '@/types/Subscribe'
 import { Button } from '@chakra-ui/button'
@@ -12,10 +12,7 @@ import { MouseEventHandler } from 'react'
 const Menu = () => {
   const router = useRouter()
   const { shop_id, menu_id } = router.query
-  const { data: ShopData } = useMenu({
-    shop_id: parseInt(shop_id as string),
-    menu_id: parseInt(menu_id as string),
-  })
+  const { data: ShopData } = useMenu(parseInt(menu_id as string))
   const { data: userData } = useUser()
   console.log(ShopData)
   const toast = useToast()

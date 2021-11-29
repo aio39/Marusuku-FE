@@ -1,7 +1,7 @@
 import Rating from '@/components/common/StarRating'
 import MenuList from '@/components/shop/menu/MenuList'
 import MenuCard from '@/components/shop/menu/MenuList'
-import { useMenus } from '@/state/swr/shops/menus/useMenus'
+import { useMenus } from '@/state/swr/menus/useMenus'
 import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Box, Text, VStack } from '@chakra-ui/layout'
 import React from 'react'

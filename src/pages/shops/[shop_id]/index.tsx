@@ -1,6 +1,6 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import MenuList from '@/components/shop/menu/MenuList'
-import { useMenus } from '@/state/swr/shops/menus/useMenus'
+import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'
 import { Shop } from '@/types/Shop'
 import { Image } from '@chakra-ui/image'
@@ -13,7 +13,8 @@ const ShopDetailPage = () => {
   const router = useRouter()
   const [tabIndex, setTabIndex] = useState(0)
   const { data: shopData } = useShop(parseInt(router.query.shop_id as string))
-  const { data: menusData } = useMenus({ shop_id: shopData?.id })
+  const { data } = useMenus({ filter: [['shop_id', router.query.shop_id as string]] })
+  const menusData = data?.data
 
   const MAX_INDEX = 2
   const handlers = useSwipeable({
@@ -80,7 +81,7 @@ const ShopDetailPage = () => {
 
         <TabPanels>
           <TabPanel>
-            {menusData ? <MenuList menus={menusData.data}></MenuList> : <div>'loading</div>}
+            {menusData ? <MenuList menus={menusData}></MenuList> : <div>'loading</div>}
           </TabPanel>
           <TabPanel>
             <p>two!</p>

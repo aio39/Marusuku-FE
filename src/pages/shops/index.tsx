@@ -30,8 +30,8 @@ const Page = () => {
   const [maxMove, setMaxMove] = useState(300)
 
   const [news, setNews] = useState<NEWS>()
-  const { data: shopsData, error, mutate, isValidating } = useShops(news, 200)
-
+  const { data, error, mutate, isValidating } = useShops({ per_page: 200 }, news)
+  const shopsData = data?.data
   const onDrag: DraggableEventHandler = (event, data) => {
     console.log('drag')
     event.preventDefault()

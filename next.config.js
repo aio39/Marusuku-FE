@@ -5,6 +5,9 @@ const nextConfig = {
   env: {
     PORT: '3939',
   },
+  experimental: {
+    concurrentFeatures: true,
+  },
   // experimental: {
   //   async rewrites() {
   //     return [
@@ -23,6 +26,6 @@ const nextConfig = {
   //     ];
   //   },
   // },
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig
