@@ -12,7 +12,7 @@ import Draggable, { DraggableEventHandler } from 'react-draggable'
 
 const MapSearch = React.memo(
   dynamic(() => import('../../components/leaflet/mapSearch'), {
-    loading: () => <p>A map is loading</p>,
+    loading: () => <div>A map is loading</div>,
     ssr: false,
   })
 )
@@ -124,7 +124,11 @@ const Page = () => {
               </Text>
             </Center>
             <VStack overflowY="scroll" w="full" maxH={maxMove}>
-              {shopsData ? shopsData.map((shop) => <ShopCard shop={shop} />) : <Box>No Data</Box>}
+              {shopsData ? (
+                shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)
+              ) : (
+                <Box>No Data</Box>
+              )}
             </VStack>
           </Box>
         </Draggable>

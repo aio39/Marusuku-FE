@@ -62,7 +62,7 @@ const MobileLayout: FC = () => {
       backgroundColor={useColorStore('surface')}
     >
       {menuList.map((data) => (
-        <MobileMenuButton {...data} selected={data.url === (topPath || '/')} />
+        <MobileMenuButton key={data.url} {...data} selected={data.url === (topPath || '/')} />
       ))}
     </HStack>
   )
