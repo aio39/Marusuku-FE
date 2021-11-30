@@ -1,3 +1,4 @@
+import useColorStore from '@/state/hooks/useColorStore'
 import { Box, BoxProps, Center, HStack, Text } from '@chakra-ui/layout'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -28,7 +29,7 @@ const MobileMenuButton: FC<MenuProps & { selected?: boolean }> = ({ url, svg, se
             h="3rem"
             borderRadius="1"
             opacity="0.1"
-            bgColor="#39c5bb"
+            bgColor={useColorStore('primary')}
             initial={{ backgroundColor: '#39c5bb', opacity: '0.1' }}
             animate={{}}
             transition={{ type: 'spring', stiffness: '50' }}
@@ -48,7 +49,6 @@ const MobileLayout: FC = () => {
   ]
   const router = useRouter()
   const topPath = router.pathname.split('/')[1] as string | undefined
-  console.log()
 
   return (
     <HStack
@@ -59,6 +59,7 @@ const MobileLayout: FC = () => {
       bottom="0"
       borderTop="2px"
       justifyContent="space-around"
+      backgroundColor={useColorStore('surface')}
     >
       {menuList.map((data) => (
         <MobileMenuButton {...data} selected={data.url === (topPath || '/')} />
