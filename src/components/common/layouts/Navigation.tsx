@@ -8,7 +8,11 @@ import {
   IconButton,
   Link,
   Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
   PopoverContent,
+  PopoverHeader,
   PopoverTrigger,
   Spinner,
   Stack,
@@ -142,33 +146,37 @@ const DesktopNav = () => {
     <Stack direction={'row'} spacing={4}>
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
-          <Popover trigger={'hover'} placement={'bottom-start'}>
+          <Popover trigger="hover" placement="bottom-start">
             <PopoverTrigger>
-              <NextLink href={navItem.href ?? '#'} passHref>
-                <Link
-                  p={2}
-                  fontSize={'sm'}
-                  fontWeight={500}
-                  color={linkColor}
-                  _hover={{
-                    textDecoration: 'none',
-                    color: linkHoverColor,
-                  }}
-                >
-                  {navItem.label}
-                </Link>
-              </NextLink>
+              <div>
+                <NextLink href={navItem.href ?? '#'} passHref>
+                  <Link
+                    p={2}
+                    fontSize={'sm'}
+                    fontWeight={500}
+                    color={linkColor}
+                    width="full"
+                    height="full"
+                    _hover={{
+                      textDecoration: 'none',
+                      color: linkHoverColor,
+                    }}
+                  >
+                    {navItem.label}
+                  </Link>
+                </NextLink>
+              </div>
             </PopoverTrigger>
 
             {navItem.children && (
               <PopoverContent
-                zIndex="banner"
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
+                zIndex="10000"
+                // border={0}
+                // boxShadow={'xl'}
+                // bg={popoverContentBgColor}
+                // p={4}
+                // rounded={'xl'}
+                // minW={'sm'}
               >
                 <Stack>
                   {navItem.children.map((child) => (
