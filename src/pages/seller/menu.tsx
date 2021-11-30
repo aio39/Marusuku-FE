@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button'
 import { Box, Divider, useColorModeValue, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { InputWrapper, NumberInputWrapper } from '../../components/common/inputs/HookInput'
 import DefaultLayout from '../../components/common/layouts/DefaultLayout'
@@ -10,6 +10,8 @@ import { Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useUser } from '@/state/swr/useUser'
 import ModalWrapper from '@/components/common/ModalWrapper'
+import ImageUpload from '@/components/common/inputs/ImageUpload'
+import { FilePond } from 'react-filepond'
 
 export default function Home() {
   const {
@@ -24,10 +26,27 @@ export default function Home() {
   })
   const { data: userData } = useUser()
   const [createdMenu, setCreatedMenu] = useState<Menu>()
+  const imageUploadRef = useRef<FilePond>(null)
   const useDisclosureReturn = useDisclosure()
 
   const onSubmit: SubmitHandler<MenuInputs> = async (inputData) => {
-    const { data } = await axiosI.post<Menu>(`/api/shops/${userData?.shop?.id}/menus`, inputData)
+    const formData = new FormData()
+    Object.entries(inputData).forEach(([key, value]) => {
+      if (typeof value === 'number') value = value.toString()
+      formData.set(key, value)
+    })
+    formData.set('shop_id', (userData?.shop?.id as number).toString())
+
+    const image = imageUploadRef.current?.getFile()
+    if (image) {
+      formData.set('image', image.file)
+    }
+
+    const { data } = await axiosI.post<Menu>(`/api/menus`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
     if (data) {
       setCreatedMenu(data)
       useDisclosureReturn.onOpen()
@@ -37,7 +56,7 @@ export default function Home() {
   console.info(errors)
   console.info(isValid)
   console.log(watch())
-
+  console.log(userData)
   return (
     <DefaultLayout>
       <Box
@@ -49,6 +68,14 @@ export default function Home() {
         p="4"
         bg={useColorModeValue('white', 'gray.800')}
       >
+        <Button
+          onClick={() => {
+            console.log(imageUploadRef.current?.getFile())
+          }}
+        >
+          test
+        </Button>
+        <ImageUpload ref={imageUploadRef}></ImageUpload>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <VStack spacing="10">
             <InputWrapper

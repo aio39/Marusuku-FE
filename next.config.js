@@ -4,10 +4,11 @@
 const nextConfig = {
   env: {
     PORT: '3939',
+    AWS_S3: 'https://marusuku.s3.ap-northeast-2.amazonaws.com/',
   },
-  experimental: {
-    concurrentFeatures: true,
-  },
+  // experimental: {
+  //   // concurrentFeatures: true,
+  // },
   // experimental: {
   //   async rewrites() {
   //     return [

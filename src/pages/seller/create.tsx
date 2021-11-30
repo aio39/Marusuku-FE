@@ -1,3 +1,4 @@
+import ImageUpload from '@/components/common/inputs/ImageUpload'
 import { usePosition } from '@/state/hooks/usePosition'
 import { Button } from '@chakra-ui/button'
 import {
@@ -17,9 +18,10 @@ import {
 } from '@chakra-ui/react'
 import { LatLng, Map } from 'leaflet'
 import dynamic from 'next/dynamic'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import DaumPostcode from 'react-daum-postcode'
 import { Address } from 'react-daum-postcode/lib/loadPostcode'
+import { FilePond } from 'react-filepond'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { InputWrapper, SelectWrapper } from '../../components/common/inputs/HookInput'
 import DefaultLayout from '../../components/common/layouts/DefaultLayout'
@@ -51,6 +53,7 @@ const CreateShop = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { position: gpsPosition } = usePosition()
   const [map, setMap] = useState<Map>()
+  const imageUploadRef = useRef<FilePond>(null)
   const toast = useToast()
 
   const {
@@ -112,6 +115,8 @@ const CreateShop = () => {
         bg={useColorModeValue('white', 'gray.800')}
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <ImageUpload ref={imageUploadRef}></ImageUpload>
+
           <VStack spacing="10">
             <InputWrapper
               registerReturn={register('name')}
