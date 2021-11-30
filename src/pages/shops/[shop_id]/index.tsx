@@ -2,13 +2,13 @@ import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import MenuList from '@/components/shop/menu/MenuList'
 import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'
-import { Shop } from '@/types/Shop'
 import { Image } from '@chakra-ui/image'
-import { AspectRatio, Box, Center, Text, VStack } from '@chakra-ui/layout'
-import { Tabs, TabList, Tab, TabPanels, TabPanel, UseTabsProps } from '@chakra-ui/tabs'
+import { AspectRatio, Center, Text, VStack } from '@chakra-ui/layout'
+import { Tab, TabList, TabPanel, TabPanels, Tabs, UseTabsProps } from '@chakra-ui/tabs'
 import { useRouter } from 'next/router'
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
+
 const ShopDetailPage = () => {
   const router = useRouter()
   const [tabIndex, setTabIndex] = useState(0)

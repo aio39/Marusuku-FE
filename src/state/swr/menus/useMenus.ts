@@ -1,10 +1,7 @@
+import { fetcher } from '@/state/fetcher'
 import { CommonFSW, Pagination } from '@/types/common'
-import { CommonProps } from '@/types/common'
 import { Menu } from '@/types/Menu'
 import useSWR from 'swr'
-import useSWRImmutable from 'swr/immutable'
-import { NEWS, Shop } from '../../../types/Shop'
-import { axiosI, fetcher } from '../../fetcher'
 import { createFSWQueryString } from '../createQueryString'
 import laggy from '../middleware/laggy'
 

@@ -1,15 +1,14 @@
-import { useColorModeValue } from '@chakra-ui/color-mode'
+import DefaultLayout from '@/components/common/layouts/DefaultLayout'
+import ShopCard from '@/components/shop/ShopCard'
+import ShopCardMini from '@/components/shop/ShopCardMini'
+import { useShops } from '@/state/swr/shops/useShops'
+import { NEWS } from '@/types/Shop'
 import { Box, Center, Container, Flex, Text, VStack } from '@chakra-ui/layout'
 import { Spinner } from '@chakra-ui/spinner'
 import { Map } from 'leaflet'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
-import DefaultLayout from '../../components/common/layouts/DefaultLayout'
-import ShopCard from '../../components/shop/ShopCard'
-import { useShops } from '../../state/swr/shops/useShops'
-import { NEWS } from '../../types/Shop'
 import Draggable, { DraggableEventHandler } from 'react-draggable'
-import ShopCardMini from '@/components/shop/ShopCardMini'
 
 const MapSearch = React.memo(
   dynamic(() => import('../../components/leaflet/mapSearch'), {
@@ -92,33 +91,6 @@ const Page = () => {
             />
           )}
         </Container>
-        {/* <Flex
-          bg={useColorModeValue('#F9FAFB', 'gray.600')}
-          p={4}
-          w="full"
-          h="max"
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          overflow="scroll"
-        >
-          {isModalVisible && (
-            <div
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100vh',
-                zIndex: 100,
-                backgroundColor: 'gray',
-              }}
-            >
-              <button onClick={() => setIsModalVisible(false)}>X</button>
-              {detailId}
-            </div>
-          )}
-
-          {shopsData ? shopsData.map((shop) => <ShopCard shop={shop} />) : <Box>No Data</Box>}
-        </Flex> */}
       </Flex>
       <ShopCardMini id={detailId} />
       <Box position="relative" w="100vw" h="0">

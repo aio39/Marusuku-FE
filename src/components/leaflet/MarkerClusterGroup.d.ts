@@ -6,8 +6,8 @@
 
 /// <reference types="leaflet.markercluster" />
 
-import { ComponentType } from 'react'
 import { DivIcon, Icon, MarkerCluster, Point, PolylineOptions } from 'leaflet'
+import { ComponentType } from 'react'
 
 export interface MarkerClusterGroupProps {
   /**

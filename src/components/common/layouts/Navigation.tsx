@@ -1,3 +1,5 @@
+import useColorStore from '@/state/hooks/useColorStore'
+import { useLogOut, useUser } from '@/state/swr/useUser'
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import {
   Box,
@@ -8,22 +10,16 @@ import {
   IconButton,
   Link,
   Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
-  PopoverHeader,
   PopoverTrigger,
   Spinner,
   Stack,
   Text,
-  useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
 import { default as NextLink } from 'next/link'
 import React, { FC, Fragment } from 'react'
-import { useLogOut, useUser } from '../../../state/swr/useUser'
-import { NavItem, NAV_ITEMS } from './NAV_ITEMS'
+import { NAV_ITEMS } from './NAV_ITEMS'
 const LoginStack = () => {
   const { data: userData, error, isValidating, mutate } = useUser()
 
@@ -102,14 +98,14 @@ export default function Navigation() {
   return (
     <Box w="100%" mb="1rem">
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
+        bg={useColorStore('surface')}
+        color={useColorStore('textMedium')}
         minH={'60px'}
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor={useColorStore('surface')}
         align={'center'}
       >
         <MobileNavigationToggleBtn isOpen={isOpen} onToggle={onToggle} />
@@ -117,7 +113,7 @@ export default function Navigation() {
           <Text
             // textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
+            color={useColorStore('textHigh')}
           >
             Logo
           </Text>
@@ -138,9 +134,8 @@ export default function Navigation() {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800')
+  const linkColor = useColorStore('textMedium')
+  const linkHoverColor = useColorStore('textHigh')
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -200,7 +195,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
         display={'block'}
         p={2}
         rounded={'md'}
-        _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
+        _hover={{ bg: useColorStore('weekPrimary') }}
       >
         <Stack direction={'row'} align={'center'}>
           <Box>
@@ -228,7 +223,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 
 const MobileNav = () => {
   return (
-    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+    <Stack bg={useColorStore('surface')} p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -251,7 +246,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           textDecoration: 'none',
         }}
       >
-        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+        <Text fontWeight={600} color={useColorStore('textMedium')}>
           {label}
         </Text>
         {children && (
@@ -271,7 +266,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           pl={4}
           borderLeft={1}
           borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          borderColor={useColorStore('weekGray')}
           align={'start'}
         >
           {children &&

@@ -1,5 +1,5 @@
-import { NEWS } from './../../types/Shop'
 import { CommonFSW } from '@/types/common'
+import { NEWS } from '@/types/Shop'
 
 const createFSWQueryString = (query: CommonFSW): string => {
   const { filter, sort, start, end, with: aWith, per_page } = query

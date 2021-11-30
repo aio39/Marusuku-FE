@@ -1,10 +1,10 @@
+import { fetcher } from '@/state/fetcher'
+import { createFSWQueryString, createNEWSQueryString } from '@/state/swr/createQueryString'
+import laggy from '@/state/swr/middleware/laggy'
 import { CommonFSW, Pagination } from '@/types/common'
+import { NEWS, Shop } from '@/types/Shop'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
-import { NEWS, Shop } from '../../../types/Shop'
-import { axiosI, fetcher } from '../../fetcher'
-import { createFSWQueryString, createNEWSQueryString } from '../createQueryString'
-import laggy from '../middleware/laggy'
 
 const URL_SHOP = '/api/shops'
 

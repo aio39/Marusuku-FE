@@ -1,17 +1,15 @@
+import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import Rating from '@/components/common/StarRating'
 import MenuList from '@/components/shop/menu/MenuList'
-import MenuCard from '@/components/shop/menu/MenuList'
+import { useMyShop } from '@/lib/api/shops/ShopAPI'
+import useColorStore from '@/state/hooks/useColorStore'
 import { useMenus } from '@/state/swr/menus/useMenus'
-import { useColorModeValue } from '@chakra-ui/color-mode'
 import { Box, Text, VStack } from '@chakra-ui/layout'
 import React from 'react'
-import DefaultLayout from '../../components/common/layouts/DefaultLayout'
-import { useMyShop } from '../../state/swr/shops/useShops'
 
 export default function Home() {
   const { data: shopData } = useMyShop()
-  const { data: menusData } = useMenus({ shop_id: shopData?.id })
-  console.log(menusData)
+  const { data: menusData } = useMenus(shopData && { filter: [['shop_id', shopData.id]] })
   return (
     <DefaultLayout>
       <Box
@@ -21,7 +19,7 @@ export default function Home() {
         maxW="container.xl"
         w="full"
         p="4"
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorStore('surface')}
       >
         <VStack>
           <Text fontSize="md"> {shopData?.name}</Text>

@@ -1,20 +1,20 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
+import MobileLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import useColorStore from '@/state/hooks/useColorStore'
 import { Button } from '@chakra-ui/button'
-import { DarkMode, useColorMode, useColorModeValue } from '@chakra-ui/color-mode'
+import { DarkMode, useColorMode } from '@chakra-ui/color-mode'
 import { Box, Text } from '@chakra-ui/layout'
 import { useMediaQuery } from '@chakra-ui/media-query'
-import dynamic from 'next/dynamic'
 import React from 'react'
 
 export default function Test() {
   const { colorMode, toggleColorMode } = useColorMode()
-  const color = useColorModeValue('red.500', 'blue.200')
   const [isLargerThan1280] = useMediaQuery('(min-width: 30rem)')
   return (
     <DefaultLayout>
       <Box flexDirection="column">
         <Button>aaa</Button>
-        <Button onClick={toggleColorMode} color={color}>
+        <Button onClick={toggleColorMode} color={useColorStore('surface')}>
           Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
         </Button>
         <DarkMode>
@@ -26,6 +26,7 @@ export default function Test() {
         </Box>
         <Box width={[1, 1 / 2, 1 / 4]} bg="blue" h="3.5" />
       </Box>
+      <MobileLayout />
     </DefaultLayout>
   )
 }

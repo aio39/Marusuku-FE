@@ -5,7 +5,7 @@ import { Button } from '@chakra-ui/button'
 export default function Home() {
   return (
     <DefaultLayout>
-      <Button>aaa</Button>
+      <Button>offline</Button>
       <MobileLayout></MobileLayout>
     </DefaultLayout>
   )

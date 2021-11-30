@@ -1,3 +1,5 @@
+import DefaultTileLayer from '@/components/leaflet/parts/DefaultTileLayer'
+import { positionState, recentGeoCodeState, shopListState } from '@/state/recoil/tempAtoms'
 import { DivIcon, icon, LatLng, LatLngBounds, Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -8,15 +10,12 @@ import {
   Marker,
   Pane,
   Popup,
-  TileLayer,
   useMap,
   useMapEvent,
   useMapEvents,
   ZoomControl,
 } from 'react-leaflet'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { positionState, recentGeoCodeState, shopListState } from '../../state/recoil/tempAtoms'
-import DefaultTileLayer from './parts/DefaultTileLayer'
 const position: [number, number] = [35.8953777, 128.6254371] as [number, number]
 const bounds = new LatLngBounds([35.8953777, 128.6254371], [35.9056777, 128.6356371])
 

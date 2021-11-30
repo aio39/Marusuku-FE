@@ -1,18 +1,9 @@
-import { LatLng, LatLngBounds, LatLngBoundsExpression, LatLngBoundsLiteral, Map } from 'leaflet'
+import { DefaultIcon } from '@/components/leaflet/CommonParts'
+import DefaultTileLayer from '@/components/leaflet/parts/DefaultTileLayer'
+import { Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import React, { Dispatch, FC, SetStateAction, useState } from 'react'
-import {
-  MapConsumer,
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-  useMap,
-  useMapEvents,
-} from 'react-leaflet'
-import { usePosition } from '../../state/hooks/usePosition'
-import { DefaultIcon } from './CommonParts'
-import DefaultTileLayer from './parts/DefaultTileLayer'
+import React, { Dispatch, FC, SetStateAction } from 'react'
+import { MapConsumer, MapContainer, Marker, Popup } from 'react-leaflet'
 
 type P = {
   setMap: Dispatch<SetStateAction<Map | undefined>>

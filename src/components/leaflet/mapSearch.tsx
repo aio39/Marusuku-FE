@@ -1,25 +1,24 @@
-import { Box, VStack } from '@chakra-ui/layout'
-import { LatLngBounds, LeafletMouseEvent, Map } from 'leaflet'
-import 'leaflet/dist/leaflet.css'
-import { renderToString } from 'react-dom/server'
+// import { DefaultIcon } from './CommonParts'
+import { DefaultIcon } from '@/components/leaflet/CommonParts'
 // import styles from './cluster.css'
-import MarkerClusterGroup from './MarkerClusterGroup'
+import MarkerClusterGroup from '@/components/leaflet/MarkerClusterGroup'
+import DefaultTileLayer from '@/components/leaflet/parts/DefaultTileLayer'
+import { usePosition } from '@/state/hooks/usePosition'
+import { NEWS, Shop } from '@/types/Shop'
+import { VStack } from '@chakra-ui/layout'
+import L, { LatLngBounds, Map } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
 import React, { Dispatch, FC, SetStateAction } from 'react'
+import { renderToString } from 'react-dom/server'
 import {
   MapConsumer,
   MapContainer,
   Marker,
   Popup,
-  TileLayer,
   Tooltip,
   useMap,
   useMapEvents,
 } from 'react-leaflet'
-import { usePosition } from '../../state/hooks/usePosition'
-import { NEWS, Shop } from '../../types/Shop'
-import { DefaultIcon } from './CommonParts'
-import L from 'leaflet'
-import DefaultTileLayer from './parts/DefaultTileLayer'
 
 type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>

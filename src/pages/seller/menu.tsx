@@ -1,17 +1,16 @@
-import { Button } from '@chakra-ui/button'
-import { Box, Divider, useColorModeValue, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { useRef, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { InputWrapper, NumberInputWrapper } from '../../components/common/inputs/HookInput'
-import DefaultLayout from '../../components/common/layouts/DefaultLayout'
-import { axiosI } from '../../state/fetcher'
-import { Menu, MenuInputs } from '../../types/Menu'
-import { Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { useUser } from '@/state/swr/useUser'
-import ModalWrapper from '@/components/common/ModalWrapper'
+import { InputWrapper, NumberInputWrapper } from '@/components/common/inputs/HookInput'
 import ImageUpload from '@/components/common/inputs/ImageUpload'
+import DefaultLayout from '@/components/common/layouts/DefaultLayout'
+import ModalWrapper from '@/components/common/ModalWrapper'
+import { axiosI } from '@/state/fetcher'
+import useColorStore from '@/state/hooks/useColorStore'
+import { useUser } from '@/state/swr/useUser'
+import { Menu, MenuInputs } from '@/types/Menu'
+import { Button } from '@chakra-ui/button'
+import { Box, Divider, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import React, { useRef, useState } from 'react'
 import { FilePond } from 'react-filepond'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 export default function Home() {
   const {
@@ -66,7 +65,7 @@ export default function Home() {
         maxW="container.xl"
         w="full"
         p="4"
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorStore('surface')}
       >
         <Button
           onClick={() => {

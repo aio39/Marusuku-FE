@@ -1,8 +1,7 @@
 import StarRating from '@/components/common/StarRating2'
+import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { StarIcon } from '@chakra-ui/icons'
-import { Flex, Box, HStack, VStack, Link } from '@chakra-ui/layout'
+import { Box, Flex, Link, VStack } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
@@ -15,21 +14,21 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
       maxW="md"
       w="full"
       mx="auto"
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorStore('surface')}
       shadow="lg"
       rounded="lg"
       overflow="hidden"
     >
       <Box w={2 / 3} p={{ base: 4, md: 4 }}>
-        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorModeValue('gray.800', 'white')}>
+        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorStore('textHigh')}>
           {menu.name}
         </chakra.h1>
-        <chakra.p mt={2} minH="4" fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
+        <chakra.p mt={2} minH="4" fontSize="sm" color={useColorStore('textMedium')}>
           {menu.desc}
         </chakra.p>
         <StarRating score={menu.score ?? 1} />
         <Flex mt={3} alignItems="center" justifyContent="space-between">
-          <chakra.h1 color={useColorModeValue('gray.800', 'white')} fontWeight="bold" fontSize="lg">
+          <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
           <Link href={`/shops/${router.query.shop_id}/menus/${menu.id}`}>
@@ -59,7 +58,7 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           w={1 / 3}
           bgSize="cover"
           style={{
-            backgroundImage: `url('${menu.img}')`,
+            backgroundImage: `url('${process.env.AWS_S3}${menu.img}')`,
             //   "url('https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80')",
           }}
         ></Box>

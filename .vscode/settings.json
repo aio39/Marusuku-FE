@@ -2,7 +2,9 @@
   "cSpell.words": ["Daum", "filepond", "MARUSUKU", "moveend", "onupdatefiles"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true,
+    "source.sortMembers": true
   },
   "path-intellisense.absolutePathToWorkspace": true
 }

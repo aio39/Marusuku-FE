@@ -1,13 +1,13 @@
-import { useDisclosure, UseDisclosureReturn } from '@chakra-ui/hooks'
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 import {
   Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'

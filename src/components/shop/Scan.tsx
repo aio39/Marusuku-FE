@@ -1,11 +1,7 @@
-import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import { axiosI } from '@/state/fetcher'
 import { useUser } from '@/state/swr/useUser'
 import { PayToken } from '@/types/PayToken'
 import { UseHistory } from '@/types/UseHistory'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { Box } from '@chakra-ui/react'
-import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
 import QrReader from 'react-qr-reader'
 

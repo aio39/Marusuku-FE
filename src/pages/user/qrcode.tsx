@@ -1,12 +1,12 @@
+import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import { axiosI } from '@/state/fetcher'
+import { useUser } from '@/state/swr/useUser'
 import { PayToken } from '@/types/PayToken'
 import { Box, Text } from '@chakra-ui/layout'
 import { useRouter } from 'next/router'
 import QRCode from 'qrcode.react'
 import React, { useEffect, useMemo, useState } from 'react'
 import Clock from 'react-live-clock'
-import DefaultLayout from '../../components/common/layouts/DefaultLayout'
-import { useUser } from '../../state/swr/useUser'
 
 export default function Home() {
   const { data: userData } = useUser()

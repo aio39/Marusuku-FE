@@ -23,5 +23,8 @@
     // "**/*.ts",
     // "**/*.tsx"
   ],
-  "extends": "./tsconfig.paths.json"
+  "extends": "./tsconfig.paths.json",
+  "rules": {
+    "no-unused-declaration": true
+  }
 }

@@ -1,8 +1,8 @@
 import { axiosI } from '@/state/fetcher'
 import laggy from '@/state/swr/middleware/laggy'
+import { NEWS, Shop } from '@/types/Shop'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
-import { NEWS, Shop } from '../../../types/Shop'
 
 const URL_SHOP = '/api/shops'
 

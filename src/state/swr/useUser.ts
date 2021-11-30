@@ -1,7 +1,8 @@
+import { axiosI, fetcher } from '@/state/fetcher'
+import { LoginData, User } from '@/types/User'
 import { mutate } from 'swr'
 import useSWRImmutable from 'swr/immutable'
-import { LoginData, User } from '../../types/User'
-import { axiosI, fetcher } from '../fetcher'
+
 const URL_USER = '/api/users'
 const URL_LOGIN = '/api/login'
 const URL_LOGOUT = '/api/logout'

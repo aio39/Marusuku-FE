@@ -1,9 +1,8 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
-import { useColorModeValue } from '@chakra-ui/color-mode'
-import { Box, Center } from '@chakra-ui/react'
+import useColorStore from '@/state/hooks/useColorStore'
+import { Box } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import React, { useState } from 'react'
-import QrReader from 'react-qr-reader'
+import React from 'react'
 
 const Scan = dynamic(() => import('../../components/shop/Scan'), {
   loading: () => <p>Qr Scanner is Loading</p>,
@@ -22,7 +21,7 @@ const ScanPage = () => {
         maxW="container.xl"
         w="full"
         p="4"
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorStore('surface')}
       >
         <h1>aaa</h1>
         <Box

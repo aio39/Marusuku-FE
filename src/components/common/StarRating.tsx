@@ -1,5 +1,4 @@
 // https://codesandbox.io/s/y8zfo?file=/src/index.js
-import Icon from '@chakra-ui/icon'
 import { StarIcon } from '@chakra-ui/icons'
 import { Box, Stack, Text } from '@chakra-ui/layout'
 import React, { FC, useState } from 'react'

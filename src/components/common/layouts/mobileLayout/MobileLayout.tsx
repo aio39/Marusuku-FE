@@ -1,12 +1,11 @@
-import { Button } from '@chakra-ui/button'
 import { Box, BoxProps, Center, HStack, Text } from '@chakra-ui/layout'
-import { AnimateSharedLayout, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
 import { IconType } from 'react-icons'
 import { BsBoxSeam } from 'react-icons/bs'
-import { RiShoppingBasket2Fill, RiHome2Line, RiUser3Fill } from 'react-icons/ri'
+import { RiHome2Line, RiShoppingBasket2Fill, RiUser3Fill } from 'react-icons/ri'
 
 interface MenuProps {
   url: string

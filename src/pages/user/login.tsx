@@ -1,3 +1,5 @@
+import useColorStore from '@/state/hooks/useColorStore'
+import { useLogin, useUser } from '@/state/swr/useUser'
 import {
   Box,
   Button,
@@ -11,13 +13,11 @@ import {
   Link,
   Stack,
   Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useLogin, useUser } from '../../state/swr/useUser';
+} from '@chakra-ui/react'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 
 const LoginPage = () => {
   const {
@@ -29,49 +29,38 @@ const LoginPage = () => {
     register,
     getValues,
     formState: { errors, isSubmitting },
-  } = useForm<{ email: string; password: string }>({ mode: 'all' });
-  const { data: userData, error: userError } = useUser();
-  const router = useRouter();
+  } = useForm<{ email: string; password: string }>({ mode: 'all' })
+  const { data: userData, error: userError } = useUser()
+  const router = useRouter()
 
   const onSubmit = async (data: any) => {
-    const result = await useLogin(data);
+    const result = await useLogin(data)
     if (result) {
-      router.push('/');
+      router.push('/')
     }
-  };
-
-  if (userData && !userError) {
-    router.push('/'); // 로그인 상태면 홈으로 강제 이동동
   }
 
-  console.info(watch());
-  console.log(errors);
+  if (userData && !userError) {
+    router.push('/') // 로그인 상태면 홈으로 강제 이동동
+  }
+
+  console.info(watch())
+  console.log(errors)
   return (
     <>
       <Head>
         <title>LOGIN | MARUSUKU</title>
         <meta name="description" content="마루스쿠 로그인 페이지" />
       </Head>
-      <Flex
-        minH={'100vh'}
-        align={'center'}
-        justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}
-      >
+      <Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorStore('background')}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
           <Stack align={'center'}>
             <Heading fontSize={'4xl'}>Sign in to your account</Heading>
             <Text fontSize={'lg'} color={'gray.600'}>
-              to enjoy all of our cool <Link color={'blue.400'}>features</Link>{' '}
-              ✌️
+              to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
             </Text>
           </Stack>
-          <Box
-            rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
-            boxShadow={'lg'}
-            p={8}
-          >
+          <Box rounded={'lg'} bg={useColorStore('surface')} boxShadow={'lg'} p={8}>
             <Stack spacing={4}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl id="email" isInvalid={!!errors.email}>
@@ -87,9 +76,7 @@ const LoginPage = () => {
                       },
                     })}
                   />
-                  <FormErrorMessage>
-                    {errors.email && errors.email.message}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
                 </FormControl>
                 <FormControl id="password" isInvalid={!!errors.password}>
                   <FormLabel>Password</FormLabel>
@@ -104,9 +91,7 @@ const LoginPage = () => {
                       },
                     })}
                   />
-                  <FormErrorMessage>
-                    {errors.password && errors.password.message}
-                  </FormErrorMessage>
+                  <FormErrorMessage>{errors.password && errors.password.message}</FormErrorMessage>
                 </FormControl>
                 <Stack spacing={10}>
                   <Stack
@@ -135,11 +120,11 @@ const LoginPage = () => {
         </Stack>
       </Flex>
     </>
-  );
-};
+  )
+}
 
 // LoginPage.getLayout = function getLayout(page: ReactElement) {
 //   return <DefaultLayout>{page}</DefaultLayout>;
 // };
 
-export default LoginPage;
+export default LoginPage

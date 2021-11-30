@@ -1,18 +1,9 @@
+import StarRating from '@/components/common/StarRating2'
+import useColorStore from '@/state/hooks/useColorStore'
 import { useShop } from '@/state/swr/shops/useShops'
-import { StarIcon } from '@chakra-ui/icons'
-import {
-  Box,
-  chakra,
-  Container,
-  Flex,
-  HStack,
-  SkeletonText,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Box, chakra, Container, SkeletonText } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { Shop } from '../../types/Shop'
-import StarRating from '../common/StarRating2'
 
 const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
   const { data: shop } = useShop(id)
@@ -22,7 +13,7 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
       h="28"
       w={3 / 4}
       p={0}
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorStore('surface')}
       bottom="20"
       visibility={id ? 'visible' : 'hidden'}
       shadow="2xl"
@@ -49,12 +40,12 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace="nowrap"
-              color={useColorModeValue('gray.800', 'white')}
+              color={useColorStore('surface')}
             >
               {shop.name}
             </chakra.h1>
 
-            <chakra.p mt={2} fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
+            <chakra.p mt={2} fontSize="sm" color={useColorStore('textMedium')}>
               {shop.desc}
             </chakra.p>
 

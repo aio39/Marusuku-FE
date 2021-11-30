@@ -1,6 +1,5 @@
 import { fetcher } from '@/state/fetcher'
 import { Subscribe } from '@/types/Subscribe'
-import { mutate } from 'swr'
 import useSWRImmutable from 'swr/immutable'
 const URL_USER = '/api/users'
 const URL_LOGIN = '/api/login'

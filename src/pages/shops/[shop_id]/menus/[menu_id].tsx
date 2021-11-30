@@ -5,7 +5,7 @@ import { useUser } from '@/state/swr/useUser'
 import { Subscribe } from '@/types/Subscribe'
 import { Button } from '@chakra-ui/button'
 import { Text, VStack } from '@chakra-ui/layout'
-import { toast, useToast } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { MouseEventHandler } from 'react'
 

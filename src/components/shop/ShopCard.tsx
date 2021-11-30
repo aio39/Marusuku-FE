@@ -1,15 +1,16 @@
+import useColorStore from '@/state/hooks/useColorStore'
+import { Shop } from '@/types/Shop'
 import { StarIcon } from '@chakra-ui/icons'
-import { Box, chakra, Flex, HStack, useColorModeValue } from '@chakra-ui/react'
+import { Box, chakra, Flex, HStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'
-import { Shop } from '../../types/Shop'
 
 const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
   return (
     <Flex
       maxW="md"
       w="full"
-      bg={useColorModeValue('white', 'gray.800')}
+      bg={useColorStore('surface')}
       shadow="lg"
       rounded="lg"
       overflow="hidden"
@@ -25,18 +26,18 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
       ></Box>
 
       <Box w={2 / 3} p={{ base: 4, md: 4 }}>
-        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorModeValue('gray.800', 'white')}>
+        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorStore('textHigh')}>
           {shop.name}
         </chakra.h1>
 
-        <chakra.p mt={2} fontSize="sm" color={useColorModeValue('gray.600', 'gray.400')}>
+        <chakra.p mt={2} fontSize="sm" color={useColorStore('textMedium')}>
           {shop.desc}
         </chakra.p>
 
         <HStack spacing={1} display="flex" alignItems="center" mt={2}>
-          <StarIcon color={useColorModeValue('gray.700', 'gray.300')} />
-          <StarIcon color={useColorModeValue('gray.700', 'gray.300')} />
-          <StarIcon color={useColorModeValue('gray.700', 'gray.300')} />
+          <StarIcon color={useColorStore('yellow')} />
+          <StarIcon color={useColorStore('yellow')} />
+          <StarIcon color={useColorStore('yellow')} />
           <StarIcon color="gray.500" />
           <StarIcon color="gray.500" />
         </HStack>

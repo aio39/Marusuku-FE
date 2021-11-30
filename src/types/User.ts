@@ -1,4 +1,5 @@
 import { Shop } from './Shop'
+
 export type User = {
   id: number
   name: string

@@ -1,4 +1,8 @@
+import { InputWrapper, SelectWrapper } from '@/components/common/inputs/HookInput'
 import ImageUpload from '@/components/common/inputs/ImageUpload'
+import DefaultLayout from '@/components/common/layouts/DefaultLayout'
+import { axiosI } from '@/state/fetcher'
+import useColorStore from '@/state/hooks/useColorStore'
 import { usePosition } from '@/state/hooks/usePosition'
 import { Button } from '@chakra-ui/button'
 import {
@@ -11,21 +15,17 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  useColorModeValue,
   useDisclosure,
   useToast,
   VStack,
 } from '@chakra-ui/react'
-import { LatLng, Map } from 'leaflet'
+import { Map } from 'leaflet'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useRef, useState } from 'react'
 import DaumPostcode from 'react-daum-postcode'
 import { Address } from 'react-daum-postcode/lib/loadPostcode'
 import { FilePond } from 'react-filepond'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { InputWrapper, SelectWrapper } from '../../components/common/inputs/HookInput'
-import DefaultLayout from '../../components/common/layouts/DefaultLayout'
-import { axiosI } from '../../state/fetcher'
 
 interface FormInputs {
   name: string
@@ -112,7 +112,7 @@ const CreateShop = () => {
         maxW="container.xl"
         w="full"
         p="4"
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={useColorStore('surface')}
       >
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <ImageUpload ref={imageUploadRef}></ImageUpload>
