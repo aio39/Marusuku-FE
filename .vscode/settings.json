@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Daum", "MARUSUKU", "moveend"],
+  "cSpell.words": ["Daum", "filepond", "MARUSUKU", "moveend", "onupdatefiles"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true

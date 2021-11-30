@@ -1,6 +1,6 @@
-import { Map } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { LatLng, LatLngBounds, LatLngBoundsExpression, LatLngBoundsLiteral, Map } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import React, { Dispatch, FC, SetStateAction, useState } from 'react'
 import {
   MapConsumer,
   MapContainer,
@@ -8,60 +8,63 @@ import {
   Popup,
   TileLayer,
   useMap,
-} from 'react-leaflet';
-import { usePosition } from '../../state/hooks/usePosition';
-import { DefaultIcon } from './CommonParts';
+  useMapEvents,
+} from 'react-leaflet'
+import { usePosition } from '../../state/hooks/usePosition'
+import { DefaultIcon } from './CommonParts'
+import DefaultTileLayer from './parts/DefaultTileLayer'
 
 type P = {
-  setMap: Dispatch<SetStateAction<Map | undefined>>;
-};
+  setMap: Dispatch<SetStateAction<Map | undefined>>
+  position: [number, number]
+}
 
-const CenterMarker = () => {
-  const map = useMap();
+const CenterMarker: FC<Pick<P, 'position'>> = ({ position }) => {
+  // const map = useMapEvents({
+  //   moveend(e) {
+  //     setPosition(map.getCenter())
+  //   },
+  // })
+
   return (
-    <Marker position={map.getCenter()} icon={DefaultIcon}>
+    <Marker position={position} icon={DefaultIcon}>
       <Popup>현재 지점</Popup>
     </Marker>
-  );
-};
+  )
+}
 
-const MapMini: FC<P> = ({ setMap }) => {
-  const { position, error } = usePosition();
+const MapMini: FC<P> = ({ setMap, position }) => {
+  if (!window) {
+    return <div>loading</div>
+  }
 
-  //  TODO 임시 0 0
   return (
     <MapContainer
-      center={
-        position ? [position.latitude, position.longitude] : [37.5, 126.9]
-      }
+      center={position ? [position[0], position[1]] : [37.5, 126.9]}
       zoom={13}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       style={{ height: 400, width: '100%' }}
       whenCreated={(map) => {
-        console.info('Map Created');
-        setMap(map);
+        console.info('Map Created')
+        setMap(map)
       }}
       whenReady={() => {
-        console.info('Map Ready');
+        console.info('Map Ready')
       }}
     >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <CenterMarker />
+      <DefaultTileLayer />
+      <CenterMarker position={position} />
       <MapConsumer>
         {(map) => {
-          const { lat, lng } = map.getCenter();
+          const { lat, lng } = map.getCenter()
           if (lat == 0 && lng == 0 && position) {
-            // 초기화 0.0 상태일때만 갱신
-            map.setView([position.latitude, position.longitude], 16);
+            map.setView(position, 16)
           }
-          return null;
+          return null
         }}
       </MapConsumer>
     </MapContainer>
-  );
-};
+  )
+}
 
-export default MapMini;
+export default MapMini

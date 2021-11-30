@@ -1,3 +1,4 @@
+import { usePosition } from '@/state/hooks/usePosition'
 import { Button } from '@chakra-ui/button'
 import {
   Box,
@@ -14,7 +15,7 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react'
-import { Map } from 'leaflet'
+import { LatLng, Map } from 'leaflet'
 import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
 import DaumPostcode from 'react-daum-postcode'
@@ -39,19 +40,21 @@ interface FormInputs {
 
 const categoryArray = ['식당', '카페', '마트']
 
-const MapMini = dynamic(() => import('../../components/leaflet/mapMini'), {
-  loading: () => <p>A map is loading</p>,
-  ssr: false,
-})
+const MapMini = React.memo(
+  dynamic(() => import('../../components/leaflet/mapMini'), {
+    loading: () => <p>A map is loading</p>,
+    ssr: false,
+  })
+)
 
 const CreateShop = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const { position: gpsPosition } = usePosition()
   const [map, setMap] = useState<Map>()
   const toast = useToast()
 
   const {
     handleSubmit,
-    watch,
     setValue,
     register,
     getValues,
@@ -59,6 +62,7 @@ const CreateShop = () => {
   } = useForm<FormInputs>({
     mode: 'all',
   })
+  const [position, setPosition] = useState<[number, number]>([0, 0])
 
   const handleComplete = (data: Address) => {
     setValue('address', data.address, { shouldDirty: true })
@@ -69,6 +73,7 @@ const CreateShop = () => {
       .then((res) => {
         setValue('lat', res.data.lat, { shouldDirty: true })
         setValue('lng', res.data.lng, { shouldDirty: true })
+        setPosition([res.data.lat, res.data.lng])
         map?.setView([res.data.lat, res.data.lng], 16)
       })
       .catch((err) => {
@@ -88,6 +93,12 @@ const CreateShop = () => {
     register('lng', { required: '' })
     return () => {}
   }, [register])
+
+  useEffect(() => {
+    if (gpsPosition) {
+      setPosition([gpsPosition?.latitude, gpsPosition?.longitude])
+    }
+  }, [gpsPosition])
 
   return (
     <DefaultLayout>
@@ -115,7 +126,7 @@ const CreateShop = () => {
 
             <Divider />
             <Box w="100%">
-              <MapMini setMap={setMap} />
+              {typeof window !== 'undefined' && <MapMini setMap={setMap} position={position} />}
               <Button onClick={onOpen}>주소 찾기</Button>
             </Box>
             <InputWrapper
@@ -176,7 +187,6 @@ const CreateShop = () => {
 
         <Modal isOpen={isOpen} onClose={onClose}>
           {/* 주소 찾기 완료 후 언마운팅 */}
-
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Modal Title</ModalHeader>

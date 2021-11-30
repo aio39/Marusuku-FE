@@ -19,6 +19,7 @@ import { usePosition } from '../../state/hooks/usePosition'
 import { NEWS, Shop } from '../../types/Shop'
 import { DefaultIcon } from './CommonParts'
 import L from 'leaflet'
+import DefaultTileLayer from './parts/DefaultTileLayer'
 
 type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>
@@ -130,10 +131,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
         console.info('Map Ready')
       }}
     >
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <DefaultTileLayer />
       <CenterMarker />
       <MapConsumer>
         {(map) => {
