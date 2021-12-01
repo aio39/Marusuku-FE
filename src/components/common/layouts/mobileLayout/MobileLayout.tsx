@@ -1,5 +1,5 @@
 import useColorStore from '@/state/hooks/useColorStore'
-import { Box, BoxProps, Center, HStack, Text } from '@chakra-ui/layout'
+import { Box, BoxProps, Center, FlexProps, HStack, Text } from '@chakra-ui/layout'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -7,6 +7,7 @@ import { FC } from 'react'
 import { IconType } from 'react-icons'
 import { BsBoxSeam } from 'react-icons/bs'
 import { RiHome2Line, RiShoppingBasket2Fill, RiUser3Fill } from 'react-icons/ri'
+import { Container } from '../Container'
 
 interface MenuProps {
   url: string
@@ -40,7 +41,7 @@ const MobileMenuButton: FC<MenuProps & { selected?: boolean }> = ({ url, svg, se
   )
 }
 
-const MobileLayout: FC = () => {
+const MobileNavigation: FC = () => {
   const menuList: MenuProps[] = [
     { url: '/', svg: RiHome2Line },
     { url: 'offline', svg: BsBoxSeam },
@@ -68,4 +69,13 @@ const MobileLayout: FC = () => {
   )
 }
 
-export default MobileLayout
+const MobileDefaultLayout: FC<{ FlexProps?: FlexProps }> = ({ FlexProps, children }) => {
+  return (
+    <Container {...FlexProps}>
+      {children}
+      <MobileNavigation />
+    </Container>
+  )
+}
+
+export default MobileDefaultLayout
