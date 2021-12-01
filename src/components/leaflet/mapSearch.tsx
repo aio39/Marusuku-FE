@@ -6,7 +6,6 @@ import DefaultTileLayer from '@/components/leaflet/parts/DefaultTileLayer'
 import { convertBoundsToNEWS } from '@/helper/converBoundsToNEWS'
 import { usePosition } from '@/state/hooks/usePosition'
 import { NEWS, Shop } from '@/types/Shop'
-import { VStack } from '@chakra-ui/layout'
 import L, { Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import React, { Dispatch, FC, SetStateAction } from 'react'
@@ -81,15 +80,11 @@ const Markers = ({ markerData, setNews, setDetailId }: MarkersP) => {
 
 const PopoverList = (shops: Shop[]) => {
   return (
-    <VStack>
+    <div className="popover-list">
       {shops.map((shop) => {
-        return (
-          <div className="popover-list" data-id={shop.id}>
-            {shop.name}
-          </div>
-        )
+        return <span data-id={shop.id}>{shop.name}</span>
       })}
-    </VStack>
+    </div>
   )
 }
 
@@ -152,6 +147,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId }) => {
 
           const a = L.DomUtil.create('div')
           a.innerHTML = renderToString(popupComponent)
+
           a.addEventListener('click', ({ target }) => {
             if (target instanceof HTMLElement) {
               if ((target.className = 'popover-list')) {
@@ -161,9 +157,9 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId }) => {
           })
 
           cluster.bindPopup(a).on('click', (e) => {
-            // console.log('팝업 클릭', e)
+            console.log('팝업 클릭')
           })
-          // console.log(cluster)
+
           const html = '<span class="my-cluster-child">' + markers.length + '</span>'
           return L.divIcon({ html: html, className: 'my-cluster', iconSize: L.point(32, 32) })
         }}

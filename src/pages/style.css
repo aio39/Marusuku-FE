@@ -13,3 +13,26 @@
 
 .my-cluster-child {
 }
+
+.popover-list {
+  max-height: 25vh;
+  max-width: 50vw;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.popover-list > span {
+  display: block;
+  font-size: 1rem;
+  min-height: 25px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #39c5bb99;
+}
+
+.popover-list > span:not(:last-child) {
+  margin-bottom: 12px;
+}
