@@ -10,15 +10,17 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
   return (
     <Container
       position="fixed"
+      transform="translateX(-50%)"
+      left="50%"
       h="28"
-      w={3 / 4}
+      w="95vw"
       p={0}
       bg={useColorStore('surface')}
-      bottom="20"
+      bottom="5vh"
       visibility={id ? 'visible' : 'hidden'}
-      shadow="2xl"
+      shadow="xl"
       overflow="hidden"
-      rounded="2xl"
+      rounded="10px"
       display="flex"
       flexDirection="row"
     >

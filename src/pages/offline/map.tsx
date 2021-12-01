@@ -1,12 +1,12 @@
 import BackPageBtn from '@/components/common/button/layoutControl/BackPageBtn'
 import OpenDrawerBtn from '@/components/common/button/OpenDrawerBtn'
+import { Container } from '@/components/common/layouts/Container'
 import FixedFlexContainer from '@/components/common/layouts/FixedFlexContainer'
-import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import ShopCard from '@/components/shop/ShopCard'
 import ShopCardMini from '@/components/shop/ShopCardMini'
 import { useShops } from '@/state/swr/shops/useShops'
 import { NEWS } from '@/types/Shop'
-import { Box, Flex, VStack } from '@chakra-ui/layout'
+import { Box, VStack } from '@chakra-ui/layout'
 import { DrawerBody, DrawerCloseButton, DrawerHeader } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/spinner'
 import { Map } from 'leaflet'
@@ -42,7 +42,7 @@ const Page = () => {
   }, [maxMove])
 
   return (
-    <MobileDefaultLayout FlexProps={{ overflow: 'hidden', minHeight: '100vh', minWidth: '100vw' }}>
+    <Container>
       <FixedFlexContainer>
         <BackPageBtn marginRight="auto"></BackPageBtn>
         <OpenDrawerBtn text="목록" buttonProps={{ justifySelf: 'end', marginLeft: 'auto' }}>
@@ -60,42 +60,40 @@ const Page = () => {
           </DrawerBody>
         </OpenDrawerBtn>
       </FixedFlexContainer>
-      <link
+      {/* <link
         rel="stylesheet"
         href="https://unpkg.com/react-leaflet-markercluster/dist/styles.min.css"
-      />
-      <Flex minH="90vh" width="100vw">
-        {shopsDataIsValidating && (
-          <Spinner
-            position="absolute"
-            zIndex="popover"
-            thickness="6px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-            sx={{
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-            }}
+      /> */}
+
+      {shopsDataIsValidating && (
+        <Spinner
+          position="fixed"
+          zIndex="popover"
+          thickness="6px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+          sx={{
+            top: '50%',
+            left: '45%',
+          }}
+        />
+      )}
+      <Box sx={{ circle: { backgroundColor: 'red' } }}>
+        {typeof window !== 'undefined' && (
+          <MapSearch
+            setMap={setMap}
+            setNews={setNews}
+            markerData={shopsData}
+            setIsShowDetail={setIsModalVisible}
+            setDetailId={setDetailId}
           />
         )}
+      </Box>
 
-        <Box p="0" sx={{ circle: { backgroundColor: 'red' } }}>
-          {typeof window !== 'undefined' && (
-            <MapSearch
-              setMap={setMap}
-              setNews={setNews}
-              markerData={shopsData}
-              setIsShowDetail={setIsModalVisible}
-              setDetailId={setDetailId}
-            />
-          )}
-        </Box>
-      </Flex>
       <ShopCardMini id={detailId} />
-    </MobileDefaultLayout>
+    </Container>
   )
 }
 
