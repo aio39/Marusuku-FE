@@ -12,7 +12,6 @@ const BackPageBtn: FC<Partial<IconButtonProps>> = (props) => {
       size="md"
       onClick={() => router.back()}
       aria-label="뒤로가기"
-      colorScheme="red"
       backgroundColor={useColorStore('surface')}
       color={useColorStore('textHigh')}
       icon={<ArrowBackIcon />}

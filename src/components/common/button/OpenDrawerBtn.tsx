@@ -1,3 +1,4 @@
+import useColorStore from '@/state/hooks/useColorStore'
 import { Button, ButtonProps } from '@chakra-ui/button'
 import { useDisclosure } from '@chakra-ui/hooks'
 import { Drawer, DrawerContent, DrawerFooter, DrawerOverlay } from '@chakra-ui/react'
@@ -13,7 +14,13 @@ const OpenDrawerBtn: FC<{ buttonProps: ButtonProps; text: string }> = ({
 
   return (
     <>
-      <Button ref={btnRef} onClick={onOpen} {...buttonProps}>
+      <Button
+        ref={btnRef}
+        onClick={onOpen}
+        {...buttonProps}
+        bgColor={useColorStore('surface')}
+        color={useColorStore('textHigh')}
+      >
         {text}
       </Button>
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose} finalFocusRef={btnRef}>

@@ -3,10 +3,11 @@ import { DefaultIcon } from '@/components/leaflet/CommonParts'
 // import styles from './cluster.css'
 import MarkerClusterGroup from '@/components/leaflet/MarkerClusterGroup'
 import DefaultTileLayer from '@/components/leaflet/parts/DefaultTileLayer'
+import { convertBoundsToNEWS } from '@/helper/converBoundsToNEWS'
 import { usePosition } from '@/state/hooks/usePosition'
 import { NEWS, Shop } from '@/types/Shop'
 import { VStack } from '@chakra-ui/layout'
-import L, { LatLngBounds, Map } from 'leaflet'
+import L, { Map } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import React, { Dispatch, FC, SetStateAction } from 'react'
 import { renderToString } from 'react-dom/server'
@@ -23,21 +24,11 @@ import {
 type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>
   setNews: Dispatch<SetStateAction<NEWS | undefined>>
-  setIsShowDetail: Dispatch<SetStateAction<boolean>>
   setDetailId: Dispatch<SetStateAction<number | undefined>>
   markerData: Shop[] | undefined
 }
 
 type MarkersP = Omit<MapP, 'setMap'>
-
-const boundsToNews = (bounds: LatLngBounds): NEWS => {
-  return {
-    t: bounds.getNorth(),
-    b: bounds.getSouth(),
-    r: bounds.getEast(),
-    l: bounds.getWest(),
-  }
-}
 
 const ToolTipDiv = () => {
   return <div>aaaa</div>
@@ -52,17 +43,12 @@ const CenterMarker = () => {
   )
 }
 
-const Markers = ({
-  markerData,
-  setNews,
-  setDetailId,
-  setIsShowDetail: setIsModalVisible,
-}: MarkersP) => {
+const Markers = ({ markerData, setNews, setDetailId }: MarkersP) => {
   const map = useMapEvents({
-    moveend() {
-      const data = boundsToNews(map.getBounds())
-      setNews(data)
-    },
+    // moveend() {
+    //   const data = convertBoundsToNEWS(map.getBounds())
+    //   setNews(data)
+    // },
     click() {
       setDetailId(undefined)
     },
@@ -81,7 +67,6 @@ const Markers = ({
             {/* <ToolTipDiv /> */}
             <div
               onClick={() => {
-                setIsModalVisible(() => true)
                 setDetailId(shop.id)
               }}
             >
@@ -108,7 +93,7 @@ const PopoverList = (shops: Shop[]) => {
   )
 }
 
-const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsShowDetail }) => {
+const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId }) => {
   const { position, error } = usePosition()
 
   //  TODO 임시 0 0
@@ -122,7 +107,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
       style={{ minHeight: '100vh', minWidth: '100vw', zIndex: 0 }}
       whenCreated={(map) => {
         console.info('Map Created')
-        const data = boundsToNews(map.getBounds())
+        const data = convertBoundsToNEWS(map.getBounds())
         setNews(data) // 현재 0 ,0 안 넣어서 실행 안 되는중임.
         setMap(map)
       }}
@@ -138,7 +123,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
           if (lat == 0 && lng == 0 && position) {
             // 초기화 0.0 상태일때만 갱신
             map.setView([position.latitude, position.longitude], 16)
-            const data = boundsToNews(map.getBounds())
+            const data = convertBoundsToNEWS(map.getBounds())
             setNews(data)
           }
           return null
@@ -170,7 +155,6 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
           a.addEventListener('click', ({ target }) => {
             if (target instanceof HTMLElement) {
               if ((target.className = 'popover-list')) {
-                setIsShowDetail(() => true)
                 setDetailId(parseInt(target.dataset.id as string))
               }
             }
@@ -184,12 +168,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
           return L.divIcon({ html: html, className: 'my-cluster', iconSize: L.point(32, 32) })
         }}
       >
-        <Markers
-          markerData={markerData}
-          setNews={setNews}
-          setDetailId={setDetailId}
-          setIsShowDetail={setIsShowDetail}
-        />
+        <Markers markerData={markerData} setNews={setNews} setDetailId={setDetailId} />
       </MarkerClusterGroup>
     </MapContainer>
   )

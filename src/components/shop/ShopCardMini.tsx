@@ -23,6 +23,7 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
       rounded="10px"
       display="flex"
       flexDirection="row"
+      zIndex="2"
     >
       {shop ? (
         <>
