@@ -1,4 +1,4 @@
-import DividerDefault from '@/components/common/DivderDefault'
+import DividerDefault from '@/components/common/DividerDefault'
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import SettingMenuBlock, {
   SettingMenuBlockWrapper,
