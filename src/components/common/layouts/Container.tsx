@@ -1,20 +1,16 @@
-import { Flex, FlexProps, useColorMode } from '@chakra-ui/react'
+import useColorStore from '@/state/hooks/useColorStore'
+import { Flex, FlexProps } from '@chakra-ui/react'
 
 export const Container = (props: FlexProps) => {
-  const { colorMode } = useColorMode()
-
-  const bgColor = { light: 'gray.50', dark: 'gray.900' }
-
-  const color = { light: 'black', dark: 'white' }
   return (
     <Flex
       direction="column"
-      alignItems="center"
+      // alignItems="center"
       justifyContent="flex-start"
       minH="100vh"
       width="100vw"
-      bg={bgColor[colorMode]}
-      color={color[colorMode]}
+      bg={useColorStore('background')}
+      color={useColorStore('textHigh')}
       {...props}
     />
   )

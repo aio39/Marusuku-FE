@@ -119,7 +119,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId, setIsSh
       zoom={13}
       scrollWheelZoom={true}
       zoomControl={false}
-      style={{ height: '100%', minHeight: 400, width: '100%', zIndex: 0 }}
+      style={{ minHeight: '100vh', minWidth: '100vw', zIndex: 0 }}
       whenCreated={(map) => {
         console.info('Map Created')
         const data = boundsToNews(map.getBounds())

@@ -6,7 +6,7 @@ import ShopCard from '@/components/shop/ShopCard'
 import ShopCardMini from '@/components/shop/ShopCardMini'
 import { useShops } from '@/state/swr/shops/useShops'
 import { NEWS } from '@/types/Shop'
-import { Box, Container, Flex, VStack } from '@chakra-ui/layout'
+import { Box, Flex, VStack } from '@chakra-ui/layout'
 import { DrawerBody, DrawerCloseButton, DrawerHeader } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/spinner'
 import { Map } from 'leaflet'
@@ -42,7 +42,7 @@ const Page = () => {
   }, [maxMove])
 
   return (
-    <MobileDefaultLayout FlexProps={{ overflow: 'hidden', height: '100vh' }}>
+    <MobileDefaultLayout FlexProps={{ overflow: 'hidden', minHeight: '100vh', minWidth: '100vw' }}>
       <FixedFlexContainer>
         <BackPageBtn marginRight="auto"></BackPageBtn>
         <OpenDrawerBtn text="목록" buttonProps={{ justifySelf: 'end', marginLeft: 'auto' }}>
@@ -82,7 +82,7 @@ const Page = () => {
           />
         )}
 
-        <Container p="0" sx={{ circle: { backgroundColor: 'red' } }}>
+        <Box p="0" sx={{ circle: { backgroundColor: 'red' } }}>
           {typeof window !== 'undefined' && (
             <MapSearch
               setMap={setMap}
@@ -92,7 +92,7 @@ const Page = () => {
               setDetailId={setDetailId}
             />
           )}
-        </Container>
+        </Box>
       </Flex>
       <ShopCardMini id={detailId} />
     </MobileDefaultLayout>
