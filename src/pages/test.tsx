@@ -1,5 +1,5 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
-import MobileLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import MobileNavigation from '@/components/common/layouts/mobileLayout/MobileLayout'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Button } from '@chakra-ui/button'
 import { DarkMode, useColorMode } from '@chakra-ui/color-mode'
@@ -26,7 +26,7 @@ export default function Test() {
         </Box>
         <Box width={[1, 1 / 2, 1 / 4]} bg="blue" h="3.5" />
       </Box>
-      <MobileLayout />
+      <MobileNavigation />
     </DefaultLayout>
   )
 }

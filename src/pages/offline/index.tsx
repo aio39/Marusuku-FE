@@ -1,12 +1,12 @@
-import DefaultLayout from '@/components/common/layouts/DefaultLayout'
-import MobileNavigation from '@/components/common/layouts/mobileLayout/MobileLayout'
+import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
 import { Button } from '@chakra-ui/button'
-
+import Link from 'next/link'
 export default function Home() {
   return (
-    <DefaultLayout>
-      <Button>offline</Button>
-      <MobileNavigation></MobileNavigation>
-    </DefaultLayout>
+    <MobileDefaultLayout boxProps={{ px: '0.5rem' }}>
+      <Link href="offline/map">
+        <Button>offline</Button>
+      </Link>
+    </MobileDefaultLayout>
   )
 }

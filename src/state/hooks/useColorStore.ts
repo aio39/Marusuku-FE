@@ -1,8 +1,9 @@
 import { useColorModeValue } from '@chakra-ui/color-mode'
 
 const COLOR = {
-  surface: ['#FFFFFF', '#2D3748'], // white , gray.700
-  background: ['#EDF2F7', '#121212'], // gray.50 , material black
+  surface: ['#EDF2F7', '#2D3748'], // white , gray.700
+  surfaceShadow: ['#FFFFFF', '#2D3748'], // gray.50 , material black
+  background: ['#FFFFFF', '#121212'], // gray.50 , material black
   primary: ['#39c7bb', '#A0C1B8'],
   weekPrimary: ['#39c7bb33', '#A0C1B833'],
   red: ['#b00020', '#cf6679'],

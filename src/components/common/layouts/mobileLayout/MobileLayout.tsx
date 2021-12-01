@@ -55,8 +55,8 @@ const MobileNavigation: FC = () => {
     <HStack
       h="4rem"
       bgColor="white"
-      width="100vw"
       position="fixed"
+      width="100vw"
       bottom="0"
       borderTop="2px"
       justifyContent="space-around"
@@ -69,10 +69,16 @@ const MobileNavigation: FC = () => {
   )
 }
 
-const MobileDefaultLayout: FC<{ FlexProps?: FlexProps }> = ({ FlexProps, children }) => {
+const MobileDefaultLayout: FC<{ flexProps?: FlexProps; boxProps?: BoxProps }> = ({
+  flexProps,
+  boxProps,
+  children,
+}) => {
   return (
-    <Container {...FlexProps}>
-      {children}
+    <Container {...flexProps}>
+      <Box width="full" height="full" {...boxProps}>
+        {children}
+      </Box>
       <MobileNavigation />
     </Container>
   )
