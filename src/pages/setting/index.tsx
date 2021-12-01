@@ -4,11 +4,12 @@ import SettingMenuBlock, {
   SettingMenuBlockWrapper,
   SettingMenuItem,
 } from '@/components/setting/SettingMenuBlock'
+import useColorStore from '@/state/hooks/useColorStore'
 import { CheckCircleIcon } from '@chakra-ui/icons'
 
 export default function Home() {
   return (
-    <MobileDefaultLayout boxProps={{ px: '0.5rem' }}>
+    <MobileDefaultLayout boxProps={{ px: '0.5rem' }} flexProps={{ bg: useColorStore('surface') }}>
       <SettingMenuBlockWrapper>
         <SettingMenuBlock title="메뉴">
           <SettingMenuItem icon={CheckCircleIcon} title="주소 관리" url="/" />

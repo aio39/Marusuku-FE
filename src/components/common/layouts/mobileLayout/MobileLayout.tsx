@@ -44,8 +44,8 @@ const MobileMenuButton: FC<MenuProps & { selected?: boolean }> = ({ url, svg, se
 const MobileNavigation: FC = () => {
   const menuList: MenuProps[] = [
     { url: '/', svg: RiHome2Line },
-    { url: 'offline', svg: BsBoxSeam },
-    { url: 'online', svg: RiShoppingBasket2Fill },
+    { url: 'offline', svg: RiShoppingBasket2Fill },
+    { url: 'online', svg: BsBoxSeam },
     { url: 'setting', svg: RiUser3Fill },
   ]
   const router = useRouter()
