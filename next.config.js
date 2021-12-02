@@ -9,6 +9,10 @@ const nextConfig = {
   images: {
     domains: ['marusuku.s3.ap-northeast-2.amazonaws.com'],
   },
+  typescript: {
+    // NOTE
+    ignoreBuildErrors: true,
+  },
   // experimental: {
   //   // concurrentFeatures: true,
   // },
