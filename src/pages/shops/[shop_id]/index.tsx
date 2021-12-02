@@ -79,8 +79,8 @@ const ShopDetailPage = () => {
           <Tab>리뷰</Tab>
         </TabList>
 
-        <TabPanels>
-          <TabPanel>
+        <TabPanels p="0">
+          <TabPanel p="4">
             {menusData ? <MenuList menus={menusData}></MenuList> : <div>'loading</div>}
           </TabPanel>
           <TabPanel>

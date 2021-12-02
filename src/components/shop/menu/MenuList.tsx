@@ -1,25 +1,26 @@
 import StarRating from '@/components/common/StarRating2'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
-import { Box, Flex, Link, VStack } from '@chakra-ui/layout'
+import { Box, Flex, Link, SimpleGrid, VStack } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import fallback from '../../../../public/img/fallback.png'
 
 const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
   const router = useRouter()
 
   return (
-    <Flex
-      maxW="md"
-      w="full"
-      mx="auto"
-      bg={useColorStore('surface')}
-      shadow="lg"
-      rounded="lg"
-      overflow="hidden"
-    >
-      <Box w={2 / 3} p={{ base: 4, md: 4 }}>
+    <VStack bg={useColorStore('surface')} shadow="lg" rounded="lg" overflow="hidden">
+      <Box position="relative" width="100%" height="40vw">
+        <Image
+          objectFit="none"
+          layout="fill"
+          src={menu.img ? `${process.env.AWS_S3}${menu.img}` : fallback}
+        />
+      </Box>
+      <Box height="150px" width="full" px="2" textAlign="start">
         <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorStore('textHigh')}>
           {menu.name}
         </chakra.h1>
@@ -27,11 +28,11 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           {menu.desc}
         </chakra.p>
         <StarRating score={menu.score ?? 1} />
-        <Flex mt={3} alignItems="center" justifyContent="space-between">
+        <Flex mt={3} justifyContent="space-between">
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
-          <Link href={`/shops/${router.query.shop_id}/menus/${menu.id}`}>
+          <Link href={`${router.query.shop_id}/menus/${menu.id}`}>
             <chakra.button
               px={2}
               py={1}
@@ -53,28 +54,18 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           </Link>
         </Flex>
       </Box>
-      {menu.img && (
-        <Box
-          w={1 / 3}
-          bgSize="cover"
-          style={{
-            backgroundImage: `url('${process.env.AWS_S3}${menu.img}')`,
-            //   "url('https://images.unsplash.com/photo-1494726161322-5360d4d0eeae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80')",
-          }}
-        ></Box>
-      )}
-    </Flex>
+    </VStack>
   )
 }
 
 const MenuList: FC<{ menus: Menu[] }> = ({ menus }) => {
   return (
-    <VStack p={50} w="full" alignItems="center" justifyContent="center" spacing="4">
+    <SimpleGrid columns={2} spacing={4} justifyContent="center">
       {menus &&
         menus.map((menu) => {
           return <MenuCard menu={menu} />
         })}
-    </VStack>
+    </SimpleGrid>
   )
 }
 

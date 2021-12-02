@@ -55,7 +55,7 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
             <StarRating score={2}></StarRating>
 
             <Box mt={3} position="absolute" right="1" bottom="1">
-              <Link href={'shops/' + shop.id}>
+              <Link href={'/shops/' + shop.id}>
                 <chakra.button
                   px={2}
                   py={1}
