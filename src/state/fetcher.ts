@@ -61,4 +61,14 @@ const fetcher = (url: string) =>
       throw new Error('An error occurred while fetching the data.')
     })
 
+const fetcherForInfinite = (url: string) =>
+  axiosI
+    .get(url)
+    .then((res) => {
+      return res.data
+    })
+    .catch((err) => {
+      throw new Error('An error occurred while fetching the data.')
+    })
+
 export { fetcher, axiosI }

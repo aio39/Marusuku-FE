@@ -43,7 +43,11 @@ const ScrollYFilterForShop: FC<{
     const sort = e.currentTarget.getAttribute('data-sort')
     if (sort) {
       updateCommonFSW((draft) => {
-        draft.sort = [sort]
+        if (sort) {
+          draft.sort = [sort]
+        } else {
+          draft.sort = []
+        }
       })
     }
   }
@@ -52,8 +56,8 @@ const ScrollYFilterForShop: FC<{
     <ScrollYFilter>
       <FilterButton
         text="거리순"
-        onClick={sortHandler}
         sort="d.dis"
+        onClick={sortHandler}
         icon={MdOutlineSettingsInputSvideo({})}
       />
       <FilterButton
@@ -62,6 +66,13 @@ const ScrollYFilterForShop: FC<{
         sort="updated_at"
         icon={MdOutlineSettingsInputSvideo({})}
       />
+      <FilterButton
+        text="이름"
+        onClick={sortHandler}
+        sort="name"
+        icon={MdOutlineSettingsInputSvideo({})}
+      />
+
       <FilterButton text="버튼" icon={MdOutlineSettingsInputSvideo({})} />
       <FilterButton text="버튼" icon={MdOutlineSettingsInputSvideo({})} />
       <FilterButton text="버튼" icon={MdOutlineSettingsInputSvideo({})} />

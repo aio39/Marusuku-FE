@@ -3,7 +3,7 @@ import { default as MobileDefaultLayout } from '@/components/common/layouts/mobi
 import TopCommonNav from '@/components/common/layouts/mobileLayout/TopCommonNav'
 import ShopCard from '@/components/shop/ShopCard'
 import { usePosition } from '@/state/hooks/usePosition'
-import { useShops } from '@/state/swr/shops/useShops'
+import { useShopsInfinite } from '@/state/swr/shops/useShops'
 import { CommonFSW } from '@/types/common'
 import { PhoneIcon } from '@chakra-ui/icons'
 import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
@@ -12,18 +12,19 @@ import { useImmer } from 'use-immer'
 export default function OfflineSearch() {
   const { position } = usePosition()
   const [customPosition, setCustomPosition] = useState(position)
-  const [distance, setDistance] = useState(100)
+  const [distance, setDistance] = useState(1000)
 
-  const [commonFSW, updateCommonFSW] = useImmer<CommonFSW>({ per_page: 10 })
+  const [commonFSW, updateCommonFSW] = useImmer<CommonFSW>({ per_page: 4, sort: ['d.dis'] })
 
-  const { data, isValidating, error } = useShops(
+  const { data, isValidating, error, mutate, setSize, size } = useShopsInfinite(
     commonFSW,
     customPosition
       ? { distance, lat: customPosition.latitude, lng: customPosition.longitude }
       : undefined,
     customPosition ? false : true
   )
-  const shopsData = data?.data
+  console.log('flat전 데이터', size, data)
+  const shopsData = data?.flatMap((data) => data.data)
 
   useEffect(() => {
     setCustomPosition(position)
@@ -43,7 +44,13 @@ export default function OfflineSearch() {
         commonFSW={commonFSW}
         updateCommonFSW={updateCommonFSW}
       ></ScrollYFilterForShop>
-
+      <button
+        onClick={() => {
+          setSize(size + 1)
+        }}
+      >
+        test
+      </button>
       {shopsData ? (
         shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)
       ) : (
