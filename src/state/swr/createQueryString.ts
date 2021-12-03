@@ -1,5 +1,5 @@
 import { CommonFSW } from '@/types/common'
-import { NEWS } from '@/types/Shop'
+import { DistanceSearchData, NEWS } from '@/types/Shop'
 
 const createFSWQueryString = (query: CommonFSW): string => {
   const { filter, sort, start, end, with: aWith, per_page } = query
@@ -30,13 +30,15 @@ const createFSWQueryString = (query: CommonFSW): string => {
   return url.toString() + '&'
 }
 
-const createNEWSQueryString = (query: NEWS): string => {
+const createNotNestedQueryString = (query: NEWS | DistanceSearchData): string => {
   const url = new URLSearchParams()
   Object.entries(query).forEach((entry) => {
     const [key, value] = entry
+    // if (key === 'type') return
     url.set(key, value.toString())
   })
+
   return url.toString() + '&'
 }
 
-export { createFSWQueryString, createNEWSQueryString }
+export { createFSWQueryString, createNotNestedQueryString }

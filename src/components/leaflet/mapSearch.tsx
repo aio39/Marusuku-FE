@@ -24,6 +24,7 @@ type MapP = {
   setMap: Dispatch<SetStateAction<Map | undefined>>
   setNews: Dispatch<SetStateAction<NEWS | undefined>>
   setDetailId: Dispatch<SetStateAction<number | undefined>>
+  // setIsShowDetail: React.Dispatch<React.SetStateAction<boolean>>
   markerData: Shop[] | undefined
 }
 

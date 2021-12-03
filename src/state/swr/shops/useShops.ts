@@ -1,19 +1,27 @@
 import { fetcher } from '@/state/fetcher'
-import { createFSWQueryString, createNEWSQueryString } from '@/state/swr/createQueryString'
+import { createFSWQueryString, createNotNestedQueryString } from '@/state/swr/createQueryString'
 import laggy from '@/state/swr/middleware/laggy'
 import { CommonFSW, Pagination } from '@/types/common'
-import { NEWS, Shop } from '@/types/Shop'
-import useSWR from 'swr'
+import { DistanceSearchData, NEWS, Shop } from '@/types/Shop'
+import useSWR, { SWRResponse } from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
 const URL_SHOP = '/api/shops'
 
-const useShops = (query?: CommonFSW, news?: NEWS) => {
+type IUseShops = {
+  (query?: CommonFSW, news?: NEWS, isPass?: boolean): SWRResponse<Pagination<Shop>, any>
+  (query?: CommonFSW, distance?: DistanceSearchData, isPass?: boolean): SWRResponse<
+    Pagination<Shop>,
+    any
+  >
+}
+
+const useShops: IUseShops = (query, condition, isPass) => {
   let url = URL_SHOP + '?'
   query && (url += createFSWQueryString(query))
-  news && (url += createNEWSQueryString(news))
+  condition && (url += createNotNestedQueryString(condition))
 
-  const swrResponses = useSWR<Pagination<Shop>>(url, fetcher, {
+  const swrResponses = useSWR<Pagination<Shop>>(isPass ? null : url, fetcher, {
     use: [laggy],
     // suspense: true,
   })

@@ -51,6 +51,7 @@
     "swr": "^1.0.1",
     "swr-devtools": "^0.3.0",
     "swr-devtools-panel": "^0.3.0",
+    "use-immer": "^0.6.0",
     "yup": "^0.28.5"
   },
   "devDependencies": {

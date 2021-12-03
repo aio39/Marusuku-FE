@@ -69,11 +69,10 @@ const MobileNavigation: FC = () => {
   )
 }
 
-const MobileDefaultLayout: FC<{ flexProps?: FlexProps; boxProps?: BoxProps }> = ({
-  flexProps,
-  boxProps,
-  children,
-}) => {
+const MobileDefaultLayout: FC<{
+  flexProps?: FlexProps
+  boxProps?: BoxProps
+}> = ({ flexProps, boxProps, children }) => {
   return (
     <Container {...flexProps}>
       <Box width="full" height="full" {...boxProps}>

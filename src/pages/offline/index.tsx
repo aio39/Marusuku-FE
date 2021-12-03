@@ -31,7 +31,7 @@ export default function Home() {
           subTitle="득템 찬스!!"
         />
         <CustomBlockBtn
-          url="/"
+          url="/offline/search"
           gridItemProps={{
             'aria-details': '검색 하기',
             backgroundImage: "url('/icon/block/search.png')",

@@ -23,5 +23,15 @@ export type Shop = {
 } & CommonProps
 
 export type NEWS = {
-  [k in 't' | 'b' | 'r' | 'l']: number
+  // [k in 't' | 'b' | 'r' | 'l']: number
+  t: number
+  b: number
+  r: number
+  l: number
+}
+
+export type DistanceSearchData = {
+  distance: number
+  lng: number
+  lat: number
 }

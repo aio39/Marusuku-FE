@@ -12,9 +12,9 @@ import {
   Input,
   Link,
   Stack,
-  Text,
 } from '@chakra-ui/react'
 import Head from 'next/head'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -53,14 +53,11 @@ const LoginPage = () => {
         <meta name="description" content="마루스쿠 로그인 페이지" />
       </Head>
       <Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorStore('background')}>
-        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack spacing={8} mx={'auto'} maxW={'lg'} py={8} px={2}>
           <Stack align={'center'}>
-            <Heading fontSize={'4xl'}>Sign in to your account</Heading>
-            <Text fontSize={'lg'} color={'gray.600'}>
-              to enjoy all of our cool <Link color={'blue.400'}>features</Link> ✌️
-            </Text>
+            <Heading fontSize={'6xl'}>Marusuku</Heading>
           </Stack>
-          <Box rounded={'lg'} bg={useColorStore('surface')} boxShadow={'lg'} p={8}>
+          <Box rounded="lg" bg={useColorStore('surface')} boxShadow={'lg'} p={8}>
             <Stack spacing={4}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <FormControl id="email" isInvalid={!!errors.email}>
@@ -100,7 +97,12 @@ const LoginPage = () => {
                     justify={'space-between'}
                   >
                     <Checkbox>Remember me</Checkbox>
-                    <Link color={'blue.400'}>Forgot password?</Link>
+                    <NextLink href="./user/password">
+                      <Link color={'blue.400'}>비밀번호 찾기</Link>
+                    </NextLink>
+                    <NextLink href="./user/sign-up">
+                      <Link color={'blue.400'}>회원가입</Link>
+                    </NextLink>
                   </Stack>
                   <Button
                     bg={'blue.400'}
@@ -111,7 +113,7 @@ const LoginPage = () => {
                     type="submit"
                     isLoading={isSubmitting}
                   >
-                    Sign in
+                    로그인
                   </Button>
                 </Stack>
               </form>
