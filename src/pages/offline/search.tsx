@@ -1,6 +1,7 @@
 import { ScrollYFilterForShop } from '@/components/common/button/ScrollYFilter'
 import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
 import TopCommonNav from '@/components/common/layouts/mobileLayout/TopCommonNav'
+import BottomLoading from '@/components/common/loading/BottomLoading'
 import ShopCard from '@/components/shop/ShopCard'
 import { usePosition } from '@/state/hooks/usePosition'
 import { useShopsInfinite } from '@/state/swr/shops/useShops'
@@ -48,7 +49,7 @@ export default function OfflineSearch() {
     return () => observer && observer.disconnect()
   }, [ref, setSize])
 
-  // console.log('shopsData', shopsData)
+  console.log('shopsData', isValidating)
 
   return (
     <MobileDefaultLayout boxProps={{ px: '8px' }}>
@@ -62,6 +63,7 @@ export default function OfflineSearch() {
         commonFSW={commonFSW}
         updateCommonFSW={updateCommonFSW}
       ></ScrollYFilterForShop>
+
       <Box position="relative">
         {shopsData ? (
           shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)
@@ -69,6 +71,7 @@ export default function OfflineSearch() {
           <Box>No Data</Box>
         )}
         <Box position="absolute" bottom="600px" height="0" bgColor="black" ref={ref}></Box>
+        <BottomLoading isLoading={isValidating}> </BottomLoading>
       </Box>
     </MobileDefaultLayout>
   )
