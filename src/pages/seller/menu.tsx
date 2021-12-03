@@ -8,6 +8,7 @@ import { useUser } from '@/state/swr/useUser'
 import { Menu, MenuInputs } from '@/types/Menu'
 import { Button } from '@chakra-ui/button'
 import { Box, Divider, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import router from 'next/router'
 import React, { useRef, useState } from 'react'
 import { FilePond } from 'react-filepond'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -23,10 +24,12 @@ export default function Home() {
   } = useForm<MenuInputs>({
     mode: 'onChange',
   })
-  const { data: userData } = useUser()
+  const { data: userData, isNotLogged } = useUser()
   const [createdMenu, setCreatedMenu] = useState<Menu>()
   const imageUploadRef = useRef<FilePond>(null)
   const useDisclosureReturn = useDisclosure()
+
+  if (isNotLogged) router.push('/')
 
   const onSubmit: SubmitHandler<MenuInputs> = async (inputData) => {
     const formData = new FormData()
@@ -52,10 +55,6 @@ export default function Home() {
     }
   }
 
-  console.info(errors)
-  console.info(isValid)
-  console.log(watch())
-  console.log(userData)
   return (
     <DefaultLayout>
       <Box

@@ -1,6 +1,15 @@
 import useColorStore from '@/state/hooks/useColorStore'
 import useScrollDown from '@/state/hooks/useScrollDown'
-import { Box, BoxProps, Center, FlexProps, HStack, StackProps, Text } from '@chakra-ui/layout'
+import {
+  Box,
+  BoxProps,
+  Center,
+  FlexProps,
+  HStack,
+  StackProps,
+  Text,
+  VStack,
+} from '@chakra-ui/layout'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -55,15 +64,15 @@ const MobileNavigation: FC = () => {
   const topPath = router.pathname.split('/')[1] as string | undefined
   const scrollDown = useScrollDown()
 
-  console.log(scrollDown)
   return (
-    <MotionHStack
+    <HStack
       h="4rem"
       bgColor="white"
       position="sticky"
-      // visibility={scrollDown ? 'hidden' : 'visible'}
+      visibility={scrollDown ? 'hidden' : 'visible'}
       width="100vw"
-      bottom={scrollDown ? '-80px' : '0'}
+      bottom={0}
+      // bottom={scrollDown ? '-80px' : '0'}
       borderTop="2px"
       justifyContent="space-around"
       backgroundColor={useColorStore('surface')}
@@ -71,7 +80,7 @@ const MobileNavigation: FC = () => {
       {menuList.map((data) => (
         <MobileMenuButton key={data.url} {...data} selected={data.url === (topPath || '/')} />
       ))}
-    </MotionHStack>
+    </HStack>
   )
 }
 
@@ -81,9 +90,9 @@ const MobileDefaultLayout: FC<{
 }> = ({ flexProps, boxProps, children }) => {
   return (
     <Container {...flexProps}>
-      <Box width="full" height="full" {...boxProps}>
+      <VStack width="full" height="full" {...boxProps}>
         {children}
-      </Box>
+      </VStack>
       <Box flexGrow="1"> </Box>
       <MobileNavigation />
     </Container>
