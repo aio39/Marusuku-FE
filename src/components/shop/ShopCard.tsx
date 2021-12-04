@@ -46,7 +46,7 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
           <chakra.h1 color="white" fontWeight="bold" fontSize="lg">
             $220
           </chakra.h1>
-          <Link href={'shops/' + shop.id}>
+          <Link href={'/shops/' + shop.id}>
             <chakra.button
               px={2}
               py={1}

@@ -1,21 +1,36 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
+import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import MenuList from '@/components/shop/menu/MenuList'
 import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'
 import { Image } from '@chakra-ui/image'
 import { AspectRatio, Center, Text, VStack } from '@chakra-ui/layout'
 import { Tab, TabList, TabPanel, TabPanels, Tabs, UseTabsProps } from '@chakra-ui/tabs'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 
-const ShopDetailPage = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { shop_id } = context.query
+  // console.log(context.query)
+  // const url = 'https://localhost:3939' + '/api/shops/' + shop_id
+
+  // const data = await axiosI.get(url)
+  // console.log(data)
+  // // const data = await res.json()
+
+  return {
+    props: {},
+  }
+}
+
+const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter()
   const [tabIndex, setTabIndex] = useState(0)
   const { data: shopData } = useShop(parseInt(router.query.shop_id as string))
-  const { data } = useMenus({ filter: [['shop_id', router.query.shop_id as string]] })
-  const menusData = data?.data
-
+  const { data: menuData } = useMenus({ filter: [['shop_id', router.query.shop_id as string]] })
+  const menusData = menuData?.data
   const MAX_INDEX = 2
   const handlers = useSwipeable({
     onSwipedLeft: (eventData) => {
@@ -37,19 +52,17 @@ const ShopDetailPage = () => {
   const MB = shopData.img ? '30px' : '30px'
 
   return (
-    <DefaultLayout>
-      {!shopData.img && (
-        <AspectRatio width="full" ratio={1} maxW="container.sm" position="relative">
-          <>
-            <Image
-              src={shopData.img}
-              alt="가게 대표 이미지"
-              objectFit="cover"
-              fallbackSrc="/img/fallback.png"
-            />
-          </>
-        </AspectRatio>
-      )}
+    <MobileDefaultLayout>
+      <AspectRatio width="full" ratio={1} maxW="container.sm" position="relative">
+        <>
+          <Image
+            src={shopData.img}
+            alt="가게 대표 이미지"
+            objectFit="cover"
+            fallbackSrc="/img/fallback.png"
+          />
+        </>
+      </AspectRatio>
       <Center position="relative" width="100%" mb={MB} h="150px">
         <VStack
           position="absolute"
@@ -91,7 +104,7 @@ const ShopDetailPage = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </DefaultLayout>
+    </MobileDefaultLayout>
   )
 }
 

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 export default function useScrollDown() {
   const [data, setData] = useState({
-    x: 0,
+    // x: 0,
     y: 0,
-    lastX: 0,
+    // lastX: 0,
     lastY: 0,
   })
 
@@ -12,9 +12,9 @@ export default function useScrollDown() {
     const handleScroll = () => {
       setData((last) => {
         return {
-          x: window.scrollX,
+          // x: window.scrollX,
           y: window.scrollY,
-          lastX: last.x,
+          // lastX: last.x,
           lastY: last.y,
         }
       })

@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 const BottomLoading: FC<{ isLoading: boolean }> = ({ isLoading }) => {
   return (
-    <Center visibility={isLoading ? 'visible' : 'hidden'} my="30px">
+    <Center flexGrow={10} visibility={isLoading ? 'visible' : 'hidden'} my="30px">
       <Spinner
         thickness="6px"
         speed="0.65s"
