@@ -1,8 +1,6 @@
 import { CommonProps } from './common'
 
-export type Menu = {
-  name: string
-  cycle_month: number
+export type MenuLimit = {
   limit_day?: number
   limit_week?: number
   limit_month?: number
@@ -11,12 +9,18 @@ export type Menu = {
   limit_week_amount?: number
   limit_month_amount?: number
   limit_year_amount?: number
+}
+
+export type Menu = {
+  name: string
+  cycle_month: number
   price: number
   vanish: number
   score?: number
   desc?: string
   img?: string
   shop_id: number
-} & CommonProps
+} & MenuLimit &
+  CommonProps
 
 export type MenuInputs = Omit<Menu, 'shop_id' | 'vanish' | keyof CommonProps>

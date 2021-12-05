@@ -1,25 +1,18 @@
+import NextImage from '@/components/common/image/NextImage'
 import StarRating from '@/components/common/StarRating2'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
 import { Box, Flex, Link, SimpleGrid, VStack } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
-import fallback from '../../../../public/img/fallback.png'
 
 const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
   const router = useRouter()
 
   return (
     <VStack bg={useColorStore('surface')} shadow="lg" rounded="lg" overflow="hidden">
-      <Box position="relative" width="100%" height="40vw">
-        <Image
-          objectFit="none"
-          layout="fill"
-          src={menu.img ? `${process.env.AWS_S3}${menu.img}` : fallback}
-        />
-      </Box>
+      <NextImage url={menu.img} height="40vw" />
       <Box height="150px" width="full" px="2" textAlign="start">
         <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorStore('textHigh')}>
           {menu.name}

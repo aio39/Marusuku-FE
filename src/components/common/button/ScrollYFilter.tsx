@@ -26,6 +26,7 @@ const ScrollYFilter: FC = ({ children }) => {
       className="scrollbar-hidden"
       overflowX="scroll"
       width="auto"
+      maxW="100vw"
       flexWrap="nowrap"
       py="8px"
       sx={{ 'button:not(:last-child)': { marginRight: '8px' } }}
