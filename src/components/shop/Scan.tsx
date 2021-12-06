@@ -34,7 +34,7 @@ const Scan = () => {
   useEffect(() => {
     if (token) {
       axiosI
-        .post<UseHistory>(`/api/users/${userData?.id}/use_histories`, getPostData(token))
+        .post<UseHistory>(`/api/use_histories`, getPostData(token))
         .then((response) => {
           console.log(response)
         })
