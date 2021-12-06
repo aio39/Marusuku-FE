@@ -14,7 +14,11 @@ interface ISettingMenuItem {
 }
 
 const SettingMenuBlockWrapper: FC = ({ children }) => {
-  return <Box sx={{ '.SettingMenuBlock:not(:last-child)': { mb: '30px' } }}>{children}</Box>
+  return (
+    <Box width="100%" sx={{ '.SettingMenuBlock:not(:last-child)': { mb: '30px' } }}>
+      {children}
+    </Box>
+  )
 }
 
 const SettingMenuBlock: FC<ISettingMenuBlock> = ({ title, children }) => {

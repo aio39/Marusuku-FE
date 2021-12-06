@@ -91,7 +91,7 @@ const MobileDefaultLayout: FC<{
   return (
     <Container {...flexProps}>
       {/* <TopAbsoluteNav>ffff</TopAbsoluteNav> */}
-      <VStack width="full" height="full" {...boxProps}>
+      <VStack width="100%" height="full" {...boxProps}>
         {children}
       </VStack>
       <Box flexGrow="1"> </Box>
