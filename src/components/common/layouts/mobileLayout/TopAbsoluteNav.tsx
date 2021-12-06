@@ -21,7 +21,9 @@ const TopHiddenByScrollNav: FC = ({ children }) => {
           bgColor={useColorStore('surface') + (isUnderThanOffset ? '00' : 'FF')}
           opacity={isUnderThanOffset ? (isShow ? '1.0' : '0.0') : '1.0'}
         ></BackPageBtn>
-        <Box opacity={isShow ? '1.0' : '0.0'}>{children}</Box>
+        <Box opacity={isShow ? '1.0' : '0.0'} flexGrow="1">
+          {children}
+        </Box>
       </HStack>
     </Box>
   )

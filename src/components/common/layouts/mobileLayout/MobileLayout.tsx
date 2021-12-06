@@ -69,7 +69,7 @@ const MobileNavigation: FC = () => {
       h="4rem"
       bgColor="white"
       position="sticky"
-      visibility={isShow ? 'hidden' : 'visible'}
+      visibility={isShow ? 'visible' : 'hidden'}
       width="100vw"
       bottom={0}
       // bottom={scrollDown ? '-80px' : '0'}

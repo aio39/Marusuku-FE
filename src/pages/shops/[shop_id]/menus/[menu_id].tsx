@@ -1,7 +1,9 @@
 import NextImage from '@/components/common/image/NextImage'
-import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import BottomColoredByHeight from '@/components/common/layouts/mobileLayout/BottomColoredByHeight'
+import MobileEmptyLayout from '@/components/common/layouts/mobileLayout/MobileEmptyLayout'
 import TopHiddenByScrollNav from '@/components/common/layouts/mobileLayout/TopAbsoluteNav'
 import { LabelTextChild, LabelTextWrapper } from '@/components/common/textView/ LabelText'
+import ReviewWrapper from '@/components/menu/Review'
 import convertLimitKeyToKR from '@/helper/converLimitKeyToKR'
 import { axiosI } from '@/state/fetcher'
 import useColorStore from '@/state/hooks/useColorStore'
@@ -43,8 +45,10 @@ const Menu = () => {
   }, [menu])
 
   return (
-    <MobileDefaultLayout>
-      <TopHiddenByScrollNav>ffff</TopHiddenByScrollNav>
+    <MobileEmptyLayout>
+      <TopHiddenByScrollNav>
+        <Text>{menu?.name}</Text>
+      </TopHiddenByScrollNav>
       {menu ? (
         <VStack width="100vw" mt="0">
           <NextImage url={menu.img} height="100vw"></NextImage>
@@ -72,12 +76,23 @@ const Menu = () => {
             </LabelTextWrapper>
           </VStack>
           <img src="/img/detail.jpg" width="100%" height="auto" alt="" />
+          <ReviewWrapper
+            reviews={[
+              {
+                content: 'fdsfds',
+                userName: 'aio',
+                score: 4.4,
+                createdAt: '2021-12-05T16:45:41.000000Z',
+              },
+            ]}
+          ></ReviewWrapper>
           <Button onClick={subscribeHandler}>구독하기</Button>
+          <BottomColoredByHeight>aaaa</BottomColoredByHeight>
         </VStack>
       ) : (
         <div>loading</div>
       )}
-    </MobileDefaultLayout>
+    </MobileEmptyLayout>
   )
 }
 

@@ -5,14 +5,14 @@ import React, { FC } from 'react'
 
 const StarRating: FC<{ score: number }> = ({ score = 0 }) => {
   const totalStar = 5
-  const fullFillStar = score
+  const fullFillStar = Math.round(score)
   const emptyStar = totalStar - fullFillStar
 
   const Star = []
 
   for (let i = 1; i <= totalStar; i++) {
     i <= fullFillStar
-      ? Star.push(<StarIcon key={i} color={useColorStore('weekGray')} />)
+      ? Star.push(<StarIcon key={i} color={useColorStore('yellow')} />)
       : Star.push(<StarIcon key={i} color="gray.500" />)
   }
 
