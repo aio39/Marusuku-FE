@@ -1,6 +1,6 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import Rating from '@/components/common/StarRating'
-import MenuList from '@/components/shop/menu/MenuList'
+import MenuList from '@/components/menu/MenuList'
 import { useMyShop } from '@/lib/api/shops/ShopAPI'
 import useColorStore from '@/state/hooks/useColorStore'
 import { useMenus } from '@/state/swr/menus/useMenus'
