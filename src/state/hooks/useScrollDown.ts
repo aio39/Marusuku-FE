@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 
-export default function useScrollDown() {
+//  down 중인지 / offset 내인지
+export default function useScrollDown(y: 'height' | 'width' | number = 0) {
+  const [offsetY, setSkipY] = useState(0)
   const [data, setData] = useState({
     // x: 0,
     y: 0,
     // lastX: 0,
     lastY: 0,
   })
-
   useEffect(() => {
     const handleScroll = () => {
       setData((last) => {
@@ -19,6 +20,13 @@ export default function useScrollDown() {
         }
       })
     }
+    if (y == 'height') {
+      setSkipY(window.innerHeight)
+    } else if (y == 'width') {
+      setSkipY(window.innerWidth)
+    } else {
+      setSkipY(y)
+    }
 
     handleScroll()
     window.addEventListener('scroll', handleScroll)
@@ -28,8 +36,12 @@ export default function useScrollDown() {
     }
   }, [])
 
-  //  data.y > 150 &&
-  return data.y - data.lastY > 0
+  const isDowning = data.y - data.lastY >= 0 // > = 처음에는 무조건 true
+  const isUnderThanOffset = data.y >= offsetY
+  const isShow = !isDowning && isUnderThanOffset
+
+  return { isDowning, isUnderThanOffset, isShow }
+  // return data.y - data.lastY > 0 || (data.y as number) <= offsetY
 }
 
 // export const ScrollContext = createContext(null)

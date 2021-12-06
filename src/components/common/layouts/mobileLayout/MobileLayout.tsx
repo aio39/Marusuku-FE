@@ -62,14 +62,14 @@ const MobileNavigation: FC = () => {
   ]
   const router = useRouter()
   const topPath = router.pathname.split('/')[1] as string | undefined
-  const scrollDown = useScrollDown()
+  const { isShow } = useScrollDown(0)
 
   return (
     <HStack
       h="4rem"
       bgColor="white"
       position="sticky"
-      visibility={scrollDown ? 'hidden' : 'visible'}
+      visibility={isShow ? 'hidden' : 'visible'}
       width="100vw"
       bottom={0}
       // bottom={scrollDown ? '-80px' : '0'}
@@ -90,6 +90,7 @@ const MobileDefaultLayout: FC<{
 }> = ({ flexProps, boxProps, children }) => {
   return (
     <Container {...flexProps}>
+      {/* <TopAbsoluteNav>ffff</TopAbsoluteNav> */}
       <VStack width="full" height="full" {...boxProps}>
         {children}
       </VStack>

@@ -1,5 +1,6 @@
 import NextImage from '@/components/common/image/NextImage'
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import TopHiddenByScrollNav from '@/components/common/layouts/mobileLayout/TopAbsoluteNav'
 import { LabelTextChild, LabelTextWrapper } from '@/components/common/textView/ LabelText'
 import convertLimitKeyToKR from '@/helper/converLimitKeyToKR'
 import { axiosI } from '@/state/fetcher'
@@ -43,9 +44,10 @@ const Menu = () => {
 
   return (
     <MobileDefaultLayout>
+      <TopHiddenByScrollNav>ffff</TopHiddenByScrollNav>
       {menu ? (
-        <VStack width="100vw">
-          <NextImage url={menu.img} height="50vh"></NextImage>
+        <VStack width="100vw" mt="0">
+          <NextImage url={menu.img} height="100vw"></NextImage>
           <VStack
             width="100%"
             alignItems="start"
@@ -69,6 +71,7 @@ const Menu = () => {
               ))}
             </LabelTextWrapper>
           </VStack>
+          <img src="/img/detail.jpg" width="100%" height="auto" alt="" />
           <Button onClick={subscribeHandler}>구독하기</Button>
         </VStack>
       ) : (
