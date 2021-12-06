@@ -35,7 +35,7 @@ export default function Home() {
           setToken(data.data)
         })
     }
-  }, [router.isReady, userData])
+  }, [userData])
 
   const qrCodeValue = useMemo(() => {
     if (!token) return undefined

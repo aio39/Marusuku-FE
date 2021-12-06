@@ -55,7 +55,7 @@ const MotionHStack = motion<StackProps>(HStack)
 
 const MobileNavigation: FC = () => {
   const menuList: MenuProps[] = [
-    { url: '/', svg: RiHome2Line },
+    { url: '/home', svg: RiHome2Line },
     { url: '/offline', svg: RiShoppingBasket2Fill },
     { url: '/online', svg: BsBoxSeam },
     { url: '/setting', svg: RiUser3Fill },

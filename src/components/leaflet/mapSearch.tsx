@@ -96,7 +96,7 @@ const MapSearch: FC<MapP> = ({ setMap, setNews, markerData, setDetailId }) => {
   return (
     <MapContainer
       className="markercluster-map"
-      center={position ? [position.latitude, position.longitude] : [37.5, 126.9]}
+      center={position ? [position.latitude, position.longitude] : [0, 0]}
       zoom={13}
       scrollWheelZoom={true}
       zoomControl={false}

@@ -7,7 +7,7 @@ interface ICustomBlockBtn {
   url: string
   rowSize: number
   colSize: number
-  title: string
+  title?: string
   subTitle?: string
   subTitle2?: string
   gridItemProps?: GridItemProps
@@ -23,6 +23,7 @@ const CustomBlockBtn: FC<ICustomBlockBtn> = ({
   subTitle,
   subTitle2,
   gridItemProps,
+  children,
 }) => {
   return (
     <Link href={url}>
@@ -34,15 +35,18 @@ const CustomBlockBtn: FC<ICustomBlockBtn> = ({
         shadow="sm"
         borderRadius="8"
         padding="8px"
+        // width="100%"
         backgroundRepeat="no-repeat"
         {...gridItemProps}
       >
-        <Text fontSize="xl" fontWeight="600" color={useColorStore('textHigh')}>
-          {title}
-          <Box as="span" ml="1" color={useColorStore('textDisabled')}>
-            &gt;
-          </Box>
-        </Text>
+        {title && (
+          <Text fontSize="xl" fontWeight="600" color={useColorStore('textHigh')}>
+            {title}
+            <Box as="span" ml="1" color={useColorStore('textDisabled')}>
+              &gt;
+            </Box>
+          </Text>
+        )}
         {subTitle && (
           <Text fontSize="sm" fontWeight="400" my="2">
             {subTitle}
@@ -53,6 +57,7 @@ const CustomBlockBtn: FC<ICustomBlockBtn> = ({
             {subTitle2}
           </Text>
         )}
+        {children}
       </GridItem>
     </Link>
   )
@@ -60,7 +65,13 @@ const CustomBlockBtn: FC<ICustomBlockBtn> = ({
 
 const CustomBlockBtnWrapper: FC = ({ children }) => {
   return (
-    <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(2, 1fr)" gap={4}>
+    <Grid
+      width="full"
+      p="8px"
+      templateRows="repeat(1, 1fr)"
+      templateColumns="repeat(2, 1fr)"
+      gap={4}
+    >
       {children}
     </Grid>
   )

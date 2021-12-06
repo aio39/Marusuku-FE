@@ -1,6 +1,6 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
-import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopStickyNav'
+import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopHiddenByScrollBtn'
 import MenuList from '@/components/shop/menu/MenuList'
 import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'

@@ -17,7 +17,7 @@ const useScrollPercentAtoB = (a: number, b: number) => {
   }, [])
 
   if (scrollY < a) return 0
-  if (scrollY > b) return 1
+  if (scrollY >= b) return 1
 
   return (scrollY - a / b - a) / 100
 }

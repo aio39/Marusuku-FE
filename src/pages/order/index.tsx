@@ -1,55 +1,40 @@
 import NextImage from '@/components/common/image/NextImage'
-import BottomColoredByHeight from '@/components/common/layouts/mobileLayout/BottomColoredByHeight'
 import MobileEmptyLayout from '@/components/common/layouts/mobileLayout/MobileEmptyLayout'
-import TopHiddenByScrollNav from '@/components/common/layouts/mobileLayout/TopHiddenByScrollNav'
+import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopHiddenByScrollBtn'
+import ModalWrapper from '@/components/common/ModalWrapper'
 import { LabelTextChild, LabelTextWrapper } from '@/components/common/textView/ LabelText'
-import ReviewWrapper from '@/components/menu/Review'
-import convertLimitKeyToKR from '@/helper/converLimitKeyToKR'
 import { axiosI } from '@/state/fetcher'
 import useColorStore from '@/state/hooks/useColorStore'
 import { useMenu } from '@/state/swr/menus/useMenus'
-import { useUser } from '@/state/swr/useUser'
-import { MenuLimit } from '@/types/Menu'
 import { Subscribe } from '@/types/Subscribe'
-import { Button } from '@chakra-ui/button'
-import { Badge, Text, VStack } from '@chakra-ui/layout'
-import { useToast } from '@chakra-ui/react'
-import NextLink from 'next/link'
+import { Badge, Box, Text, VStack } from '@chakra-ui/layout'
+import { Button, useDisclosure, useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { MouseEventHandler, useEffect, useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 
-const Menu = () => {
+const OrderIndex = () => {
   const router = useRouter()
   const { shop_id, menu_id } = router.query
   const { data: menu } = useMenu(parseInt(menu_id as string))
-  const { data: userData } = useUser()
+  // const { data: userData } = useUser()
+  const useDisclosureReturn = useDisclosure()
   const [limitData, setLimitData] = useState<[string, number][]>([])
-  console.log(menu)
   const toast = useToast()
   const subscribeHandler: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    const { data } = await axiosI.post<Subscribe>(`/api/users/${userData?.id}/subscribes`, {
+    const { data } = await axiosI.post<Subscribe>(`/api/subscribes`, {
       menu_id,
     })
-    toast({ title: 'success' })
-  }
 
-  useEffect(() => {
-    if (menu) {
-      const limit: [string, number][] = []
-      for (const [key, value] of Object.entries(menu)) {
-        if (key.startsWith('limit') && value) {
-          limit.push([convertLimitKeyToKR(key as keyof MenuLimit), value as number])
-        }
-      }
-      setLimitData(limit)
+    if (data) {
+      useDisclosureReturn.onOpen()
     }
-  }, [menu])
+  }
 
   return (
     <MobileEmptyLayout>
-      <TopHiddenByScrollNav offsetY="width">
-        <Text>{menu?.name}</Text>
-      </TopHiddenByScrollNav>
+      <TopHiddenByScrollBtn>
+        <Text flexGrow="2">구독 결제</Text>
+      </TopHiddenByScrollBtn>
       {menu ? (
         <VStack width="100vw" mt="0">
           <NextImage url={menu.img} height="100vw"></NextImage>
@@ -79,29 +64,23 @@ const Menu = () => {
               ))}
             </LabelTextWrapper>
           </VStack>
-          <img src="/img/detail.jpg" width="100%" height="auto" alt="" />
-          <ReviewWrapper
-            reviews={[
-              {
-                content: 'fdsfds',
-                userName: 'aio',
-                score: 4.4,
-                createdAt: '2021-12-05T16:45:41.000000Z',
-              },
-            ]}
-          ></ReviewWrapper>
-
-          <BottomColoredByHeight>
-            <NextLink href={`/order?menu_id=${menu.id}`}>
-              <Button>구독하기</Button>
-            </NextLink>
-          </BottomColoredByHeight>
+          <Button onClick={subscribeHandler} width="100%" bgColor={useColorStore('primary')}>
+            구독
+          </Button>
         </VStack>
       ) : (
         <div>loading</div>
       )}
+      <ModalWrapper
+        viewBtn={false}
+        useDisclosureReturn={useDisclosureReturn}
+        text={{ title: '구독 신청 성공', confirm: '홈으로 가기' }}
+        href="/home"
+      >
+        <Box></Box>
+      </ModalWrapper>
     </MobileEmptyLayout>
   )
 }
 
-export default Menu
+export default OrderIndex

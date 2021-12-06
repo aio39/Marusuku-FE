@@ -2,9 +2,8 @@ import useScrollPercentAtoB from '@/state/hooks/useScrollPercentAtoB'
 import { HStack } from '@chakra-ui/layout'
 import { FC } from 'react'
 
-const BottomColoredByHeight: FC = ({ children }) => {
-  const percent = useScrollPercentAtoB(300, 400)
-  console.log(percent)
+const BottomColoredByHeight: FC<{ a?: number; b?: number }> = ({ children, a = 0, b = 0 }) => {
+  const percent = useScrollPercentAtoB(a, b)
   return (
     <HStack
       h="4rem"

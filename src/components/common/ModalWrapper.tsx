@@ -16,17 +16,18 @@ type P = {
   useDisclosureReturn: UseDisclosureReturn
   text: {
     title: string
-    close: string
-    confirm: string
+    close?: string
+    confirm?: string
   }
   href: string
+  viewBtn?: boolean
 }
 
-const ModalWrapper: FC<P> = ({ useDisclosureReturn, text, href, children }) => {
+const ModalWrapper: FC<P> = ({ useDisclosureReturn, text, href, viewBtn = true, children }) => {
   const { isOpen, onOpen, onClose } = useDisclosureReturn
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      {viewBtn && <Button onClick={onOpen}>Open Modal</Button>}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -35,9 +36,11 @@ const ModalWrapper: FC<P> = ({ useDisclosureReturn, text, href, children }) => {
           <ModalBody>{children}</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              {text.close}
-            </Button>
+            {text.close && (
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                {text.close}
+              </Button>
+            )}
             {href ? (
               <Link href={href}>
                 <Button variant="ghost">{text.confirm}</Button>
