@@ -1,5 +1,6 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopStickyNav'
 import MenuList from '@/components/shop/menu/MenuList'
 import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'
@@ -53,6 +54,7 @@ const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProp
 
   return (
     <MobileDefaultLayout>
+      <TopHiddenByScrollBtn></TopHiddenByScrollBtn>
       <AspectRatio width="full" ratio={1} maxW="container.sm" position="relative">
         <>
           <Image

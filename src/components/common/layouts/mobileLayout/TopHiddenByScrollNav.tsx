@@ -4,11 +4,16 @@ import { Box, HStack } from '@chakra-ui/layout'
 import { FC } from 'react'
 import BackPageBtn from '../../button/layoutControl/BackPageBtn'
 
-const TopHiddenByScrollNav: FC = ({ children }) => {
-  const { isDowning, isUnderThanOffset, isShow } = useScrollDown('width')
+type I = {
+  offsetY?: number | 'width' | 'height'
+  boxH?: string
+}
+
+const TopHiddenByScrollNav: FC<I> = ({ children, offsetY = 0, boxH = '0' }) => {
+  const { isDowning, isUnderThanOffset, isShow } = useScrollDown(offsetY)
 
   return (
-    <Box width="100vw" position="sticky" top="0" h="0" zIndex="10">
+    <Box width="100vw" position="sticky" top="0" h={boxH} zIndex="10">
       <HStack
         spacing="10px"
         height="60px"

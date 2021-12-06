@@ -1,7 +1,7 @@
 import NextImage from '@/components/common/image/NextImage'
 import BottomColoredByHeight from '@/components/common/layouts/mobileLayout/BottomColoredByHeight'
 import MobileEmptyLayout from '@/components/common/layouts/mobileLayout/MobileEmptyLayout'
-import TopHiddenByScrollNav from '@/components/common/layouts/mobileLayout/TopAbsoluteNav'
+import TopHiddenByScrollNav from '@/components/common/layouts/mobileLayout/TopHiddenByScrollNav'
 import { LabelTextChild, LabelTextWrapper } from '@/components/common/textView/ LabelText'
 import ReviewWrapper from '@/components/menu/Review'
 import convertLimitKeyToKR from '@/helper/converLimitKeyToKR'
@@ -46,7 +46,7 @@ const Menu = () => {
 
   return (
     <MobileEmptyLayout>
-      <TopHiddenByScrollNav>
+      <TopHiddenByScrollNav offsetY="width">
         <Text>{menu?.name}</Text>
       </TopHiddenByScrollNav>
       {menu ? (

@@ -62,7 +62,7 @@ const MobileNavigation: FC = () => {
   ]
   const router = useRouter()
   const topPath = router.pathname.split('/')[1] as string | undefined
-  const { isShow } = useScrollDown(0)
+  const { isShow } = useScrollDown(0, true)
 
   return (
     <HStack
