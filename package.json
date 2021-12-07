@@ -49,6 +49,7 @@
     "react-qr-reader": "^2.2.1",
     "react-swipeable": "^6.2.0",
     "recoil": "^0.4.1",
+    "sharp": "^0.29.3",
     "socket.io-client": "^4.4.0",
     "swr": "^1.0.1",
     "swr-devtools": "^0.3.0",

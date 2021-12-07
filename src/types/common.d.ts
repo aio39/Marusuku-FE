@@ -1,6 +1,6 @@
 export type TimeStamps = {
   updated_at: string
-  create_at: string
+  created_at: string
 }
 
 type CommonProps = {

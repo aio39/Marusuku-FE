@@ -1,5 +1,5 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
-import { useSubscribe } from '@/state/swr/users/useSubscribe'
+import { useSubscribes } from '@/state/swr/users/useSubscribe'
 import { useUser } from '@/state/swr/useUser'
 import { Button } from '@chakra-ui/button'
 import { Box, Text, VStack } from '@chakra-ui/layout'
@@ -8,13 +8,15 @@ import React from 'react'
 
 export default function Test() {
   const { data: userData } = useUser()
-  const { data: subscribeData } = useSubscribe(userData?.id)
+  const { data: subscribeData } = useSubscribes(
+    userData ? { filter: [['user_id', userData.id]] } : undefined
+  )
 
   return (
     <DefaultLayout>
       <Box flexDirection="column">
         {subscribeData &&
-          subscribeData.map((subscribe) => {
+          subscribeData.data.map((subscribe) => {
             const { menu, shop } = subscribe
             return (
               <VStack bg="white" mb="2">

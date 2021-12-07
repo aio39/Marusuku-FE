@@ -1,6 +1,6 @@
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import { axiosI } from '@/state/fetcher'
-import { useSubscribe } from '@/state/swr/users/useSubscribe'
+import { useSubscribes } from '@/state/swr/users/useSubscribe'
 import { useUser } from '@/state/swr/useUser'
 import { PayToken } from '@/types/PayToken'
 import { Box, Text } from '@chakra-ui/layout'
@@ -15,7 +15,7 @@ export default function QRCodeClient() {
   const { data: userData } = useUser()
   const toast = useToast()
   const [subscribeId, setSubscribeId] = useState<number>()
-  const { data: subscribeData } = useSubscribe(
+  const { data: subscribeData } = useSubscribes(
     userData ? { filter: [['user_id', userData.id]] } : undefined
   )
   const [token, setToken] = useState<PayToken>()

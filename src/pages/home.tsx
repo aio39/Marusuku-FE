@@ -20,11 +20,10 @@ export default function Home() {
       </CustomBlockBtnWrapper>
       {/* <Text>결제 내역</Text> */}
       <CustomBlockBtnWrapper>
-        <CustomBlockBtn url="/" colSize={2} rowSize={2} subTitle="나의 구독" />
+        <CustomBlockBtn url="/user/subscribe" colSize={2} rowSize={2} subTitle="나의 구독" />
         <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="최근 결제" />
         <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="다음 결제" />
       </CustomBlockBtnWrapper>
-
       {/* <MobileNavigation></MobileNavigation> */}
     </MobileDefaultLayout>
   )

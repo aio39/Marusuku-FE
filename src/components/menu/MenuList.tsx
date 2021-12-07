@@ -2,12 +2,14 @@ import NextImage from '@/components/common/image/NextImage'
 import StarRating from '@/components/common/StarRating2'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
-import { Box, Flex, Link, SimpleGrid, VStack } from '@chakra-ui/layout'
+import { Box, Flex, SimpleGrid, VStack } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
 const MenuCardLandscape: FC<{ menu: Menu }> = ({ menu }) => {
+  const router = useRouter()
   return (
     <VStack bg={useColorStore('surface')} shadow="lg" rounded="lg" overflow="hidden">
       <NextImage url={menu.img} height="40vw" />
@@ -23,24 +25,26 @@ const MenuCardLandscape: FC<{ menu: Menu }> = ({ menu }) => {
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
-          <chakra.button
-            px={2}
-            py={1}
-            bg="white"
-            fontSize="xs"
-            color="gray.900"
-            fontWeight="bold"
-            rounded="lg"
-            textTransform="uppercase"
-            _hover={{
-              bg: 'gray.200',
-            }}
-            _focus={{
-              bg: 'gray.400',
-            }}
-          >
-            상세 보기
-          </chakra.button>
+          <NextLink href={`/shops/${router.query.shop_id}/menus/${menu.id}`}>
+            <chakra.button
+              px={2}
+              py={1}
+              bg="white"
+              fontSize="xs"
+              color="gray.900"
+              fontWeight="bold"
+              rounded="lg"
+              textTransform="uppercase"
+              _hover={{
+                bg: 'gray.200',
+              }}
+              _focus={{
+                bg: 'gray.400',
+              }}
+            >
+              상세 보기
+            </chakra.button>
+          </NextLink>
         </Flex>
       </Box>
     </VStack>
@@ -64,7 +68,7 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
           </chakra.h1>
-          <Link href={`${router.query.shop_id}/menus/${menu.id}`}>
+          <NextLink href={`/shops/${router.query.shop_id}/menus/${menu.id}`}>
             <chakra.button
               px={2}
               py={1}
@@ -83,7 +87,7 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
             >
               상세 보기
             </chakra.button>
-          </Link>
+          </NextLink>
         </Flex>
       </Box>
     </VStack>
