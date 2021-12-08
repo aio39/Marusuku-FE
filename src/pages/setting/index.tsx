@@ -5,6 +5,7 @@ import SettingMenuBlock, {
   SettingMenuBlockWrapper,
   SettingMenuItem,
 } from '@/components/setting/SettingMenuBlock'
+import UserInformation from '@/components/user/UserInformation'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Badge } from '@chakra-ui/layout'
 import { AiOutlineCreditCard, AiOutlineNotification } from 'react-icons/ai'
@@ -36,6 +37,7 @@ export default function Home() {
     >
       {/* 사용자 정보 요약 컴포넌트 */}
       <H1Text>메뉴</H1Text>
+      <UserInformation></UserInformation>
       <SettingMenuBlockWrapper>
         <SettingMenuBlock title="내 정보">
           <SettingMenuItem icon={RiBookletLine} title="주소 관리" url="/" color="red.700" />
