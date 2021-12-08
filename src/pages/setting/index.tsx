@@ -46,20 +46,27 @@ export default function Home() {
             url="/"
             color="yellow.500"
           />
-          <SettingMenuItem icon={RiCoupon3Line} title="쿠폰 " url="/" color="red.500" />
-          <SettingMenuItem
-            icon={MdOutlineRateReview}
-            title="리뷰 관리 "
-            url="/"
-            color="yellow.400"
-          />
+          <SettingMenuItem icon={RiCoupon3Line} title="쿠폰 " url="/" color="red.500">
+            <Badge colorScheme="red" borderRadius="4px">
+              12
+            </Badge>
+          </SettingMenuItem>
+          <SettingMenuItem icon={MdOutlineRateReview} title="리뷰 관리 " url="/" color="yellow.400">
+            <Badge colorScheme="yellow" borderRadius="4px">
+              작성 가능
+            </Badge>
+          </SettingMenuItem>
           <SettingMenuItem
             icon={MdOutlineTipsAndUpdates}
             title="정보 수정 "
             url="/"
             color="green.500"
           />
-          <SettingMenuItem icon={MdNotificationsNone} title="알림 " url="/" color="yellow.500" />
+          <SettingMenuItem icon={MdNotificationsNone} title="알림 " url="/" color="yellow.500">
+            <Badge colorScheme="orange" borderRadius="4px">
+              4
+            </Badge>
+          </SettingMenuItem>
         </SettingMenuBlock>
         <SettingMenuBlock title="내 구독">
           {/* 리스트 / 캘린더 형식  */}
@@ -95,7 +102,7 @@ export default function Home() {
           >
             <Badge variant="outline" colorScheme="green">
               Test
-            </Badge>{' '}
+            </Badge>
           </SettingMenuItem>
           <SettingMenuItem icon={RiInformationLine} title="버전 정보" url="/" color="green.500" />
           <SettingMenuItem

@@ -73,9 +73,6 @@ const SettingMenuItem: FC<ISettingMenuItem> = ({ title, subText, url, icon, colo
           )}
         </ListItem>
       </Link>
-      {/* <Box position="absolute" right="0">
-        "aaaa"
-      </Box> */}
     </Box>
   )
 }
