@@ -25,6 +25,12 @@ export default function Home() {
         <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="다음 결제" />
       </CustomBlockBtnWrapper>
       {/* <MobileNavigation></MobileNavigation> */}
+
+      {/* 이번다  결제 완료 금액 / 지출 금액 */}
+      {/*  할인 시스템  */}
+      {/*  광고 배너 시스템 */}
+      {/*  내 동네 리뷰 시스템 */}
+      {/* 회원 레벨? 시스템 */}
     </MobileDefaultLayout>
   )
 }

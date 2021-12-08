@@ -3,6 +3,7 @@ import { Box, List, ListIcon, ListItem, Text, VStack } from '@chakra-ui/layout'
 import { ComponentWithAs } from '@chakra-ui/system'
 import Link from 'next/link'
 import { FC } from 'react'
+import { IconType } from 'react-icons'
 interface ISettingMenuBlock {
   title: string
 }
@@ -10,7 +11,8 @@ interface ISettingMenuBlock {
 interface ISettingMenuItem {
   title: string
   url: string
-  icon: ComponentWithAs<'svg', IconProps>
+  icon: ComponentWithAs<'svg', IconProps> | IconType
+  color?: string
 }
 
 const SettingMenuBlockWrapper: FC = ({ children }) => {
@@ -32,11 +34,11 @@ const SettingMenuBlock: FC<ISettingMenuBlock> = ({ title, children }) => {
   )
 }
 
-const SettingMenuItem: FC<ISettingMenuItem> = ({ title, url, icon }) => {
+const SettingMenuItem: FC<ISettingMenuItem> = ({ title, url, icon, color }) => {
   return (
     <Link href={url}>
       <ListItem fontSize="lg" fontWeight="400">
-        <ListIcon as={icon} color="green.500" />
+        <ListIcon as={icon} color={color || 'green.500'} />
         {title}
       </ListItem>
     </Link>
