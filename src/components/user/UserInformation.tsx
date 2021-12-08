@@ -9,8 +9,6 @@ import Button from '../common/button/Button'
 const UserInformation: FC = () => {
   const { data: userData, error, isValidating, mutate } = useUser()
 
-  console.log(isValidating, userData)
-
   return (
     <Skeleton width="full" isLoaded={!isValidating}>
       <Flex width="full" py="12px" height="92px">

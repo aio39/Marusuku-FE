@@ -16,6 +16,8 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 }
 
+//  NOTE  defaultProps 는 colorScheme, variant, and size
+//  NOTE  components는 html class가 붙는 경우만 적용됨 ex chakra-text
 const theme = extendTheme({
   config,
   colors: {
@@ -23,6 +25,11 @@ const theme = extendTheme({
   },
   fonts,
   breakpoints,
+  components: {
+    Stack: {
+      baseStyle: {},
+    },
+  },
 })
 
 export default theme

@@ -1,12 +1,17 @@
-import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
+import QRCodeWrapper from '@/components/common/hoc/QRCodeWrapper'
+import MobileEmptyLayout from '@/components/common/layouts/mobileLayout/MobileEmptyLayout'
+import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopHiddenByScrollBtn'
+import { SubscribeCardWrapper } from '@/components/subscribe/SubscribeCard'
+import UserInformation from '@/components/user/UserInformation'
+import objectPick from '@/helper/objectPick'
 import { axiosI } from '@/state/fetcher'
+import useColorStore from '@/state/hooks/useColorStore'
 import { useSubscribes } from '@/state/swr/users/useSubscribe'
 import { useUser } from '@/state/swr/useUser'
 import { PayToken } from '@/types/PayToken'
-import { Box, Text } from '@chakra-ui/layout'
+import { Heading, Text, VStack } from '@chakra-ui/layout'
 import { useToast } from '@chakra-ui/react'
 import Echo from 'laravel-echo'
-import QRCode from 'qrcode.react'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Clock from 'react-live-clock'
 
@@ -60,41 +65,43 @@ export default function QRCodeClient() {
         duration: 3000,
         isClosable: true,
       })
+      setSubscribeId(undefined)
     })
   }, [token])
 
   const qrCodeValue = useMemo(() => {
     if (!token) return undefined
-    const { create_at, ...rest } = token
+    const { created_at, ...rest } = token
     return JSON.stringify(rest)
   }, [token])
 
-  return (
-    <MobileDefaultLayout>
-      {qrCodeValue ? (
-        <QRCode value={qrCodeValue} size={300} />
-      ) : (
-        <Box>사용할 구독을 선택해주세요</Box>
-      )}
+  const subscribeClickHandler = (id: number) => {
+    setSubscribeId(id)
+  }
 
-      <Text as="h2" fontSize="4xl">
-        <Clock format="HH:mm:ss" interval={1000} ticking={true} />
-      </Text>
-      {userData?.email}
-      {subscribeData?.data.map((data) => (
-        <Box
-          key={data.id}
-          onClick={() => {
-            setSubscribeId(data.id)
-          }}
-        >
-          {data.menu.name}
-          <Text>{data.shop.name}</Text>
-          <Text>{data.continue}</Text>
-          <Text>{data.end_date} 끝나는 날 </Text>
-          <Text>{data.settlement_date} 다음 결제일</Text>
-        </Box>
-      ))}
-    </MobileDefaultLayout>
+  return (
+    <MobileEmptyLayout>
+      <TopHiddenByScrollBtn>
+        <Text flexGrow="2">QR 코드</Text>
+      </TopHiddenByScrollBtn>
+      <VStack width="100vw" mt="0" px="8px" bgColor={useColorStore('surface')}>
+        <UserInformation />
+        <QRCodeWrapper qrCodeValue={qrCodeValue} />
+        <Text as="h2" fontSize="3xl">
+          <Clock format="HH:mm:ss" interval={1000} ticking={true} />
+        </Text>
+        {subscribeData && (
+          <>
+            <Heading>나의 구독</Heading>
+            <SubscribeCardWrapper
+              data={subscribeData.data.map((data) =>
+                objectPick(data, 'id', 'menu', 'shop', 'settlement_date', 'is_continue')
+              )}
+              onClick={subscribeClickHandler}
+            />
+          </>
+        )}
+      </VStack>
+    </MobileEmptyLayout>
   )
 }

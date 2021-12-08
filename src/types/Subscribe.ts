@@ -10,5 +10,5 @@ export type Subscribe = {
   menu_id: number
   menu: Menu
   shop: Shop
-  continue: boolean
+  is_continue: boolean
 } & CommonProps

@@ -1,4 +1,4 @@
-import convertDate from '@/helper/covertDate'
+import convertDate from '@/helper/convertDate'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Text, VStack } from '@chakra-ui/layout'
 import { FC } from 'react'
