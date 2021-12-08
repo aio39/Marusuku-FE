@@ -68,6 +68,7 @@ export default function Home() {
             </Badge>
           </SettingMenuItem>
         </SettingMenuBlock>
+        <DividerDefault />
         <SettingMenuBlock title="내 구독">
           {/* 리스트 / 캘린더 형식  */}
           <SettingMenuItem
@@ -99,11 +100,7 @@ export default function Home() {
             subText="뭐든지  물어보세요!"
             url="/"
             color="red.500"
-          >
-            <Badge variant="outline" colorScheme="green">
-              Test
-            </Badge>
-          </SettingMenuItem>
+          ></SettingMenuItem>
           <SettingMenuItem icon={RiInformationLine} title="버전 정보" url="/" color="green.500" />
           <SettingMenuItem
             icon={MdOutlineTextSnippet}
