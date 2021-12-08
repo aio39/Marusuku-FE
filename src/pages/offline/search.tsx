@@ -1,4 +1,5 @@
 import { ScrollYFilterForShop } from '@/components/common/button/ScrollYFilter'
+import SearchInput from '@/components/common/inputs/SearchInput'
 import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
 import TopCommonNav from '@/components/common/layouts/mobileLayout/TopCommonNav'
 import BottomLoading from '@/components/common/loading/BottomLoading'
@@ -6,8 +7,7 @@ import ShopCard from '@/components/shop/ShopCard'
 import { usePosition } from '@/state/hooks/usePosition'
 import { useShopsInfinite } from '@/state/swr/shops/useShops'
 import { CommonFSW } from '@/types/common'
-import { PhoneIcon } from '@chakra-ui/icons'
-import { Box, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useImmer } from 'use-immer'
 
@@ -54,10 +54,7 @@ export default function OfflineSearch() {
   return (
     <MobileDefaultLayout boxProps={{ px: '8px' }}>
       <TopCommonNav>
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" children={<PhoneIcon color="gray.300" />} />
-          <Input type="tel" placeholder="Phone number" />
-        </InputGroup>
+        <SearchInput update={updateCommonFSW} />
       </TopCommonNav>
       <ScrollYFilterForShop
         commonFSW={commonFSW}
