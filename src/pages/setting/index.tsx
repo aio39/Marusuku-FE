@@ -6,6 +6,7 @@ import SettingMenuBlock, {
   SettingMenuItem,
 } from '@/components/setting/SettingMenuBlock'
 import useColorStore from '@/state/hooks/useColorStore'
+import { Badge } from '@chakra-ui/layout'
 import { AiOutlineCreditCard, AiOutlineNotification } from 'react-icons/ai'
 import { FaQuestion } from 'react-icons/fa'
 import {
@@ -85,14 +86,24 @@ export default function Home() {
           <SettingMenuItem icon={MdEventNote} title="이벤트 정보" url="/" color="green.500" />
         </SettingMenuBlock>
         <SettingMenuBlock title="문의">
-          <SettingMenuItem icon={FaQuestion} title="FAQ센터" url="/" color="red.500" />
+          <SettingMenuItem
+            icon={FaQuestion}
+            title="FAQ센터"
+            subText="뭐든지  물어보세요!"
+            url="/"
+            color="red.500"
+          >
+            <Badge variant="outline" colorScheme="green">
+              Test
+            </Badge>{' '}
+          </SettingMenuItem>
           <SettingMenuItem icon={RiInformationLine} title="버전 정보" url="/" color="green.500" />
           <SettingMenuItem
             icon={MdOutlineTextSnippet}
             title="약관 및 동의"
             url="/"
             color="purple.600"
-          />
+          ></SettingMenuItem>
         </SettingMenuBlock>
       </SettingMenuBlockWrapper>
     </MobileDefaultLayout>
