@@ -35,6 +35,7 @@ export default class AppDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
             rel="stylesheet"
           /> */}
+          {/* for Fonts */}
           <link
             href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css"
             rel="stylesheet"
@@ -45,6 +46,10 @@ export default class AppDocument extends Document {
             rel="stylesheet"
             type="text/css"
           />
+          {/* for PWA */}
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/icon.png"></link>
+          <meta name="theme-color" content="#fff" />
         </Head>
         <body>
           <SWRDevTools>
