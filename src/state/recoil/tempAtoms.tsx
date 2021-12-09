@@ -22,4 +22,9 @@ const shopListState = atom<Shop[]>({
   default: [],
 })
 
-export { positionState, shopListState, recentGeoCodeState }
+const qrcodeSelectedIdState = atom<number | undefined>({
+  key: 'qrcode-current',
+  default: undefined,
+})
+
+export { positionState, shopListState, recentGeoCodeState, qrcodeSelectedIdState }

@@ -29,10 +29,10 @@ const OpenDrawerBtn: FC<{ buttonProps: ButtonProps; text: string }> = ({
           {children}
 
           <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
+            {/* <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Save</Button>
+            <Button colorScheme="blue">Save</Button> */}
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

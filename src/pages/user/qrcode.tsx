@@ -6,6 +6,7 @@ import UserInformation from '@/components/user/UserInformation'
 import objectPick from '@/helper/objectPick'
 import { axiosI } from '@/state/fetcher'
 import useColorStore from '@/state/hooks/useColorStore'
+import { qrcodeSelectedIdState } from '@/state/recoil/tempAtoms'
 import { useSubscribes } from '@/state/swr/users/useSubscribe'
 import { useUser } from '@/state/swr/useUser'
 import { PayToken } from '@/types/PayToken'
@@ -13,13 +14,14 @@ import { Heading, Text, VStack } from '@chakra-ui/layout'
 import { useToast } from '@chakra-ui/react'
 import Echo from 'laravel-echo'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { useRecoilState } from 'recoil'
 // import Clock from 'react-live-clock'
 
 export default function QRCodeClient() {
   const echoRef = useRef<Echo>()
   const { data: userData } = useUser()
   const toast = useToast()
-  const [subscribeId, setSubscribeId] = useState<number>()
+  const [selectedId, setSelectedId] = useRecoilState(qrcodeSelectedIdState)
   const { data: subscribeData } = useSubscribes(
     userData ? { filter: [['user_id', userData.id]] } : undefined
   )
@@ -29,17 +31,17 @@ export default function QRCodeClient() {
   // TODO 기간 만료시 갱신 버튼 뜨기
 
   useEffect(() => {
-    if (subscribeId && userData) {
+    if (selectedId && userData) {
       console.log('실행됨')
       axiosI
         .post<PayToken>(`api/users/${userData.id}/pay_tokens`, {
-          subscribe_id: subscribeId,
+          subscribe_id: selectedId,
         })
         .then((data) => {
           setToken(data.data)
         })
     }
-  }, [userData, subscribeId])
+  }, [userData, selectedId])
 
   useEffect(() => {
     if (!token) return
@@ -65,7 +67,7 @@ export default function QRCodeClient() {
         duration: 3000,
         isClosable: true,
       })
-      setSubscribeId(undefined)
+      setSelectedId(undefined)
     })
   }, [token])
 
@@ -74,10 +76,6 @@ export default function QRCodeClient() {
     const { created_at, ...rest } = token
     return JSON.stringify(rest)
   }, [token])
-
-  const subscribeClickHandler = (id: number) => {
-    setSubscribeId(id)
-  }
 
   return (
     <MobileEmptyLayout>
@@ -108,7 +106,6 @@ export default function QRCodeClient() {
               objectPick(data, 'id', 'menu', 'shop', 'settlement_date', 'is_continue')
             )
           }
-          onClick={subscribeClickHandler}
         />
       </VStack>
     </MobileEmptyLayout>

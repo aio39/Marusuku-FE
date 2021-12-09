@@ -3,7 +3,7 @@ import BackPageBtn from '@/components/common/button/layoutControl/BackPageBtn'
 import OpenDrawerBtn from '@/components/common/button/OpenDrawerBtn'
 import { Container } from '@/components/common/layouts/Container'
 import FixedFlexContainer from '@/components/common/layouts/FixedFlexContainer'
-import ShopCard from '@/components/shop/ShopCard'
+import { ShopCard } from '@/components/shop/ShopCard'
 import ShopCardMini from '@/components/shop/ShopCardMini'
 import { convertBoundsToNEWS } from '@/helper/converBoundsToNEWS'
 import { useShops } from '@/state/swr/shops/useShops'
@@ -37,10 +37,10 @@ const Page = () => {
         <BackPageBtn marginRight="auto"></BackPageBtn>
         <OpenDrawerBtn text="목록" buttonProps={{ justifySelf: 'end', marginLeft: 'auto' }}>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>가게 목록</DrawerHeader>
 
           <DrawerBody>
-            <VStack overflowY="scroll" w="full" maxH="90vh">
+            <VStack overflowY="scroll" w="full" maxH="60vh">
               {shopsData ? (
                 shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)
               ) : (
