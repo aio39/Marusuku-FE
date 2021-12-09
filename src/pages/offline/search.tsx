@@ -1,3 +1,4 @@
+import GoToTopBtn from '@/components/common/button/layoutControl/GoToTopBtn'
 import { ScrollYFilterForShop } from '@/components/common/button/ScrollYFilter'
 import SearchInput from '@/components/common/inputs/SearchInput'
 import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
@@ -63,7 +64,7 @@ export default function OfflineSearch() {
         commonFSW={commonFSW}
         updateCommonFSW={updateCommonFSW}
       ></ScrollYFilterForShop>
-
+      <GoToTopBtn />
       <VStack width="full" position="relative">
         {/* {shopsData ? (
           shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)

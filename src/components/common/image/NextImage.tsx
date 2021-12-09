@@ -18,7 +18,8 @@ const NextImage: FC<INextImage> = ({ url, width = '100%', height, boxProps }) =>
         objectFit="cover"
         layout="fill"
         src={imgSrc ? `${process.env.AWS_S3}${imgSrc}` : fallback}
-        onError={() => {
+        onError={(e) => {
+          console.log(e)
           setImgSrc(undefined)
         }}
       />

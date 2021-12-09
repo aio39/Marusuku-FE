@@ -3,6 +3,7 @@ import { Shop } from '@/types/Shop'
 import { Box, chakra, Flex, Heading, Skeleton, Text, VStack } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import NextImage from '../common/image/NextImage'
 import StarRatingDisplay from '../common/StarRatingDisplay'
 
 const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
@@ -19,11 +20,13 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
     >
       <Box
         w={1 / 3}
-        bgSize="cover"
-        style={{
-          backgroundImage: shop.img || "url('https://source.unsplash.com/random/400x500')",
-        }}
-      ></Box>
+        // bgSize="cover"
+        // style={{
+        //   backgroundImage: shop.img || "url('https://source.unsplash.com/random/400x500')",
+        // }}
+      >
+        <NextImage height="40" url={shop.img}></NextImage>
+      </Box>
 
       <VStack alignItems="start" w={2 / 3} p={{ base: 4, md: 4 }}>
         <Heading
