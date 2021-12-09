@@ -30,7 +30,9 @@ const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProp
   const router = useRouter()
   const [tabIndex, setTabIndex] = useState(0)
   const { data: shopData } = useShop(parseInt(router.query.shop_id as string))
-  const { data: menuData } = useMenus({ filter: [['shop_id', router.query.shop_id as string]] })
+  const { data: menuData, isValidating: menuIsValidating } = useMenus({
+    filter: [['shop_id', router.query.shop_id as string]],
+  })
   const menusData = menuData?.data
   const MAX_INDEX = 2
   const handlers = useSwipeable({
@@ -99,7 +101,7 @@ const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProp
 
         <TabPanels p="0">
           <TabPanel p="4">
-            {menusData ? <MenuList menus={menusData}></MenuList> : <div>'loading</div>}
+            <MenuList menus={menusData} isValidating={menuIsValidating}></MenuList>
           </TabPanel>
           <TabPanel>
             <p>two!</p>

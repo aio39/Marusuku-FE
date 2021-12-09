@@ -18,13 +18,7 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
       mb="4"
       minH="40"
     >
-      <Box
-        w={1 / 3}
-        // bgSize="cover"
-        // style={{
-        //   backgroundImage: shop.img || "url('https://source.unsplash.com/random/400x500')",
-        // }}
-      >
+      <Box w={1 / 3}>
         <NextImage height="40" url={shop.img}></NextImage>
       </Box>
 

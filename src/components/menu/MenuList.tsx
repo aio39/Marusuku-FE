@@ -1,7 +1,8 @@
 import NextImage from '@/components/common/image/NextImage'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
-import { Box, Flex, Heading, SimpleGrid, VStack } from '@chakra-ui/layout'
+import { Box, Center, Flex, Heading, SimpleGrid, VStack } from '@chakra-ui/layout'
+import { Skeleton } from '@chakra-ui/react'
 import { chakra } from '@chakra-ui/system'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
@@ -109,10 +110,20 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
   )
 }
 
-const MenuList: FC<{ menus: Menu[]; type?: 'landscape' | 'default' }> = ({
+const MenuList: FC<{ menus?: Menu[]; type?: 'landscape' | 'default'; isValidating: boolean }> = ({
   menus,
   type = 'default',
+  isValidating,
 }) => {
+  if ((!menus && !isValidating) || menus?.length == 0)
+    return (
+      <Center height="100px" fontSize="xl">
+        상품을 준비 중 입니다.
+      </Center>
+    )
+
+  if (!menus) return <Skeleton width="full" height="50vh"></Skeleton>
+
   return (
     <SimpleGrid columns={2} spacing={4} justifyContent="center">
       {menus &&

@@ -3,6 +3,7 @@ import { useShop } from '@/state/swr/shops/useShops'
 import { Box, chakra, Container, SkeletonText } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import NextImage from '../common/image/NextImage'
 import StarRatingDisplay from '../common/StarRatingDisplay'
 
 const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
@@ -27,14 +28,9 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
     >
       {shop ? (
         <>
-          <Box
-            w={1 / 3}
-            h="full"
-            bgSize="cover"
-            style={{
-              backgroundImage: "url('https://source.unsplash.com/random/400x500')",
-            }}
-          ></Box>
+          <Box w={1 / 3}>
+            <NextImage height="28" url={shop.img}></NextImage>
+          </Box>
 
           <Box w={2 / 3} p={{ base: 4, md: 4 }}>
             <chakra.h1
@@ -43,7 +39,7 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace="nowrap"
-              color={useColorStore('surface')}
+              color={useColorStore('textHigh')}
             >
               {shop.name}
             </chakra.h1>
