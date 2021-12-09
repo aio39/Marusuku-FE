@@ -1,9 +1,9 @@
 import useColorStore from '@/state/hooks/useColorStore'
 import { StarIcon } from '@chakra-ui/icons'
-import { HStack } from '@chakra-ui/layout'
+import { HStack, Text } from '@chakra-ui/layout'
 import React, { FC } from 'react'
 
-const StarRating: FC<{ score: number }> = ({ score = 0 }) => {
+const StarRatingDisplay: FC<{ score: number }> = ({ score = 0 }) => {
   const totalStar = 5
   const fullFillStar = Math.round(score)
   const emptyStar = totalStar - fullFillStar
@@ -18,9 +18,9 @@ const StarRating: FC<{ score: number }> = ({ score = 0 }) => {
 
   return (
     <HStack spacing={1} display="flex" alignItems="center" mt={2}>
-      {Star}
+      {Star} <Text> {score}</Text>
     </HStack>
   )
 }
 
-export default StarRating
+export default StarRatingDisplay

@@ -1,9 +1,9 @@
-import StarRating from '@/components/common/StarRating2'
 import useColorStore from '@/state/hooks/useColorStore'
 import { useShop } from '@/state/swr/shops/useShops'
 import { Box, chakra, Container, SkeletonText } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { FC } from 'react'
+import StarRatingDisplay from '../common/StarRatingDisplay'
 
 const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
   const { data: shop } = useShop(id)
@@ -52,7 +52,7 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
               {shop.desc}
             </chakra.p>
 
-            <StarRating score={2}></StarRating>
+            <StarRatingDisplay score={2}></StarRatingDisplay>
 
             <Box mt={3} position="absolute" right="1" bottom="1">
               <Link href={'/shops/' + shop.id}>

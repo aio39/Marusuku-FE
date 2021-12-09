@@ -1,5 +1,4 @@
 import NextImage from '@/components/common/image/NextImage'
-import StarRating from '@/components/common/StarRating2'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
 import { Box, Flex, SimpleGrid, VStack } from '@chakra-ui/layout'
@@ -7,6 +6,7 @@ import { chakra } from '@chakra-ui/system'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import StarRatingDisplay from '../common/StarRatingDisplay'
 
 const MenuCardLandscape: FC<{ menu: Menu }> = ({ menu }) => {
   const router = useRouter()
@@ -20,7 +20,7 @@ const MenuCardLandscape: FC<{ menu: Menu }> = ({ menu }) => {
         <chakra.p mt={2} minH="4" fontSize="sm" color={useColorStore('textMedium')}>
           {menu.desc}
         </chakra.p>
-        <StarRating score={menu.score ?? 1} />
+        <StarRatingDisplay score={menu.score ?? 1} />
         <Flex mt={3} justifyContent="space-between">
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
@@ -63,7 +63,7 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
         <chakra.p mt={2} minH="4" fontSize="sm" color={useColorStore('textMedium')}>
           {menu.desc}
         </chakra.p>
-        <StarRating score={menu.score ?? 1} />
+        <StarRatingDisplay score={menu.score ?? 1} />
         <Flex mt={3} justifyContent="space-between">
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원

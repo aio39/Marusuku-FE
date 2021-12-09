@@ -2,7 +2,7 @@ import convertDate from '@/helper/convertDate'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Text, VStack } from '@chakra-ui/layout'
 import { FC } from 'react'
-import StarRating from '../common/StarRating2'
+import StarRatingDisplay from '../common/StarRatingDisplay'
 
 type ReviewData = {
   userName: string
@@ -22,7 +22,7 @@ const Review: FC<IReview> = ({ data }) => {
   const { content, createdAt, score, userName } = data
   return (
     <VStack width="100%" alignItems="start">
-      <StarRating score={score} />
+      <StarRatingDisplay score={score} />
       <Text>{content}</Text>
 
       <Text>{userName}</Text>

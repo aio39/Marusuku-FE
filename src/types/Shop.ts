@@ -10,6 +10,7 @@ export type Shop = {
   desc?: string
   homepage?: string
   phone?: string
+  score: number
   score_count: number
   score_total: number
   updated_at: string

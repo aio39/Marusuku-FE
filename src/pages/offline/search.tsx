@@ -3,11 +3,11 @@ import SearchInput from '@/components/common/inputs/SearchInput'
 import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
 import TopCommonNav from '@/components/common/layouts/mobileLayout/TopCommonNav'
 import BottomLoading from '@/components/common/loading/BottomLoading'
-import ShopCard from '@/components/shop/ShopCard'
+import { ShopCardWrapper } from '@/components/shop/ShopCard'
 import { usePosition } from '@/state/hooks/usePosition'
 import { useShopsInfinite } from '@/state/swr/shops/useShops'
 import { CommonFSW } from '@/types/common'
-import { Box } from '@chakra-ui/react'
+import { Box, VStack } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useImmer } from 'use-immer'
 
@@ -16,7 +16,7 @@ export default function OfflineSearch() {
   const [customPosition, setCustomPosition] = useState(position)
   const [searchQuery, setSearchQuery] = useState('')
   const [distance, setDistance] = useState(100000)
-  const ref = useRef<HTMLDivElement>(null)
+  const observerElementRef = useRef<HTMLDivElement>(null)
 
   const [commonFSW, updateCommonFSW] = useImmer<CommonFSW>({ per_page: 10, sort: ['d.dis'] })
 
@@ -36,7 +36,7 @@ export default function OfflineSearch() {
 
   useEffect(() => {
     let observer: IntersectionObserver
-    if (ref.current) {
+    if (observerElementRef.current) {
       observer = new IntersectionObserver(
         () => {
           console.log('intersection!', size)
@@ -46,10 +46,10 @@ export default function OfflineSearch() {
           threshold: 1,
         }
       )
-      observer.observe(ref.current)
+      observer.observe(observerElementRef.current)
     }
     return () => observer && observer.disconnect()
-  }, [ref, setSize])
+  }, [observerElementRef, setSize])
 
   console.log('shopsData', isValidating)
   console.log(searchQuery)
@@ -64,15 +64,22 @@ export default function OfflineSearch() {
         updateCommonFSW={updateCommonFSW}
       ></ScrollYFilterForShop>
 
-      <Box position="relative">
-        {shopsData ? (
+      <VStack width="full" position="relative">
+        {/* {shopsData ? (
           shopsData.map((shop, idx) => <ShopCard shop={shop} key={idx} />)
         ) : (
           <Box>No Data</Box>
-        )}
-        <Box position="absolute" bottom="600px" height="0" bgColor="black" ref={ref}></Box>
+        )} */}
+        <ShopCardWrapper shops={shopsData} isValidating={isValidating} />
+        <Box
+          position="absolute"
+          bottom="1200px"
+          height="0"
+          bgColor="black"
+          ref={observerElementRef}
+        ></Box>
         <BottomLoading isLoading={isValidating}> </BottomLoading>
-      </Box>
+      </VStack>
     </MobileDefaultLayout>
   )
 }
