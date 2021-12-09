@@ -5,6 +5,11 @@ export type Location = {
   type: 'Point'
 }
 
+export type Category = {
+  id: number
+  name: string
+}
+
 export type Shop = {
   name: string
   desc?: string
@@ -21,6 +26,7 @@ export type Shop = {
   address: string
   address2?: string
   location: Location
+  category: Category
 } & CommonProps
 
 export type NEWS = {

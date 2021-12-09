@@ -14,6 +14,7 @@ const TopHiddenByScrollBtn: FC = ({ children }) => {
       position="sticky"
       visibility={isShow ? 'visible' : 'hidden'}
       width="100vw"
+      zIndex={100}
       top={0}
       justifyContent="space-around"
       backgroundColor={useColorStore('surface')}

@@ -1,11 +1,11 @@
+import NextImage from '@/components/common/image/NextImage'
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopHiddenByScrollBtn'
 import MenuList from '@/components/menu/MenuList'
 import { useMenus } from '@/state/swr/menus/useMenus'
 import { useShop } from '@/state/swr/shops/useShops'
-import { Image } from '@chakra-ui/image'
-import { AspectRatio, Center, Text, VStack } from '@chakra-ui/layout'
+import { AspectRatio, Center, Heading, Text, VStack } from '@chakra-ui/layout'
 import { Tab, TabList, TabPanel, TabPanels, Tabs, UseTabsProps } from '@chakra-ui/tabs'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { useRouter } from 'next/router'
@@ -54,15 +54,18 @@ const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProp
 
   return (
     <MobileDefaultLayout>
-      <TopHiddenByScrollBtn></TopHiddenByScrollBtn>
+      <TopHiddenByScrollBtn>
+        <Heading> {shopData.name} </Heading>
+      </TopHiddenByScrollBtn>
       <AspectRatio width="full" ratio={1} maxW="container.sm" position="relative">
         <>
-          <Image
+          {/* <Image
             src={shopData.img}
             alt="가게 대표 이미지"
             objectFit="cover"
             fallbackSrc="/img/fallback.png"
-          />
+          /> */}
+          <NextImage height="100vw" url={shopData.img}></NextImage>
         </>
       </AspectRatio>
       <Center position="relative" width="100%" mb={MB} h="150px">

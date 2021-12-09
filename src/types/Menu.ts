@@ -17,7 +17,7 @@ export type Menu = {
   price: number
   vanish: number
   score?: number
-  desc?: string
+  description?: string
   img?: string
   shop_id: number
 } & MenuLimit &

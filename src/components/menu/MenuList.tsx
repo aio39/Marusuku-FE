@@ -1,7 +1,7 @@
 import NextImage from '@/components/common/image/NextImage'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Menu } from '@/types/Menu'
-import { Box, Flex, SimpleGrid, VStack } from '@chakra-ui/layout'
+import { Box, Flex, Heading, SimpleGrid, VStack } from '@chakra-ui/layout'
 import { chakra } from '@chakra-ui/system'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
@@ -18,7 +18,7 @@ const MenuCardLandscape: FC<{ menu: Menu }> = ({ menu }) => {
           {menu.name}
         </chakra.h1>
         <chakra.p mt={2} minH="4" fontSize="sm" color={useColorStore('textMedium')}>
-          {menu.desc}
+          {menu.description}
         </chakra.p>
         <StarRatingDisplay score={menu.score ?? 1} />
         <Flex mt={3} justifyContent="space-between">
@@ -57,13 +57,28 @@ const MenuCard: FC<{ menu: Menu }> = ({ menu }) => {
     <VStack bg={useColorStore('surface')} shadow="lg" rounded="lg" overflow="hidden">
       <NextImage url={menu.img} height="40vw" />
       <Box height="150px" width="full" px="2" textAlign="start">
-        <chakra.h1 fontSize="2xl" fontWeight="bold" color={useColorStore('textHigh')}>
+        <Heading
+          width="full"
+          fontSize="md"
+          fontWeight="bold"
+          isTruncated
+          color={useColorStore('textHigh')}
+        >
           {menu.name}
-        </chakra.h1>
-        <chakra.p mt={2} minH="4" fontSize="sm" color={useColorStore('textMedium')}>
-          {menu.desc}
+        </Heading>
+        <chakra.p
+          mt={2}
+          minH="40px"
+          maxH="40px"
+          overflow="hidden"
+          fontSize="sm"
+          textOverflow="ellipsis"
+          sx={{ WebkitLineClamp: 3 }}
+          color={useColorStore('textMedium')}
+        >
+          {menu.description}
         </chakra.p>
-        <StarRatingDisplay score={menu.score ?? 1} />
+        <StarRatingDisplay score={menu.score ?? 3} />
         <Flex mt={3} justifyContent="space-between">
           <chakra.h1 color={useColorStore('textHigh')} fontWeight="bold" fontSize="lg">
             {menu.price}원
@@ -102,7 +117,7 @@ const MenuList: FC<{ menus: Menu[]; type?: 'landscape' | 'default' }> = ({
     <SimpleGrid columns={2} spacing={4} justifyContent="center">
       {menus &&
         menus.map((menu) => {
-          return type == 'landscape' ? <MenuCard menu={menu} /> : <MenuCardLandscape menu={menu} />
+          return type == 'landscape' ? <MenuCardLandscape menu={menu} /> : <MenuCard menu={menu} />
         })}
     </SimpleGrid>
   )

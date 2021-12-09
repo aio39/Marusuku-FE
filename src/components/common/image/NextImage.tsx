@@ -1,7 +1,6 @@
 import { Box, BoxProps } from '@chakra-ui/layout'
 import Image from 'next/image'
-import { FC } from 'react'
-import fallback from '../../../../public/img/fallback.png'
+import { FC, useState } from 'react'
 
 interface INextImage {
   url?: string
@@ -11,9 +10,18 @@ interface INextImage {
 }
 
 const NextImage: FC<INextImage> = ({ url, width = '100%', height, boxProps }) => {
+  const [imgSrc, setImgSrc] = useState(url)
+  const fallback = '/img/fallback.png'
   return (
     <Box position="relative" width={width} height={height} {...boxProps}>
-      <Image objectFit="cover" layout="fill" src={url ? `${process.env.AWS_S3}${url}` : fallback} />
+      <Image
+        objectFit="cover"
+        layout="fill"
+        src={imgSrc ? `${process.env.AWS_S3}${imgSrc}` : fallback}
+        onError={() => {
+          setImgSrc(undefined)
+        }}
+      />
     </Box>
   )
 }
