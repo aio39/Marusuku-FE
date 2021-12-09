@@ -54,3 +54,8 @@
   display: none;
   scrollbar-width: none;
 }
+
+/* For Calendar */
+.custom-calendar {
+  box-shadow: 0 1em 3em rgba(157, 153, 173, 0);
+}

@@ -79,7 +79,12 @@ export default function Home() {
             url="/"
             color="cyan.400"
           />
-          <SettingMenuItem icon={MdCalendarToday} title="구독 일정" url="/" color="blue.400" />
+          <SettingMenuItem
+            icon={MdCalendarToday}
+            title="구독 일정"
+            url="/setting/subscribe-cal"
+            color="blue.400"
+          />
           <SettingMenuItem icon={RiHeartLine} title="관심 구독" url="/" color="red.500" />
           <SettingMenuItem icon={MdOutlineCancel} title="구독 해지" url="/" color="red.800" />
         </SettingMenuBlock>

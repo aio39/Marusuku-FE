@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 import { default as NextLink } from 'next/link'
 import React, { FC, Fragment } from 'react'
-import { NAV_ITEMS } from './NAV_ITEMS'
+import { NavItem, NAV_ITEMS } from './NAV_ITEMS'
 const LoginStack = () => {
   const { data: userData, error, isValidating, mutate } = useUser()
 
