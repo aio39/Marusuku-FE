@@ -10,7 +10,7 @@ import { FC } from 'react'
 const MyReviews: FC = () => {
   const { data: userData } = useUser()
   const { data: reviewsData, isValidating } = useReviews(
-    userData ? { filter: [['user_id', userData.id]], with: ['user'] } : undefined
+    userData ? { filter: [['user_id', userData.id]], with: ['user', 'menu', 'shop'] } : undefined
   )
 
   return (
@@ -26,7 +26,7 @@ const MyReviews: FC = () => {
         px="8px"
         bgColor={useColorStore('surface')}
       >
-        <ReviewWrapper reviews={reviewsData?.data} isValidating={isValidating} />
+        <ReviewWrapper reviews={reviewsData?.data} isValidating={isValidating} type="edit" />
       </VStack>
     </MobileEmptyLayout>
   )

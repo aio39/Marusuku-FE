@@ -7,10 +7,11 @@ import React, { FC, useState } from 'react'
 type P = {
   size?: number
   scale?: number
+  init?: number
 }
 
-const Rating = React.forwardRef(({ size = 40, scale = 5 }: P, ref: any) => {
-  const [rating, setRating] = useState(5)
+const Rating = React.forwardRef(({ size = 40, scale = 5, init = 5 }: P, ref: any) => {
+  const [rating, setRating] = useState(init)
   const buttons = []
 
   const onClick = (idx: any) => {

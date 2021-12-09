@@ -64,7 +64,7 @@ const useShopsInfinite: IUseShopsInfinite = (searchQuery, query, condition, isPa
 }
 
 const useShop = (id?: number) => {
-  return useSWRImmutable<Shop>(id ? `${URL_SHOP}/${id}` : null, fetcher)
+  return useSWR<Shop>(id ? `${URL_SHOP}/${id}` : null, fetcher)
 }
 
 const useMyShop = () => {

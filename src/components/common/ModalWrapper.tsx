@@ -19,11 +19,19 @@ type P = {
     close?: string
     confirm?: string
   }
-  href: string
+  href?: string
   viewBtn?: boolean
+  onConfirm?: (...args: any[]) => void
 }
 
-const ModalWrapper: FC<P> = ({ useDisclosureReturn, text, href, viewBtn = true, children }) => {
+const ModalWrapper: FC<P> = ({
+  useDisclosureReturn,
+  text,
+  href,
+  viewBtn = true,
+  onConfirm,
+  children,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosureReturn
   return (
     <>
@@ -46,7 +54,9 @@ const ModalWrapper: FC<P> = ({ useDisclosureReturn, text, href, viewBtn = true, 
                 <Button variant="ghost">{text.confirm}</Button>
               </Link>
             ) : (
-              <Button variant="ghost">{text.confirm}</Button>
+              <Button variant="ghost" onClick={onConfirm}>
+                {text.confirm}
+              </Button>
             )}
           </ModalFooter>
         </ModalContent>

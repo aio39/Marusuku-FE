@@ -81,6 +81,7 @@ const ShopDetailPage = ({}: InferGetServerSidePropsType<typeof getServerSideProp
           shadow="md"
         >
           <Text fontSize="lg">{shopData.name}</Text>
+          <Text fontSize="lg">{shopData.score}</Text>
         </VStack>
       </Center>
       <Tabs
