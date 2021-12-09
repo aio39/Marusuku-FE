@@ -43,14 +43,18 @@ const nextConfig = {
 
 const withPWA = require('next-pwa')
 
-// module.exports = withPWA({
-//   ...nextConfig,
-//   pwa: {
-//     dest: 'public',
-//     register: true,
-//     skipWaiting: true,
-//     disable: process.env.NODE_ENV === 'development',
-//   },
-// })
-
-module.exports = withPlugins([[withBundleAnalyzer], [withPWA], nextConfig])
+module.exports = withPlugins([
+  [withBundleAnalyzer],
+  [
+    withPWA,
+    {
+      pwa: {
+        dest: 'public',
+        register: true,
+        skipWaiting: true,
+        disable: process.env.NODE_ENV === 'development',
+      },
+    },
+  ],
+  nextConfig,
+])
