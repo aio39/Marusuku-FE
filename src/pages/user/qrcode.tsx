@@ -84,23 +84,32 @@ export default function QRCodeClient() {
       <TopHiddenByScrollBtn>
         <Text flexGrow="2">QR 코드</Text>
       </TopHiddenByScrollBtn>
-      <VStack width="100vw" mt="0" px="8px" bgColor={useColorStore('surface')}>
+      <VStack
+        width="100vw"
+        height="full"
+        flexGrow="1"
+        mt="0"
+        px="8px"
+        bgColor={useColorStore('surface')}
+      >
         <UserInformation />
         <QRCodeWrapper qrCodeValue={qrCodeValue} />
         <Text as="h2" fontSize="3xl">
           {/* <Clock format="HH:mm:ss" interval={1000} ticking={true} /> */}
         </Text>
-        {subscribeData && (
-          <>
-            <Heading>나의 구독</Heading>
-            <SubscribeCardWrapper
-              data={subscribeData.data.map((data) =>
-                objectPick(data, 'id', 'menu', 'shop', 'settlement_date', 'is_continue')
-              )}
-              onClick={subscribeClickHandler}
-            />
-          </>
-        )}
+
+        <Heading size="md" width="full">
+          나의 구독
+        </Heading>
+        <SubscribeCardWrapper
+          data={
+            subscribeData &&
+            subscribeData.data.map((data) =>
+              objectPick(data, 'id', 'menu', 'shop', 'settlement_date', 'is_continue')
+            )
+          }
+          onClick={subscribeClickHandler}
+        />
       </VStack>
     </MobileEmptyLayout>
   )

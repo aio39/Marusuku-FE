@@ -1,11 +1,13 @@
 import useColorStore from '@/state/hooks/useColorStore'
 import { Subscribe } from '@/types/Subscribe'
-import { Flex, Text, VStack } from '@chakra-ui/layout'
+import { Center, Flex, Text, VStack } from '@chakra-ui/layout'
+import { Skeleton } from '@chakra-ui/react'
 import { FC } from 'react'
 
 interface ISubscribeCardWrapper {
-  data: AtLeast<Subscribe, 'id' | 'menu' | 'shop'>[]
+  data?: AtLeast<Subscribe, 'id' | 'menu' | 'shop'>[]
   onClick: (...args: any[]) => void
+  isLoading?: Boolean
 }
 
 interface ISubscribeCard {
@@ -36,12 +38,25 @@ const SubscribeCard: FC<ISubscribeCard> = ({ data, onClick }) => {
   )
 }
 
-const SubscribeCardWrapper: FC<ISubscribeCardWrapper> = ({ data, onClick }) => {
+const SubscribeCardWrapper: FC<ISubscribeCardWrapper> = ({ data, onClick, isLoading }) => {
+  if (!data)
+    return (
+      <VStack width="full">
+        <Skeleton width="full" height="88px" />
+        <Skeleton width="full" height="88px" />
+        <Skeleton width="full" height="88px" />
+      </VStack>
+    )
+
   return (
     <VStack width="100%" spacing="16px">
-      {data.map((data) => (
-        <SubscribeCard data={data} key={data.id} onClick={onClick} />
-      ))}
+      {data.length === 0 ? (
+        <Center height="120px" fontSize="lg">
+          구독을 하고 있지 않습니다.
+        </Center>
+      ) : (
+        data.map((data) => <SubscribeCard data={data} key={data.id} onClick={onClick} />)
+      )}
     </VStack>
   )
 }

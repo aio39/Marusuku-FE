@@ -9,7 +9,7 @@ const MobileEmptyLayout: FC<{
   return (
     <Container {...flexProps}>
       {/* <TopAbsoluteNav>ffff</TopAbsoluteNav> */}
-      <VStack width="full" height="full" {...boxProps}>
+      <VStack width="full" height="full" minH="100vh" {...boxProps}>
         {children}
       </VStack>
       <Box flexGrow="1"> </Box>
