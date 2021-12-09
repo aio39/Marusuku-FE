@@ -14,12 +14,14 @@ import { useImmer } from 'use-immer'
 export default function OfflineSearch() {
   const { position } = usePosition()
   const [customPosition, setCustomPosition] = useState(position)
+  const [searchQuery, setSearchQuery] = useState('')
   const [distance, setDistance] = useState(100000)
   const ref = useRef<HTMLDivElement>(null)
 
   const [commonFSW, updateCommonFSW] = useImmer<CommonFSW>({ per_page: 10, sort: ['d.dis'] })
 
   const { data, isValidating, error, mutate, setSize, size } = useShopsInfinite(
+    searchQuery,
     commonFSW,
     customPosition
       ? { distance, lat: customPosition.latitude, lng: customPosition.longitude }
@@ -50,11 +52,12 @@ export default function OfflineSearch() {
   }, [ref, setSize])
 
   console.log('shopsData', isValidating)
+  console.log(searchQuery)
 
   return (
     <MobileDefaultLayout boxProps={{ px: '8px' }}>
       <TopCommonNav>
-        <SearchInput update={updateCommonFSW} />
+        <SearchInput setQuery={setSearchQuery} />
       </TopCommonNav>
       <ScrollYFilterForShop
         commonFSW={commonFSW}

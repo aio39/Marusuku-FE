@@ -1,23 +1,19 @@
-import { CommonFSW } from '@/types/common'
+import { createSearchParams } from '@/helper/createSearchParams'
 import { SearchIcon } from '@chakra-ui/icons'
 import { Input, InputRightElement } from '@chakra-ui/input'
 import { Button, InputGroup } from '@chakra-ui/react'
 import React, { FC, useState } from 'react'
-import { Updater } from 'use-immer'
 
 interface ISearchInput {
-  update: Updater<CommonFSW>
+  setQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-const SearchInput: FC<ISearchInput> = ({ update }) => {
+const SearchInput: FC<ISearchInput> = ({ setQuery }) => {
   const [value, setValue] = useState('')
 
   const handleUpdate = () => {
-    if (value === '') return
     setTimeout(() => {
-      update((draft) => {
-        console.log(draft)
-      })
+      setQuery(createSearchParams(value))
     }, 0)
   }
 
