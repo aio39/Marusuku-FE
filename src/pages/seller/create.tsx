@@ -33,7 +33,7 @@ interface FormInputs {
   address: string
   address2: string
   category: string
-  desc: string
+  description: string
   phone: number
   homepage: string
   lat: number
@@ -124,8 +124,8 @@ const CreateShop = () => {
               data={['가게 이름', '상호명']}
             />
             <InputWrapper
-              registerReturn={register('desc')}
-              error={errors.desc}
+              registerReturn={register('description')}
+              error={errors.description}
               data={['설명', '가게에 대한 설명']}
             />
 

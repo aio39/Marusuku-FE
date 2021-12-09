@@ -12,7 +12,7 @@ export type Category = {
 
 export type Shop = {
   name: string
-  desc?: string
+  description?: string
   homepage?: string
   phone?: string
   score: number

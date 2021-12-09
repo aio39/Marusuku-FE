@@ -40,7 +40,7 @@ const ShopCard: FC<{ shop: Shop }> = ({ shop }) => {
         </Heading>
 
         <chakra.p mt={2} fontSize="sm" color={useColorStore('textMedium')}>
-          {shop.desc}
+          {shop.description}
         </chakra.p>
 
         <StarRatingDisplay score={shop.score} />

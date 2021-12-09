@@ -82,8 +82,8 @@ export default function Home() {
               data={['구독 모델 이름', '모델명']}
             />
             <InputWrapper
-              registerReturn={register('desc', { required: true })}
-              error={errors.desc}
+              registerReturn={register('description', { required: true })}
+              error={errors.description}
               data={['설명', '구독에 대한 설명']}
             />
             <NumberInputWrapper

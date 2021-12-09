@@ -47,7 +47,7 @@ const OrderIndex = () => {
             <Text fontSize="3xl" fontWeight="600">
               {menu.name}
             </Text>
-            <Text fontSize="lg">{menu?.desc}</Text>
+            <Text fontSize="lg">{menu?.description}</Text>
             <LabelTextWrapper text="가격">
               <LabelTextChild text={menu.price}>
                 <Badge variant="solid" colorScheme="green" display="flex">

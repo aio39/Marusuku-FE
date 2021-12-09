@@ -49,10 +49,10 @@ const ShopCardMini: FC<{ id?: number }> = ({ id }) => {
             </chakra.h1>
 
             <chakra.p mt={2} fontSize="sm" color={useColorStore('textMedium')}>
-              {shop.desc}
+              {shop.description}
             </chakra.p>
 
-            <StarRatingDisplay score={2}></StarRatingDisplay>
+            <StarRatingDisplay score={shop.score}></StarRatingDisplay>
 
             <Box mt={3} position="absolute" right="1" bottom="1">
               <Link href={'/shops/' + shop.id}>
