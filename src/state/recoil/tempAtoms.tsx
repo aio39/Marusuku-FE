@@ -1,9 +1,9 @@
 import { LatLng } from 'leaflet'
 import { atom } from 'recoil'
 
-const positionState = atom<LatLng>({
+const positionState = atom<LatLng | undefined>({
   key: 'position',
-  default: new LatLng(0, 0),
+  default: undefined,
 })
 
 const recentGeoCodeState = atom<LatLng | null>({

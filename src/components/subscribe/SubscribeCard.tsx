@@ -35,7 +35,9 @@ const SubscribeCard: FC<ISubscribeCard> = ({ data, onClick }) => {
       boxSizing="border-box"
       onClick={() => {
         setSelectedId(id)
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+        }
       }}
     >
       <VStack textAlign="start" alignItems="start">

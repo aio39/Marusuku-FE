@@ -1,5 +1,5 @@
 import DefaultLayout from '@/components/common/layouts/DefaultLayout'
-import ShopCard from '@/components/shop/ShopCard'
+import { ShopCard } from '@/components/shop/ShopCard'
 import ShopCardMini from '@/components/shop/ShopCardMini'
 import { useShops } from '@/state/swr/shops/useShops'
 import { NEWS } from '@/types/Shop'
