@@ -1,37 +1,35 @@
 import convertDate from '@/helper/convertDate'
 import useColorStore from '@/state/hooks/useColorStore'
-import { Text, VStack } from '@chakra-ui/layout'
+import { Review } from '@/types/Review'
+import { Box, Text, VStack } from '@chakra-ui/layout'
 import { FC } from 'react'
 import StarRatingDisplay from '../common/StarRatingDisplay'
 
-type ReviewData = {
-  userName: string
-  score: number
-  content: string
-  createdAt: string
-}
-
 type IReview = {
-  data: ReviewData
+  data: Review
 }
 
 type IReviewWrapper = {
-  reviews: ReviewData[]
+  reviews?: Review[]
 }
 const Review: FC<IReview> = ({ data }) => {
-  const { content, createdAt, score, userName } = data
+  const { content, created_at, score, user } = data
   return (
     <VStack width="100%" alignItems="start">
       <StarRatingDisplay score={score} />
       <Text>{content}</Text>
 
-      <Text>{userName}</Text>
-      <Text>{convertDate(createdAt)}</Text>
+      <Text> - {user.name}</Text>
+      <Text>{convertDate(created_at)}</Text>
     </VStack>
   )
 }
 
 const ReviewWrapper: FC<IReviewWrapper> = ({ reviews }) => {
+  if (!reviews) {
+    return <Box>no data</Box>
+  }
+
   return (
     <VStack width="100%" alignItems="start" p="8px" backgroundColor={useColorStore('surface')}>
       {reviews.map((data) => (

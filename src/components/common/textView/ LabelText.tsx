@@ -21,7 +21,7 @@ const LabelTextChild: FC<{ text: string | number; textProps?: TextProps }> = ({
 const LabelTextWrapper: FC<{ text: string }> = ({ text, children }) => {
   return (
     <Flex width="100%">
-      <Box w="50px" textAlign="left">
+      <Box w="80px" textAlign="left">
         <Text>{text}</Text>
       </Box>
       <Box flex="1">{children}</Box>

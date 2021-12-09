@@ -8,6 +8,7 @@ import convertLimitKeyToKR from '@/helper/converLimitKeyToKR'
 import { axiosI } from '@/state/fetcher'
 import useColorStore from '@/state/hooks/useColorStore'
 import { useMenu } from '@/state/swr/menus/useMenus'
+import { useReviews } from '@/state/swr/reviews/useReviews'
 import { useUser } from '@/state/swr/useUser'
 import { MenuLimit } from '@/types/Menu'
 import { Subscribe } from '@/types/Subscribe'
@@ -24,7 +25,13 @@ const Menu = () => {
   const { data: menu } = useMenu(parseInt(menu_id as string))
   const { data: userData } = useUser()
   const [limitData, setLimitData] = useState<[string, number][]>([])
-  console.log(menu)
+  const { data: reviewsData } = useReviews({
+    filter: [['menu_id', router.query.menu_id as string]],
+    with: ['user'],
+  })
+
+  console.log(router.query)
+  console.log(router.query)
   const toast = useToast()
   const subscribeHandler: MouseEventHandler<HTMLButtonElement> = async (e) => {
     const { data } = await axiosI.post<Subscribe>(`/api/users/${userData?.id}/subscribes`, {
@@ -62,7 +69,7 @@ const Menu = () => {
             <Text fontSize="3xl" fontWeight="600">
               {menu.name}
             </Text>
-            <Text fontSize="lg">{menu?.desc}</Text>
+            <Text fontSize="lg">{menu?.description}</Text>
             <LabelTextWrapper text="가격">
               <LabelTextChild text={menu.price}>
                 <Badge variant="solid" colorScheme="green" display="flex">
@@ -70,8 +77,8 @@ const Menu = () => {
                 </Badge>
               </LabelTextChild>
             </LabelTextWrapper>
-            <LabelTextWrapper text="결제 주기">
-              <LabelTextChild text={menu.cycle_month + '개월 마다'} />
+            <LabelTextWrapper text="이용 기간">
+              <LabelTextChild text={menu.cycle_month + '개월'} />
             </LabelTextWrapper>
             <LabelTextWrapper text="사용 제한">
               {limitData.map(([key, value], idx) => (
@@ -80,16 +87,7 @@ const Menu = () => {
             </LabelTextWrapper>
           </VStack>
           <img src="/img/detail.jpg" width="100%" height="auto" alt="" />
-          <ReviewWrapper
-            reviews={[
-              {
-                content: 'fdsfds',
-                userName: 'aio',
-                score: 4.4,
-                createdAt: '2021-12-05T16:45:41.000000Z',
-              },
-            ]}
-          ></ReviewWrapper>
+          <ReviewWrapper reviews={reviewsData?.data}></ReviewWrapper>
 
           <BottomColoredByHeight>
             <NextLink href={`/order?menu_id=${menu.id}`}>
