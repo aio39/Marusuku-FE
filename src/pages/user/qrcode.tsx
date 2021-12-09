@@ -13,7 +13,7 @@ import { Heading, Text, VStack } from '@chakra-ui/layout'
 import { useToast } from '@chakra-ui/react'
 import Echo from 'laravel-echo'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import Clock from 'react-live-clock'
+// import Clock from 'react-live-clock'
 
 export default function QRCodeClient() {
   const echoRef = useRef<Echo>()
@@ -88,7 +88,7 @@ export default function QRCodeClient() {
         <UserInformation />
         <QRCodeWrapper qrCodeValue={qrCodeValue} />
         <Text as="h2" fontSize="3xl">
-          <Clock format="HH:mm:ss" interval={1000} ticking={true} />
+          {/* <Clock format="HH:mm:ss" interval={1000} ticking={true} /> */}
         </Text>
         {subscribeData && (
           <>

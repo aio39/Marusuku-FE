@@ -1,3 +1,8 @@
+const withPlugins = require('next-compose-plugins')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -38,12 +43,14 @@ const nextConfig = {
 
 const withPWA = require('next-pwa')
 
-module.exports = withPWA({
-  ...nextConfig,
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
-  },
-})
+// module.exports = withPWA({
+//   ...nextConfig,
+//   pwa: {
+//     dest: 'public',
+//     register: true,
+//     skipWaiting: true,
+//     disable: process.env.NODE_ENV === 'development',
+//   },
+// })
+
+module.exports = withPlugins([[withBundleAnalyzer], [withPWA], nextConfig])
