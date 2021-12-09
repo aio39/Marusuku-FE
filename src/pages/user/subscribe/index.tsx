@@ -19,7 +19,7 @@ const SubScribeIndex = () => {
           <Box key={data.id} onClick={() => {}}>
             {data.menu.name}
             <Text>{data.shop.name}</Text>
-            <Text>{data.continue}</Text>
+            <Text>{data.is_continue}</Text>
             <Text>{data.end_date} 끝나는 날 </Text>
             <Text>{data.settlement_date} 다음 결제일</Text>
           </Box>

@@ -1,5 +1,6 @@
 import MobileDefaultLayout from '@/components/common/layouts/mobileLayout/MobileLayout'
 import TopHiddenByScrollBtn from '@/components/common/layouts/mobileLayout/TopHiddenByScrollBtn'
+import Rating from '@/components/common/StarRating'
 import { axiosI } from '@/state/fetcher'
 import useColorStore from '@/state/hooks/useColorStore'
 import { useSubscribe } from '@/state/swr/users/useSubscribe'
@@ -9,6 +10,7 @@ import { Button } from '@chakra-ui/button'
 import { Box, Text } from '@chakra-ui/layout'
 import { Textarea } from '@chakra-ui/textarea'
 import { useRouter } from 'next/router'
+import { useRef } from 'react'
 
 const SubScribeDetail = () => {
   const { data: userData } = useUser()
@@ -25,11 +27,19 @@ const SubScribeDetail = () => {
 
   const handleReview = () => {
     if (subscribeData) {
-      axiosI.post('/api/reviews', { subscribe_id: subscribeData.id, content: 'adf', score: 4 })
+      axiosI.post('/api/reviews', {
+        subscribe_id: subscribeData.id,
+        content: 'adf',
+        score: ratingRef.current?.value || 5,
+      })
     }
   }
 
+  const ratingRef = useRef<HTMLInputElement>()
+
   console.log(useHistoryData)
+
+  console.log(ratingRef.current?.value)
 
   return (
     <MobileDefaultLayout>
@@ -38,9 +48,16 @@ const SubScribeDetail = () => {
         <Box onClick={() => {}}>
           {subscribeData.menu.name}
           <Text>{subscribeData.shop.name}</Text>
-          <Text>{subscribeData.continue}</Text>
+          <Text>{subscribeData.is_continue}</Text>
           <Text>{subscribeData.end_date} 끝나는 날 </Text>
           <Text>{subscribeData.settlement_date} 다음 결제일</Text>
+        </Box>
+      )}
+      {useHistoryData?.data && (
+        <Box onClick={() => {}}>
+          {useHistoryData.data.map((data) => (
+            <Text>{data.id}</Text>
+          ))}
         </Box>
       )}
       <Box bgColor={useColorStore('surface')}>
@@ -50,6 +67,7 @@ const SubScribeDetail = () => {
           </Box>
         ))}
       </Box>
+      <Rating ref={ratingRef}></Rating>
       <Textarea placeholder="리뷰를 적어주세요" resize="vertical" />
       <Button onClick={handleReview}>작성 완료</Button>
     </MobileDefaultLayout>
