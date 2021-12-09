@@ -1,7 +1,8 @@
 import convertDate from '@/helper/convertDate'
 import useColorStore from '@/state/hooks/useColorStore'
 import { Review } from '@/types/Review'
-import { Box, Text, VStack } from '@chakra-ui/layout'
+import { Center, Text, VStack } from '@chakra-ui/layout'
+import { Skeleton } from '@chakra-ui/react'
 import { FC } from 'react'
 import StarRatingDisplay from '../common/StarRatingDisplay'
 
@@ -11,6 +12,7 @@ type IReview = {
 
 type IReviewWrapper = {
   reviews?: Review[]
+  isValidating: boolean
 }
 const Review: FC<IReview> = ({ data }) => {
   const { content, created_at, score, user } = data
@@ -25,10 +27,15 @@ const Review: FC<IReview> = ({ data }) => {
   )
 }
 
-const ReviewWrapper: FC<IReviewWrapper> = ({ reviews }) => {
-  if (!reviews) {
-    return <Box>no data</Box>
-  }
+const ReviewWrapper: FC<IReviewWrapper> = ({ reviews, isValidating }) => {
+  if ((!reviews && !isValidating) || reviews?.length == 0)
+    return (
+      <Center height="100px" fontSize="xl">
+        작성한 리뷰가 없습니다.
+      </Center>
+    )
+
+  if (!reviews) return <Skeleton width="full" height="50vh"></Skeleton>
 
   return (
     <VStack width="100%" alignItems="start" p="8px" backgroundColor={useColorStore('surface')}>

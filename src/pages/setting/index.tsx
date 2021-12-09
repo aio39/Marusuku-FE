@@ -53,7 +53,12 @@ export default function Home() {
               12
             </Badge>
           </SettingMenuItem>
-          <SettingMenuItem icon={MdOutlineRateReview} title="리뷰 관리 " url="/" color="yellow.400">
+          <SettingMenuItem
+            icon={MdOutlineRateReview}
+            title="리뷰 관리 "
+            url="/setting/reviews"
+            color="yellow.400"
+          >
             <Badge colorScheme="yellow" borderRadius="4px">
               작성 가능
             </Badge>
