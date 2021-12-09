@@ -1,9 +1,17 @@
 import { CustomBlockBtn, CustomBlockBtnWrapper } from '@/components/common/button/CustomBlockBtn'
+import { Carousel } from '@/components/common/image/Carousel'
 import { default as MobileDefaultLayout } from '@/components/common/layouts/mobileLayout/MobileLayout'
+
+const images = [
+  '/img/banner/promotion_1.jpg',
+  '/img/banner/promotion_2.jpg',
+  '/img/banner/promotion_3.jpg',
+]
 
 export default function Home() {
   return (
     <MobileDefaultLayout boxProps={{ px: '8px', pt: '30px' }}>
+      <Carousel images={images} intervalMs={3000} />
       <CustomBlockBtnWrapper>
         <CustomBlockBtn
           url="/user/qrcode"
@@ -25,7 +33,6 @@ export default function Home() {
         <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="다음 결제" />
       </CustomBlockBtnWrapper>
       {/* <MobileNavigation></MobileNavigation> */}
-
       {/* 이번다  결제 완료 금액 / 지출 금액 */}
       {/*  할인 시스템  */}
       {/*  광고 배너 시스템 */}
