@@ -105,3 +105,8 @@
   align-items: center;
   cursor: pointer;
 }
+
+/* For Calendar */
+.today {
+  border: 2px solid rgba(156, 136, 255, 0.7) !important;
+}
