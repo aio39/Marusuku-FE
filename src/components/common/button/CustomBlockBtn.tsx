@@ -48,7 +48,7 @@ const CustomBlockBtn: FC<ICustomBlockBtn> = ({
           </Text>
         )}
         {subTitle && (
-          <Text fontSize="sm" fontWeight="400" my="2">
+          <Text fontSize="sm" fontWeight="600" my="2">
             {subTitle}
           </Text>
         )}

@@ -29,8 +29,8 @@ export default function Home() {
       {/* <Text>결제 내역</Text> */}
       <CustomBlockBtnWrapper>
         <CustomBlockBtn url="/user/subscribe" colSize={2} rowSize={2} subTitle="나의 구독" />
-        <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="최근 결제" />
-        <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="다음 결제" />
+        <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="12월 5일" subTitle2="12000원" />
+        <CustomBlockBtn url="/" colSize={1} rowSize={2} subTitle="12월 20일" subTitle2="24000원" />
       </CustomBlockBtnWrapper>
       {/* <MobileNavigation></MobileNavigation> */}
       {/* 이번다  결제 완료 금액 / 지출 금액 */}

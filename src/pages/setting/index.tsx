@@ -16,6 +16,7 @@ import {
   MdEventNote,
   MdNotificationsNone,
   MdOutlineCancel,
+  MdOutlineHistory,
   MdOutlineRateReview,
   MdOutlineTextSnippet,
   MdOutlineTipsAndUpdates,
@@ -47,6 +48,12 @@ export default function Home() {
             title="결제 관리"
             url="/"
             color="yellow.500"
+          />
+          <SettingMenuItem
+            icon={MdOutlineHistory}
+            title="사용 내역"
+            url="/setting/use-history"
+            color="purple.500"
           />
           <SettingMenuItem icon={RiCoupon3Line} title="쿠폰 " url="/" color="red.500">
             <Badge colorScheme="red" borderRadius="4px">
