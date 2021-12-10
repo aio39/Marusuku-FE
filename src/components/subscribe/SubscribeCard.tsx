@@ -1,3 +1,4 @@
+import convertDate from '@/helper/convertDate'
 import useColorStore from '@/state/hooks/useColorStore'
 import { qrcodeSelectedIdState } from '@/state/recoil/tempAtoms'
 import { Subscribe } from '@/types/Subscribe'
@@ -20,7 +21,7 @@ interface ISubscribeCard {
 const SubscribeCard: FC<ISubscribeCard> = ({ data, onClick }) => {
   const [selectedId, setSelectedId] = useRecoilState(qrcodeSelectedIdState)
 
-  const { id, menu, shop, settlement_date, is_continue } = data
+  const { id, menu, shop, settlement_date, is_continue, end_date } = data
 
   return (
     <Flex
@@ -43,10 +44,10 @@ const SubscribeCard: FC<ISubscribeCard> = ({ data, onClick }) => {
       <VStack textAlign="start" alignItems="start">
         <Heading size="md">{shop.name}</Heading>
         <Text fontSize="lg">{menu.name}</Text>
+        <Text fontSize="sm"> {end_date && convertDate(end_date, 'YMDHMS')}</Text>
         <Text fontSize="sm">{menu.cycle_month}개월 지속 상품</Text>
       </VStack>
-      {/* {convertDate(data.settlement_date, 'YMDHM')}
-      {convertDate(data.updated_at, 'YMDHM')} */}
+      {/* {/* {convertDate(data.settlement_date, 'YMDHM')} */}
     </Flex>
   )
 }
