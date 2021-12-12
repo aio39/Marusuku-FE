@@ -1,30 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# Marusuku 프론트엔드
 
-## Getting Started
+## 라이브러리
 
-First, run the development server:
+- React
+- NextJS
+- ChakraUI
+- Framer Motion
+- React Hook Form
+- ECHO
+- SWR
+- Recoil
+- dayJS
+- leaflet
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## 특징, 느낀점, 어려웠 던 점
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 컴포넌트화를 하더라도 페이지 하나를 만드는데에도 정말 많은 시간이 필요하다. 실 프로젝트를 계획할때는 페이지 수가 얼마나 나오는지 고려해야겠음.
+- 클라이언트가 가게와 이용자 2개라는 점도 개발 작업량을 크게 늘려서 힘들었다.
+- Leaflet 지도 라이브러리를 React와 결합시키기는 게 쉽지는 않았다. 다시 한번 바니랄 JS의 중요성을 느꼈다.
+- 다크 모드를 지원하기 위해 색상 모드에 반응하는 key : value 형식의 색상값 중앙 저장소 hooks 를 만들어 사용했다.
+- 색에 관해서 구글의 Material 디자인 이론을 보고 참고 하였다.
+- 상단바와 하단바를 스크롤 상태에 따른 반응형으로 제작하였다.
